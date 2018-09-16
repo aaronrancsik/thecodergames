@@ -1,0 +1,11 @@
+{
+  "name": "dashcraft_rn_game",
+  "version": "1.0.0",
+  "description": "A game for resarchers night by University Obuda NJSZK",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Aaron Rancsik",
+  "license": "ISC"
+}
