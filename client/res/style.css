@@ -22,7 +22,7 @@ html, body {
   #blocklyArea {
     height: 99%;
   }
-/*
+
   .blocklyTreeLabel{
     font-size: 1.5cm;
   }
@@ -32,7 +32,7 @@ html, body {
     height: auto;
     line-height: normal;
   }
-*/
+
   /*.blocklyPathDark, .blocklyPathLight{
     display: none;
   }*/
