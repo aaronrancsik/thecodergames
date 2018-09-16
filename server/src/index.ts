@@ -7,3 +7,7 @@ app.listen(PORT, () => {
 })
 
 app.use(express.static('../client'));
+
+app.all('*', (req, res)=> { 
+    res.redirect('/'); 
+});

@@ -23,11 +23,15 @@
       <category name="Add" colour="%{BKY_LOGIC_HUE}">
         <block type="leftstep"></block>
         <block type="rightstep"></block>
+        <block type="upstep"></block>
+        <block type="downstep"></block>
         <block type="controls_if"></block>
+        <!--
         <block type="logic_compare"></block>
         <block type="logic_operation"></block>
         <block type="logic_negate"></block>
         <block type="logic_boolean"></block>
+        -->
         <block type="controls_repeat_ext">
           <value name="TIMES">
             <block type="math_number">
@@ -35,15 +39,15 @@
             </block>
           </value>
         </block>
-        <block type="controls_whileUntil"></block>
+        <!-- <block type="controls_whileUntil"></block> -->
         <block type="math_number">
           <field name="NUM">123</field>
         </block>
-        <block type="math_arithmetic"></block>
+        <!--<block type="math_arithmetic"></block>
         <block type="math_single"></block>
         <block type="text"></block>
         <block type="text_length"></block>
-        <block type="text_print"></block>
+        <block type="text_print"></block> -->
       </category>
     </xml>
 
@@ -107,9 +111,10 @@
     };
     Blockly.JavaScript['leftstep'] = function(block) {
       // TODO: Assemble JavaScript into code variable.
-      var code = 'leftStep()';
+      var code = 'leftStep();\n';
       return code;
     };
+
     Blockly.Blocks['rightstep'] = {
       init: function() {
         this.appendDummyInput()
@@ -124,10 +129,45 @@
     };
     Blockly.JavaScript['rightstep'] = function(block) {
       // TODO: Assemble JavaScript into code variable.
-      var code = 'rightstep()';
+      var code = 'rightstep();\n';
       return code;
     };
 
+    Blockly.Blocks['upstep'] = {
+      init: function() {
+        this.appendDummyInput()
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField("Felfele lépés");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(75);
+    this.setTooltip("");
+    this.setHelpUrl("");
+      }
+    };
+    Blockly.JavaScript['upstep'] = function(block) {
+      // TODO: Assemble JavaScript into code variable.
+      var code = 'upstep();\n';
+      return code;
+    };
+
+    Blockly.Blocks['downstep'] = {
+      init: function() {
+        this.appendDummyInput()
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField("Lefele lépés");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(75);
+    this.setTooltip("");
+    this.setHelpUrl("");
+      }
+    };
+    Blockly.JavaScript['downstep'] = function(block) {
+      // TODO: Assemble JavaScript into code variable.
+      var code = 'downstep()\n';
+      return code;
+    };
 
 
 

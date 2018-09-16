@@ -7,4 +7,7 @@ app_1.default.listen(PORT, function () {
     console.log('Express server listening on port ' + PORT);
 });
 app_1.default.use(app_2.express.static('../client'));
+app_1.default.all('*', function (req, res) {
+    res.redirect('/');
+});
 //# sourceMappingURL=index.js.map
