@@ -1,7 +1,10 @@
-var express = require("express");
-var app = express();
-var server = app.listen(4000, function () {
-    console.log('blabla 4000');
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var app_1 = require("./app");
+var app_2 = require("./app");
+var PORT = 3000;
+app_1.default.listen(PORT, function () {
+    console.log('Express server listening on port ' + PORT);
 });
-app.use(express.static('../client'));
+app_1.default.use(app_2.express.static('../client'));
 //# sourceMappingURL=index.js.map

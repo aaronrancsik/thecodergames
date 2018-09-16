@@ -34,24 +34,6 @@
           </value>
         </block>
         <block type="controls_whileUntil"></block>
-        <block type="controls_for">
-          <field name="VAR">i</field>
-          <value name="FROM">
-            <block type="math_number">
-              <field name="NUM">1</field>
-            </block>
-          </value>
-          <value name="TO">
-            <block type="math_number">
-              <field name="NUM">10</field>
-            </block>
-          </value>
-          <value name="BY">
-            <block type="math_number">
-              <field name="NUM">1</field>
-            </block>
-          </value>
-        </block>
         <block type="math_number">
           <field name="NUM">123</field>
         </block>
@@ -71,7 +53,7 @@
         { media: './blockly/media/',
           toolbox: document.getElementById('toolbox'),
           zoom:{
-            controls: false,
+            controls: true,
             wheel: false,
             startScale: 2,
             maxScale: 6,

@@ -24,10 +24,16 @@ html, body {
   }
 
   .blocklyTreeLabel{
-    font-size: 1cm;
+    font-size: 1.5cm;
   }
 
   .blocklyTreeRow{
+    
     height: auto;
     line-height: normal;
   }
+
+  .blocklyPathDark, .blocklyPathLight{
+    display: none;
+  }
+

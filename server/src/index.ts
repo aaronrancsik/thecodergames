@@ -1,13 +1,9 @@
-var express = require("express");
+import app from "./app";
+import {express} from "./app"
+const PORT = 3000;
 
-var app = express();
-
-var server = app.listen(4000, function(){
-    console.log('blabla 4000');
+app.listen(PORT, () => {
+    console.log('Express server listening on port ' + PORT);
 })
 
-app.use(express.static('../../client/client_instance'))
-
-
-
-
+app.use(express.static('../client'));
