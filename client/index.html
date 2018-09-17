@@ -10,8 +10,6 @@
   <link rel="stylesheet" href="./res/style.css">
 </head>
 <body>
-  
-  
 <table>
   <!--
   <tr>
@@ -27,42 +25,34 @@
 </table>
 <!--https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#cwekm4 -->
 <div id="blocklyDiv" style="position: absolute"></div>
-  
-  
-
-  <xml id="toolbox" style="display: none">
-      
-      <category name="Dash" colour="%{BKY_LOGIC_HUE}">
-        <button text="Indítás" callbackKey="SEND_SERVER"></button>
-        <block type="leftstep"></block>
-        <block type="rightstep"></block>
-        <block type="upstep"></block>
-        <block type="downstep"></block>
-        <!--
-        <block type="controls_if"></block>
-        
-        <block type="logic_compare"></block>
-        <block type="logic_operation"></block>
-        <block type="logic_negate"></block>
-        <block type="logic_boolean"></block>
-        -->
-        <block type="controls_repeat" ></block>
-        
-        <!-- <block type="controls_whileUntil"></block> 
-        <block type="math_number">
-          <field name="NUM">123</field>
-        </block>-->
-        <!--<block type="math_arithmetic"></block>
-        <block type="math_single"></block>
-        <block type="text"></block>
-        <block type="text_length"></block>
-        <block type="text_print"></block> -->
-      </category>
-      
-        
-      
-
-    </xml>
+<xml id="toolbox" style="display: none">
+  <category name="Dash" colour="%{BKY_LOGIC_HUE}">
+    <button text="Indítás" callbackKey="SEND_SERVER"></button>
+    <block type="leftstep"></block>
+    <block type="rightstep"></block>
+    <block type="upstep"></block>
+    <block type="downstep"></block>
+    <!--
+    <block type="controls_if"></block>
+    
+    <block type="logic_compare"></block>
+    <block type="logic_operation"></block>
+    <block type="logic_negate"></block>
+    <block type="logic_boolean"></block>
+    -->
+    <block type="controls_repeat" ></block>
+    
+    <!-- <block type="controls_whileUntil"></block> 
+    <block type="math_number">
+      <field name="NUM">123</field>
+    </block>-->
+    <!--<block type="math_arithmetic"></block>
+    <block type="math_single"></block>
+    <block type="text"></block>
+    <block type="text_length"></block>
+    <block type="text_print"></block> -->
+  </category>
+</xml>
 
   <script>
     var options ={ 
@@ -93,6 +83,7 @@
           snap: false
       }
     }
+
     var blocklyArea = document.getElementById('blocklyArea');
     var blocklyDiv = document.getElementById('blocklyDiv');
     var workspace = Blockly.inject(blocklyDiv, options);
@@ -123,9 +114,6 @@
     /*
     Custom Blocks
     */
-
-    
-
     Blockly.Blocks['leftstep'] = {
       init: function() {
         this.appendDummyInput()
@@ -210,9 +198,6 @@
       await sleep(2000);
       alert(code);
     }
-
-
-    
   </script>
 </body>
 </html>
