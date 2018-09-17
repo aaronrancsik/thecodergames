@@ -65,41 +65,38 @@
     </xml>
 
   <script>
- 
+    var options ={ 
+      media: './blockly/media/',
+      toolbox: document.getElementById('toolbox'),
+      zoom:{
+        controls: true,
+        wheel: false,
+        startScale: 3.4,
+        maxScale: 6,
+        minScale: 0.3,
+        scaleSpeed: 1.2
+      },
+      collapse : true, 
+      comments : true, 
+      disable : true, 
+      maxBlocks : Infinity,  
+      horizontalLayout : true, 
+      toolboxPosition : 'start', 
+      css : true, 
+      rtl : false,
+      sounds : false, 
+      trashcan: false,
+      grid:{ 
+          spacing: 20,
+          length: 3,
+          colour: '#ccc',
+          snap: false
+      }
+    }
     var blocklyArea = document.getElementById('blocklyArea');
     var blocklyDiv = document.getElementById('blocklyDiv');
-    var workspace = Blockly.inject(
-      blocklyDiv,
-      { 
-        media: './blockly/media/',
-        toolbox: document.getElementById('toolbox'),
-        zoom:{
-          controls: true,
-          wheel: false,
-          startScale: 3.4,
-          maxScale: 6,
-          minScale: 0.3,
-          scaleSpeed: 1.2
-        },
-        collapse : true, 
-        comments : true, 
-        disable : true, 
-        maxBlocks : Infinity,  
-        horizontalLayout : true, 
-        toolboxPosition : 'start', 
-        css : true, 
-        rtl : false,
-        sounds : false, 
+    var workspace = Blockly.inject(blocklyDiv, options);
 
-
-        trashcan: false,
-        grid:{ 
-            spacing: 20,
-            length: 3,
-            colour: '#ccc',
-            snap: false},
-        }
-    );
     var onresize = function(e) {
       // Compute the absolute coordinates and dimensions of blocklyArea.
       var element = blocklyArea;
