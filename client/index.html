@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>Blockly Demo: Resizable Blockly (Part 2)</title>
-  <script src="./blockly/blockly_uncompressed.js"></script>
+  <script src="./blockly/blockly_compressed.js"></script>
   <script src="./blockly/blocks_compressed.js"></script>
   <script src="./blockly/javascript_compressed.js"></script>
   <script src="./blockly/msg/js/en.js"></script>
@@ -200,10 +200,14 @@
     
     workspace.registerButtonCallback("SEND_SERVER", sendServer);
     
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
 
     async function sendServer(){
-      await console.log("Hello")
+      console.log("hello");
       var code = Blockly.JavaScript.workspaceToCode(workspace);
+      await sleep(2000);
       alert(code);
     }
 
