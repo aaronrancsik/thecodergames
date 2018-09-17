@@ -10,69 +10,96 @@
   <link rel="stylesheet" href="./res/style.css">
 </head>
 <body>
-  <table>
+  
+  
+<table>
+  <!--
+  <tr>
+    <td>
+      <h1>Hi  </h1>
+    </td>
+  </tr>
+  -->
     <tr>
       <td id="blocklyArea">
       </td>
     </tr>
-  </table>
-  <!--https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#cwekm4 -->
-  <div id="blocklyDiv" style="position: absolute"></div>
+</table>
+<!--https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#cwekm4 -->
+<div id="blocklyDiv" style="position: absolute"></div>
+  
+  
 
   <xml id="toolbox" style="display: none">
-      <category name="Add" colour="%{BKY_LOGIC_HUE}">
+      
+      <category name="Dash" colour="%{BKY_LOGIC_HUE}">
+        <button text="Küldés" callbackKey="SEND_SERVER"></button>
         <block type="leftstep"></block>
         <block type="rightstep"></block>
         <block type="upstep"></block>
         <block type="downstep"></block>
-        <block type="controls_if"></block>
         <!--
+        <block type="controls_if"></block>
+        
         <block type="logic_compare"></block>
         <block type="logic_operation"></block>
         <block type="logic_negate"></block>
         <block type="logic_boolean"></block>
         -->
-        <block type="controls_repeat_ext">
-          <value name="TIMES">
-            <block type="math_number">
-              <field name="NUM">10</field>
-            </block>
-          </value>
-        </block>
-        <!-- <block type="controls_whileUntil"></block> -->
+        <block type="controls_repeat" ></block>
+        
+        <!-- <block type="controls_whileUntil"></block> 
         <block type="math_number">
           <field name="NUM">123</field>
-        </block>
+        </block>-->
         <!--<block type="math_arithmetic"></block>
         <block type="math_single"></block>
         <block type="text"></block>
         <block type="text_length"></block>
         <block type="text_print"></block> -->
       </category>
+      
+        
+      
+
     </xml>
 
   <script>
+ 
     var blocklyArea = document.getElementById('blocklyArea');
     var blocklyDiv = document.getElementById('blocklyDiv');
     var workspace = Blockly.inject(
-        blocklyDiv,
-        { media: './blockly/media/',
-          toolbox: document.getElementById('toolbox'),
-          zoom:{
-            controls: true,
-            wheel: false,
-            startScale: 3.4,
-            maxScale: 6,
-            minScale: 0.3,
-            scaleSpeed: 1.2
-         },
-          trashcan: false,
-          grid:
-          {spacing: 20,
+      blocklyDiv,
+      { 
+        media: './blockly/media/',
+        toolbox: document.getElementById('toolbox'),
+        zoom:{
+          controls: true,
+          wheel: false,
+          startScale: 3.4,
+          maxScale: 6,
+          minScale: 0.3,
+          scaleSpeed: 1.2
+        },
+        collapse : true, 
+        comments : true, 
+        disable : true, 
+        maxBlocks : Infinity,  
+        horizontalLayout : true, 
+        toolboxPosition : 'start', 
+        css : true, 
+        rtl : false,
+        sounds : false, 
+
+
+        trashcan: false,
+        grid:{ 
+            spacing: 20,
             length: 3,
             colour: '#ccc',
             snap: false},
-        });
+        }
+    );
     var onresize = function(e) {
       // Compute the absolute coordinates and dimensions of blocklyArea.
       var element = blocklyArea;
@@ -92,13 +119,16 @@
       blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
       Blockly.svgResize(workspace);
     };
+    window.addEventListener('resize', onresize, false);
+    onresize();
+    Blockly.svgResize(workspace);
 
     /*
     Custom Blocks
     */
 
-    window.addEventListener('resize', onresize, false);
-    onresize();
+    
+
     Blockly.Blocks['leftstep'] = {
       init: function() {
         this.appendDummyInput()
@@ -170,11 +200,18 @@
       var code = 'downstep()\n';
       return code;
     };
+    
+    workspace.registerButtonCallback("SEND_SERVER", sendServer);
+    
+
+    async function sendServer(){
+      await console.log("Hello")
+      var code = Blockly.JavaScript.workspaceToCode(workspace);
+      alert(code);
+    }
 
 
-
-
-    Blockly.svgResize(workspace);
+    
   </script>
 </body>
 </html>

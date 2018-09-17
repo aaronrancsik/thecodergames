@@ -4,10 +4,8 @@
   "description": "A game for resarchers night by University Obuda NJSZK",
   "main": " ./out/index.js",
   "scripts": {
-    
     "start": "nodemon ./out/index.js",
     "prod": "npm run build && npm run start"
-
   },
   "author": "Aaron Rancsik",
   "license": "ISC",
@@ -16,7 +14,9 @@
     "@types/node": "^10.9.4"
   },
   "dependencies": {
+    "@types/socket.io": "^1.4.38",
     "body-parser": "^1.18.3",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "socket.io": "^2.1.1"
   }
 }
