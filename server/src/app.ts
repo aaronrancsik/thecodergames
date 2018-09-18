@@ -3,6 +3,7 @@ import * as bodyParser from "body-parser";
 
 class App{
     public app:express.Application;
+    
     constructor(){
         this.app= express();
         this.config();
