@@ -47,7 +47,7 @@ export class App {
 
 
             socket.on('codeUpdate', (m: any) => {
-                console.log('[server](message): %s', JSON.stringify(m.code) );
+                console.log('[server](message): %s', (m.code) );
                 //this.io.emit('message', m);
             });
 

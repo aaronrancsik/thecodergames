@@ -136,7 +136,7 @@ workspace.addChangeListener(sendServer);
 function sendServer(){
   var code = Blockly.JavaScript.workspaceToCode(workspace);
   var xml = Blockly.Xml.workspaceToDom(workspace);
-  
+  var xml_text = Blockly.Xml.domToPrettyText(xml);
  
-  socket.emit("codeUpdate", {"code":xml});
+  socket.emit("codeUpdate", {"code":xml_text});
 }
