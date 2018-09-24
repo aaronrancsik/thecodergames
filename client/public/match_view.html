@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=0.6">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Dash</title>
+  <script src="./blockly/blockly_compressed.js"></script>
+  <script src="./blockly/blocks_compressed.js"></script>
+  <script src="./blockly/javascript_compressed.js"></script>
+  <script src="./blockly/msg/js/en.js"></script>
+  <link rel="stylesheet" href="./res/mvStyles.css">
+</head>
+<body>
+<table>
+    <tr>
+
+    </tr>
+    <tr>
+        <td id="blocklyArea1"></td>
+        <td id="center">
+            <canvas id="main" width="1260" height="1008"></canvas>
+        </td>
+        <td id="blocklyArea2"></td>
+    </tr>
+</table>
+<!--https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#cwekm4 -->
+<div id="blocklyDiv" style="position: absolute"></div>
+<div id="blocklyDiv2" style="position: absolute"></div>
+<xml id="toolbox" style="display: none">
+        <category name="Dash" colour="%{BKY_LOGIC_HUE}">
+          
+          <block type="stepforward"></block>
+          <block type="stepback"></block>
+          <block type="turnleft"></block>
+          <block type="turnright"></block>
+          <block type="controls_repeat" colour="%{BKY_LOGIC_HUE}"></block>
+        </category>
+      </xml>
+  <script src="./JS-Interpreter/acorn_interpreter.js"></script>
+  <script src="./res/socket.io.dev.js"></script>
+  <script src="./res/game/game.js"></script>
+  <script src="./res/mv_blockly.js"></script>
+  
+</body>
+</html>

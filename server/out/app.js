@@ -1,53 +1,54 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var http_1 = require("http");
-var express = require("express");
-var socketIo = require("socket.io");
-var App = /** @class */ (function () {
-    function App() {
+const http_1 = require("http");
+const express = require("express");
+const socketIo = require("socket.io");
+class App {
+    constructor() {
         this.createApp();
         this.config();
         this.createServer();
         this.sockets();
         this.listen();
     }
-    App.prototype.createApp = function () {
+    createApp() {
         this.app = express();
-        this.app.use(express.static('../client'));
-        this.app.all('*', function (req, res) {
-            res.redirect('/');
-        });
-    };
-    App.prototype.createServer = function () {
+        this.app.use(express.static('../client/public'));
+    }
+    createServer() {
         this.server = http_1.createServer(this.app);
-    };
-    App.prototype.config = function () {
+    }
+    config() {
         this.port = process.env.PORT || App.PORT;
-    };
-    App.prototype.sockets = function () {
+    }
+    sockets() {
         this.io = socketIo(this.server);
-    };
-    App.prototype.listen = function () {
-        var _this = this;
-        this.server.listen(this.port, function () {
-            console.log('Running server on port %s', _this.port);
+    }
+    listen() {
+        this.server.listen(this.port, () => {
+            console.log('Running server on port %s', this.port);
         });
-        this.io.on('connect', function (socket) {
-            console.log('Connected client on port %s.', _this.port);
-            socket.on('codeUpdate', function (m) {
-                console.log('[server](message): %s', (m.code));
+        this.io.on('connect', (socket) => {
+            console.log('Connected client on port %s.', this.port);
+            socket.on('codeUpdate', (code) => {
+                this.io.emit("toViwer", code);
+                //console.log(from);
+                //console.log('[server](message): %s', (m.code) );
                 //this.io.emit('message', m);
             });
-            socket.on('disconnect', function () {
+            socket.on("playGame", (m) => {
+                console.log("play");
+                this.io.emit("playGame", m);
+            });
+            socket.on('disconnect', () => {
                 console.log('Client disconnected');
             });
         });
-    };
-    App.prototype.getApp = function () {
+    }
+    getApp() {
         return this.app;
-    };
-    App.PORT = 8080;
-    return App;
-}());
+    }
+}
+App.PORT = 8080;
 exports.App = App;
 //# sourceMappingURL=app.js.map

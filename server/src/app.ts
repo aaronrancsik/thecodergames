@@ -1,6 +1,7 @@
 import { createServer, Server } from 'http';
 import * as express from 'express';
 import * as socketIo from 'socket.io';
+import * as basicAuth from 'express-basic-auth';
 
 export class App {
     public static readonly PORT:number = 8080;
@@ -19,10 +20,7 @@ export class App {
 
     private createApp(): void {
         this.app = express();
-        this.app.use(express.static('../client'));
-        this.app.all('*', (req, res)=> { 
-            res.redirect('/'); 
-        });
+        this.app.use(express.static('../client/public'));     
     }
 
     private createServer(): void {
@@ -46,10 +44,20 @@ export class App {
             console.log('Connected client on port %s.', this.port);
 
 
-            socket.on('codeUpdate', (m: any) => {
-                console.log('[server](message): %s', (m.code) );
+            socket.on('codeUpdate', (code:any) => {
+                this.io.emit("toViwer",code);
+                //console.log(from);
+                //console.log('[server](message): %s', (m.code) );
                 //this.io.emit('message', m);
             });
+
+
+            socket.on("playGame", (m:any)=>{
+                console.log("play");
+                
+                this.io.emit("playGame",m);
+            })
+
 
             socket.on('disconnect', () => {
                 console.log('Client disconnected');
