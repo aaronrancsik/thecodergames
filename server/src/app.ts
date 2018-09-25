@@ -2,8 +2,11 @@ import { createServer, Server } from 'http';
 import * as express from 'express';
 import * as socketIo from 'socket.io';
 import * as basicAuth from 'express-basic-auth';
+import * as jwtAuth  from 'socketio-jwt-auth';
+import * as redis from 'redis';
 
 export class App {
+    private client = redis.createClient();
     public static readonly PORT:number = 8080;
     private app: express.Application;
     private server: Server;
@@ -33,7 +36,40 @@ export class App {
 
     private sockets(): void {
         this.io = socketIo(this.server);
+        // using middleware
+
+        /*
+        this.io.use(jwtAuth.authenticate({
+            secret: 'My_super_Secret123',    // required, used to verify the token's signature
+            algorithm: 'HS256',        // optional, default to be HS256
+            succeedWithoutToken: true
+        }, function(payload, done) {
+            // you done callback will not include any payload data now
+            // if no token was supplied
+            if (payload && payload.sub) {
+                User.findOne({id: payload.sub}, function(err, user) {
+                    if (err) {
+                    // return error
+                    return done(err);
+                    }
+                    if (!user) {
+                    // return fail with an error message
+                    return done(null, false, 'user does not exist');
+                    }
+                    // return success with a user info
+                    return done(null, user);
+                });
+            } else {
+                return done() // in your connection handler user.logged_in will be false
+            }
+        }));*/
     }
+    private connectDB():void{
+        this.client.on('error', (err)=>{
+            console.log(err);
+        })
+    }
+
 
     private listen(): void {
         this.server.listen(this.port, () => {
