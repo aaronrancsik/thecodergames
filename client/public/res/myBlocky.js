@@ -159,6 +159,13 @@ Blockly.JavaScript['turnleft'] = function(block) {
 workspace.registerButtonCallback("SEND_SERVER", sendServer);
 workspace.addChangeListener(sendServer);
 
+var myStorage = window.localStorage;
+var savedtoken = myStorage.getItem("token");
+var def ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYSIsImlhdCI6MTUzNzkxMjI0NH0.cuUnbO8xbSLNf0TQSCQ3SqWM1peFtGG8E8qH_QjKhtg"
+if(savedtoken==undefined){
+  savedtoken =def;
+}
+var socket = io( {query: {token: savedtoken}} );
 
 function sendServer(){
   var code = Blockly.JavaScript.workspaceToCode(workspace);
@@ -167,3 +174,41 @@ function sendServer(){
  
   socket.emit("codeUpdate", {"code":xml_text});
 }
+
+
+$(window).on('load',function(){
+
+  if(savedtoken === def){
+    
+    $('#myModal').modal('show');
+  }else{
+    //alert('auth_token='+savedtoken);
+  }
+});
+
+function regist(){
+  
+  var name = document.getElementById("username").value;
+  
+  socket.emit("regist",{"name":name});
+  
+  
+  
+}
+    
+socket.on("regist",(isSuc)=>{
+ 
+
+  if(isSuc.suc===true){
+    console.log(socket.query.token);
+    socket.query.token = isSuc.token;
+    console.log(socket.query.token);
+    socket.connect();
+    location.reload();
+    myStorage.setItem("token",isSuc.token);
+    $('#myModal').modal('hide');
+    
+  }else{
+    alert("Ez a név már foglalt kérlek válassz másikat");
+  }
+})

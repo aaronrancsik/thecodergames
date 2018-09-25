@@ -2,9 +2,10 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=0.6">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Editor</title>
+  <link rel="stylesheet" href="./res/bootstrap.min.css">
   <script src="./blockly/blockly_compressed.js"></script>
   <script src="./blockly/blocks_compressed.js"></script>
   <script src="./blockly/javascript_compressed.js"></script>
@@ -12,14 +13,34 @@
   <link rel="stylesheet" href="./res/style.css">
 </head>
 <body>
+
 <table>
-  <!--
+  
   <tr>
     <td>
-      <h1>Hi  </h1>
+        <div class="modal fade" id="myModal" data-backdrop="static">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Kérlek adj valami becenevet</h4>
+                        
+                    </div>
+                    <div class="modal-body">
+                      <div class="form-group">
+                        <label for="Becenév"></label>
+                        <input type="text"
+                          class="form-control" name="username" id="username" >
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button onclick="regist()" type="button" class="btn btn-primary mx-auto" >Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </td>
   </tr>
-  -->
+  
     <tr>
       <td id="blocklyArea">
       </td>
@@ -43,11 +64,18 @@
 </xml>
 
   <script src="./res/socket.io.dev.js"></script>
-  <script>
-    var socket = io();
-    
-  </script> 
+
+  <script src="./res/jquery-3.3.1.min.js"></script>
+  <script src="./res/bootstrap.min.js"></script>
   <script src="./res/myBlocky.js"></script>
+
+
+
+
+ 
+ 
+
+
   
 </body>
 </html>
