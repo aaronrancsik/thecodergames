@@ -100,9 +100,6 @@ class Game{
         this.context.webkitImageSmoothingEnabled = false;
         this.context.mozImageSmoothingEnabled = false;
         this.context.imageSmoothingEnabled = false;
-    }
-
-    public draw():void{
 
         for(let i =0; i< this.map.getWdth();i++){
             for(let j =0; j<this.map.getHeight();j++){
@@ -115,8 +112,16 @@ class Game{
                     this.context.fillStyle = pattern;
                     this.context.drawImage(defImg, i*84, j*84, 84, 84);
                 };
-                
+
                 //Blocks 2nd layer
+                
+        }}
+    }
+
+    public draw():void{
+
+        for(let i =0; i< this.map.getWdth();i++){
+            for(let j =0; j<this.map.getHeight();j++){
                 let img:HTMLImageElement = new Image();
                 img.src = this.map.getBlock(j,i).getimgSrc();
                 img.onload = ()=> {
@@ -124,15 +129,12 @@ class Game{
                     this.context.fillStyle = pattern;
                     this.context.drawImage(img, i*84, j*84, 84, 84);
                 };
+                
             }
         }
         //Players 3rd layer
         let playerImg1:HTMLImageElement = new Image();
-
         playerImg1.src = this.player.getimgSrc();
-        
-        
-        
         playerImg1.onload = () =>{
             let pattern = this.context.createPattern(playerImg1, 'repeat');
             this.context.fillStyle = pattern;

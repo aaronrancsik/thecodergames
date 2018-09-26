@@ -80,6 +80,8 @@ export class App {
 
 
             socket.on('codeUpdate', (code:any) => {
+                console.log("update");
+                
                 let a:any = jwt.decode(socket.handshake.query.token);
                 console.log(a.user);
                 

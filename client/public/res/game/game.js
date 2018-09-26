@@ -75,15 +75,13 @@ var Player = /** @class */ (function () {
 }());
 var Game = /** @class */ (function () {
     function Game(canvas, player) {
+        var _this = this;
         this.player = player;
         this.map = GameMap.MapFromTxt("b;b;b;b;b;b;b;b;b;b;b;b;b;b;b_b;a;a;a;a;a;a;a;a;a;a;a;a;a;b_b;a;a;a;d;a;a;g;a;a;g;a;a;a;b_b;a;a;a;a;t;t;a;a;a;a;a;a;a;b_b;a;a;a;a;t;t;a;a;a;a;a;a;a;b_b;a;a;a;g;a;a;a;f;f;g;a;a;a;b_b;a;a;a;a;s;s;a;b;b;b;a;a;a;b_b;a;a;a;a;s;s;a;b;b;b;f;f;f;b_b;f;f;f;g;a;a;g;b;b;b;b;b;b;b_b;s;s;s;s;s;s;s;s;s;s;s;s;s;b_b;b;b;b;b;b;b;b;b;b;b;b;b;b;b");
         this.context = canvas.getContext("2d");
         this.context.webkitImageSmoothingEnabled = false;
         this.context.mozImageSmoothingEnabled = false;
         this.context.imageSmoothingEnabled = false;
-    }
-    Game.prototype.draw = function () {
-        var _this = this;
         var _loop_1 = function (i) {
             var _loop_2 = function (j) {
                 //Background 1st layer
@@ -95,13 +93,6 @@ var Game = /** @class */ (function () {
                     _this.context.drawImage(defImg, i * 84, j * 84, 84, 84);
                 };
                 //Blocks 2nd layer
-                var img = new Image();
-                img.src = this_1.map.getBlock(j, i).getimgSrc();
-                img.onload = function () {
-                    var pattern = _this.context.createPattern(img, 'repeat');
-                    _this.context.fillStyle = pattern;
-                    _this.context.drawImage(img, i * 84, j * 84, 84, 84);
-                };
             };
             for (var j = 0; j < this_1.map.getHeight(); j++) {
                 _loop_2(j);
@@ -110,6 +101,27 @@ var Game = /** @class */ (function () {
         var this_1 = this;
         for (var i = 0; i < this.map.getWdth(); i++) {
             _loop_1(i);
+        }
+    }
+    Game.prototype.draw = function () {
+        var _this = this;
+        var _loop_3 = function (i) {
+            var _loop_4 = function (j) {
+                var img = new Image();
+                img.src = this_2.map.getBlock(j, i).getimgSrc();
+                img.onload = function () {
+                    var pattern = _this.context.createPattern(img, 'repeat');
+                    _this.context.fillStyle = pattern;
+                    _this.context.drawImage(img, i * 84, j * 84, 84, 84);
+                };
+            };
+            for (var j = 0; j < this_2.map.getHeight(); j++) {
+                _loop_4(j);
+            }
+        };
+        var this_2 = this;
+        for (var i = 0; i < this.map.getWdth(); i++) {
+            _loop_3(i);
         }
         //Players 3rd layer
         var playerImg1 = new Image();

@@ -186,8 +186,8 @@ Blockly.JavaScript['turnleft'] = function(block) {
 workspace.registerButtonCallback("SEND_SERVER", sendServer);
 workspace.addChangeListener(sendServer);
 */
-
-var socket = io();
+//
+var socket = io({query: {token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidmlld2VyIiwiaWF0IjoxNTM3OTE5MjY4fQ.KA20flfIPRDQaas6Eq20KnzlEiJ6hKXVKPXGcEyA1IY"}});
 
 socket.on("toViwer",(code)=>{
   workspace.clear()
@@ -275,7 +275,7 @@ socket.on("playGame",(code)=>{
 
   function nextStep() {
     if (myInterpreter.step()) {
-      window.setTimeout(nextStep, 0);
+      window.setTimeout(nextStep, 15);
       mygame.draw();
     }
   }

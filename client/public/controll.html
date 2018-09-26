@@ -10,7 +10,7 @@
     <button onclick="btPlay()">Play</button>
     <script src="./res/socket.io.dev.js"></script>
     <script>
-        var socket = io();
+        var socket = io({query: {token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiY29udHJvbGxlciIsImlhdCI6MTUzNzkxOTQ0OH0.y1TURyu7FX7z9snsvuTgBhhvSS_ysEIro89n02k1LuA"}});
         function btPlay(){
             
             socket.emit("playGame", {play:true});

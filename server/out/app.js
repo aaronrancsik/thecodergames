@@ -56,6 +56,7 @@ class App {
         this.io.on('connect', (socket) => {
             console.log('Connected client on port %s.', this.port);
             socket.on('codeUpdate', (code) => {
+                console.log("update");
                 let a = jwt.decode(socket.handshake.query.token);
                 console.log(a.user);
                 this.io.emit("toViwer", code);
