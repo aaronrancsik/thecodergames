@@ -29,7 +29,7 @@ html, body {
 
 
 
-#blocklyArea1, #blocklyArea2{
+#blocklyArea1, #leaderBoard{
     width: 17%;
     height: 100%;
 }
@@ -68,4 +68,9 @@ html, body {
     image-rendering: -o-crisp-edges;            /* OS X & Windows Opera (12.02+)*/
     image-rendering: optimize-contrast;         /* Possible future browsers.*/
     -ms-interpolation-mode: nearest-neighbor;   /*IE*/
+}
+
+#ul{
+  overflow:auto;
+  max-height: 1008;
 }

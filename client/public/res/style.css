@@ -22,10 +22,10 @@ html, body {
   #blocklyArea {
     height: 100%;
   }
-
+/*
   .blocklyTreeLabel{
     font-size: 0.8cm;
-  }
+  }*/
 /*
   .blocklyTreeRow{
     height: auto;

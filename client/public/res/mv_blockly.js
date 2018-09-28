@@ -29,50 +29,46 @@ var options = {
 }
 
 var blocklyArea = document.getElementById('blocklyArea1');
-var blocklyArea2 = document.getElementById('blocklyArea2');
+
 var blocklyDiv = document.getElementById('blocklyDiv');
-var blocklyDiv2 = document.getElementById('blocklyDiv2');
+
 var workspace = Blockly.inject(blocklyDiv, options);
-var workspace2 = Blockly.inject(blocklyDiv2, options);
+
 
 
 
 var onresize = function(e) {
   // Compute the absolute coordinates and dimensions of blocklyArea.
   var element = blocklyArea;
-  var element2 = blocklyArea2;
+
   var x = 0;
-  var x2 = 0;
+
   var y = 0;
-  var y2 = 0;
+
   do {
     x += element.offsetLeft;
     y += element.offsetTop;
     element = element.offsetParent;
   } while (element);
-  do{
-    x2 += element2.offsetLeft;
-    y2 += element2.offsetTop;
-    element2 = element2.offsetParent;
-  }while(element2)
+
   // Position blocklyDiv over blocklyArea.
   blocklyDiv.style.left = x + 'px';
-  blocklyDiv2.style.left = x2 + 'px';
+
   blocklyDiv.style.top = y + 'px';
-  blocklyDiv2.style.top = y2 + 'px';
+
   blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
-  blocklyDiv2.style.width = blocklyArea2.offsetWidth + 'px';
+
   blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
-  blocklyDiv2.style.height = blocklyArea2.offsetHeight + 'px';
+
   Blockly.svgResize(workspace);
-  Blockly.svgResize(workspace2);
+
   
 };
 
 window.addEventListener('resize', onresize, false);
 onresize();
 Blockly.svgResize(workspace);
-Blockly.svgResize(workspace2);
+
 
 //Color
 Blockly.HSV_SATURATION = 0.7;
@@ -188,33 +184,68 @@ workspace.addChangeListener(sendServer);
 */
 //
 var socket = io({query: {token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidmlld2VyIiwiaWF0IjoxNTM3OTE5MjY4fQ.KA20flfIPRDQaas6Eq20KnzlEiJ6hKXVKPXGcEyA1IY"}});
+var user = "";
+var aktamap =0;
+var userF = document.getElementById("userF");
+var mapf = document.getElementById("mapF");
+function changeUser(newUser){
+
+  if(newUser==""){
+    workspace.clear();
+    user ="";
+  }else{
+    user =newUser;
+  }
+  userF.innerText = newUser;
+}
+
+function changeMap(number){
+  mygame.loadMap(number);
+  aktamap = number;  
+  mapf.innerText =(parseInt(number));
+  
+}
+
+socket.on("changeMap",(m)=>{
+  
+  changeMap(m.map);
+});
+
+socket.on("inspectUser",(user)=>{
+  changeUser(user.username);
+});
 
 socket.on("toViwer",(code)=>{
-  workspace.clear()
-  var xml = Blockly.Xml.textToDom(code.code);
-  Blockly.Xml.domToWorkspace(xml, workspace);
-
-  function getBlocksByType(type) {
-    var blocks = [];
-    for (var blockID in workspace.blockDB_) {
-      if (workspace.blockDB_[blockID].type == type) {
-        blocks.push(workspace.blockDB_[blockID]);
-      }
-    }
-    return(blocks);
-  }
-  var block = getBlocksByType("iterations")[0];
-  block.select();
   
-      // *block* is the block to scroll into view.
+  
+  if(user==code.name){
+    workspace.clear();
+    var xml = Blockly.Xml.textToDom(code.code.code);
+    Blockly.Xml.domToWorkspace(xml, workspace);
 
-  var mWs = workspace;
-  var xy = block.getRelativeToSurfaceXY();	// Scroll the workspace so that the block's top left corner
-  var m = mWs.getMetrics();					// is in the (0.2; 0.3) part of the viewport.
-  mWs.scrollbar.set(	
-    xy.x * mWs.scale - m.contentLeft - m.viewWidth  * 0.1,
-    xy.y * mWs.scale - m.contentTop  - m.viewHeight * 0.05
-  );
+    function getBlocksByType(type) {
+      var blocks = [];
+      for (var blockID in workspace.blockDB_) {
+        if (workspace.blockDB_[blockID].type == type) {
+          blocks.push(workspace.blockDB_[blockID]);
+        }
+      }
+      return(blocks);
+    }
+    var block = getBlocksByType("iterations")[0];
+    block.select();
+    
+        // *block* is the block to scroll into view.
+
+    var mWs = workspace;
+    var xy = block.getRelativeToSurfaceXY();	// Scroll the workspace so that the block's top left corner
+    var m = mWs.getMetrics();					// is in the (0.2; 0.3) part of the viewport.
+    mWs.scrollbar.set(	
+      xy.x * mWs.scale - m.contentLeft - m.viewWidth  * 0.1,
+      xy.y * mWs.scale - m.contentTop  - m.viewHeight * 0.05
+    );
+  }
+  
   
 });
 
@@ -231,11 +262,26 @@ function TurnLeft(){
 function TurnRight(){
   player.rotRight()
 }
+var reducer = (accumulator, currentValue) => accumulator + currentValue;
+var ulf = document.getElementById("ul");
+socket.on("leaderUpdate",(m)=>{
+  ulf.innerHTML ="";
+  console.log(m);
+  
+  m.users.forEach(element => {
+    var sum =0;
+    element.scoreLevel.forEach(e => {
+      sum += parseInt(e);
+    });
+    ulf.innerHTML +="<li>" +element.name +" - " + sum + "</li>"  
+  });
+  
+})
 
 socket.on("playGame",(code)=>{
   var code = Blockly.JavaScript.workspaceToCode(workspace);
   
-  alert(code);
+  //alert(code);
   
 
   var initApi = function(myInterpreter, scope){
@@ -273,12 +319,25 @@ socket.on("playGame",(code)=>{
   }
   var myInterpreter = new Interpreter(code+"\n Iteration();", initApi);
 
+  var maxStep = 1500;
+  
   function nextStep() {
     if (myInterpreter.step()) {
-      window.setTimeout(nextStep, 15);
-      mygame.draw();
+      if(maxStep>0){
+        maxStep--;
+        window.setTimeout(nextStep, 8);
+      }else{
+        //alert("Tűl sok lépés")
+      }
+     
+    }else{
+      socket.emit("updateScore",{"map": aktamap,"user":user,"score": document.getElementById("score").innerText});
+     
+
+      //socket.emit("")
     }
   }
   nextStep();
-});
+  
+  });
 
