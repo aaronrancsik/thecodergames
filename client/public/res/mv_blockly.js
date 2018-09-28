@@ -213,6 +213,7 @@ socket.on("changeMap",(m)=>{
 
 socket.on("inspectUser",(user)=>{
   changeUser(user.username);
+  socket.emit("forceUpdate",{});
 });
 
 socket.on("toViwer",(code)=>{

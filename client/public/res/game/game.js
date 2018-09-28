@@ -149,7 +149,7 @@ var Game = /** @class */ (function () {
                 this.player.score = 0;
                 break;
             case "2":
-                this.map = GameMap.MapFromTxt("s;s;s;s;s;s;s;s;s;s;s;s;s;s;s_s;f;f;f;f;f;f;f;f;f;f;f;f;f;s_s;f;f;f;f;f;b;b;b;f;f;f;f;f;s_s;f;f;f;f;b;g;g;g;b;f;f;f;f;s_s;f;f;f;b;g;a;a;a;g;b;f;f;f;s_s;f;f;f;b;g;a;g;a;g;b;f;f;f;s_s;f;f;f;b;g;a;a;a;g;b;f;f;f;s_s;f;f;f;f;b;g;g;g;b;f;f;f;f;s_s;f;f;f;f;f;b;f;b;f;f;f;f;f;s_s;f;f;f;f;f;f;f;f;f;f;f;f;d;s_s;s;s;s;s;s;s;s;s;s;s;s;s;s;s");
+                this.map = GameMap.MapFromTxt("b;b;b;b;b;b;b;b;b;b;b;b;b;b;b_b;a;a;a;a;a;a;a;a;a;a;a;a;a;b_b;a;a;a;d;a;a;g;a;a;g;a;a;a;b_b;a;a;a;a;s;s;a;a;a;a;a;a;a;b_b;a;a;a;a;s;s;a;a;a;a;a;a;a;b_b;a;a;a;g;a;a;a;f;f;g;a;a;a;b_b;a;a;a;a;s;s;a;b;b;b;a;a;a;b_b;a;a;a;a;s;s;a;b;b;b;f;f;f;b_b;f;f;f;g;a;a;g;b;b;b;b;b;b;b_b;s;s;s;s;s;s;s;s;s;s;s;s;s;b_b;b;b;b;b;b;b;b;b;b;b;b;b;b;b");
                 this.player.posX = 7;
                 this.player.oldX = 7;
                 this.player.posY = 5;
@@ -158,6 +158,13 @@ var Game = /** @class */ (function () {
                 this.player.score = 0;
                 break;
             case "3":
+                this.map = GameMap.MapFromTxt("s;s;s;s;s;s;s;s;s;s;s;s;s;s;s_s;f;f;f;f;f;f;f;f;f;f;f;f;f;s_s;f;f;f;f;f;b;b;b;f;f;f;f;f;s_s;f;f;f;f;b;g;g;g;b;f;f;f;f;s_s;f;f;f;b;g;a;a;a;g;b;f;f;f;s_s;f;f;f;b;g;a;g;a;g;b;f;f;f;s_s;f;f;f;b;g;a;a;a;g;b;f;f;f;s_s;f;f;f;f;b;g;g;g;b;f;f;f;f;s_s;f;f;f;f;f;b;f;b;f;f;f;f;f;s_s;f;f;f;f;f;f;f;f;f;f;f;f;d;s_s;s;s;s;s;s;s;s;s;s;s;s;s;s;s");
+                this.player.posX = 7;
+                this.player.oldX = 7;
+                this.player.posY = 5;
+                this.player.oldY = 5;
+                this.player.dir = Dir.Up;
+                this.player.score = 0;
                 break;
             case "4":
                 //this.player =  new Player(7,5,Dir.Up);
@@ -167,7 +174,7 @@ var Game = /** @class */ (function () {
                 this.player.oldY = 5;
                 this.player.dir = Dir.Up;
                 this.player.score = 0;
-                this.map = GameMap.MapFromTxt("b;b;b;b;b;b;b;b;b;b;b;b;b;b;b_b;a;a;a;a;a;a;a;a;a;a;a;a;a;b_b;a;a;a;d;a;a;g;a;a;g;a;a;a;b_b;a;a;a;a;s;s;a;a;a;a;a;a;a;b_b;a;a;a;a;s;s;a;a;a;a;a;a;a;b_b;a;a;a;g;a;a;a;f;f;g;a;a;a;b_b;a;a;a;a;s;s;a;b;b;b;a;a;a;b_b;a;a;a;a;s;s;a;b;b;b;f;f;f;b_b;f;f;f;g;a;a;g;b;b;b;b;b;b;b_b;s;s;s;s;s;s;s;s;s;s;s;s;s;b_b;b;b;b;b;b;b;b;b;b;b;b;b;b;b");
+                this.map = GameMap.MapFromTxt("s;s;s;s;s;s;s;s;s;s;s;s;s;s;s_s;d;a;a;a;a;a;a;a;a;a;a;a;d;s_s;a;a;a;a;a;b;b;b;a;a;a;a;a;s_s;a;a;a;d;b;g;g;g;b;d;a;a;a;s_s;a;a;a;b;g;a;a;a;g;b;a;a;a;s_s;a;a;a;b;g;a;a;a;g;b;a;a;a;s_s;a;a;a;b;g;a;a;a;g;b;a;a;a;s_s;a;a;a;d;b;g;g;g;b;d;a;a;a;s_s;a;a;a;a;a;b;a;b;a;a;a;a;a;s_s;d;a;a;a;a;a;a;a;a;a;a;a;d;s_s;s;s;s;s;s;s;s;s;s;s;s;s;s;s");
                 break;
             //load users saved stuffs
         }

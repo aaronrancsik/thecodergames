@@ -88,6 +88,10 @@ class App {
                 }
                 //console.log(aktUser);
             });
+            socket.on("forceUpdate", (m) => {
+                console.log("forceUpdate");
+                this.io.emit("forceUpdate", m);
+            });
             socket.on("changeMap", (m) => {
                 this.io.emit("changeMap", m);
                 this.aktMap = m.map;

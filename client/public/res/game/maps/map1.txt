@@ -1,8 +1,5 @@
 
 
-b;b;b;b;b;b;b;b;b;b;b;b;b;b;b_b;a;a;a;a;a;a;a;a;a;a;a;a;a;b_b;a;a;a;d;a;a;g;a;a;g;a;a;a;b_b;a;a;a;a;s;s;a;a;a;a;a;a;a;b_b;a;a;a;a;s;s;a;a;a;a;a;a;a;b_b;a;a;a;g;a;a;a;f;f;g;a;a;a;b_b;a;a;a;a;s;s;a;b;b;b;a;a;a;b_b;a;a;a;a;s;s;a;b;b;b;f;f;f;b_b;f;f;f;g;a;a;g;b;b;b;b;b;b;b_b;s;s;s;s;s;s;s;s;s;s;s;s;s;b_b;b;b;b;b;b;b;b;b;b;b;b;b;b;b
-
-
 
 map0
 s;s;s;s;s;s;s;s;s;s;s;s;s;s;s
@@ -51,6 +48,11 @@ b;f;f;f;g;a;a;g;b;b;b;b;b;b;b
 b;s;s;s;s;s;s;s;s;s;s;s;s;s;b
 b;b;b;b;b;b;b;b;b;b;b;b;b;b;b
 
+b;b;b;b;b;b;b;b;b;b;b;b;b;b;b_b;a;a;a;a;a;a;a;a;a;a;a;a;a;b_b;a;a;a;d;a;a;g;a;a;g;a;a;a;b_b;a;a;a;a;s;s;a;a;a;a;a;a;a;b_b;a;a;a;a;s;s;a;a;a;a;a;a;a;b_b;a;a;a;g;a;a;a;f;f;g;a;a;a;b_b;a;a;a;a;s;s;a;b;b;b;a;a;a;b_b;a;a;a;a;s;s;a;b;b;b;f;f;f;b_b;f;f;f;g;a;a;g;b;b;b;b;b;b;b_b;s;s;s;s;s;s;s;s;s;s;s;s;s;b_b;b;b;b;b;b;b;b;b;b;b;b;b;b;b
+
+
+
+
 map3
 s;s;s;s;s;s;s;s;s;s;s;s;s;s;s
 s;f;f;f;f;f;f;f;f;f;f;f;f;f;s
@@ -67,14 +69,18 @@ s;s;s;s;s;s;s;s;s;s;s;s;s;s;s
 
 s;s;s;s;s;s;s;s;s;s;s;s;s;s;s_s;f;f;f;f;f;f;f;f;f;f;f;f;f;s_s;f;f;f;f;f;b;b;b;f;f;f;f;f;s_s;f;f;f;f;b;g;g;g;b;f;f;f;f;s_s;f;f;f;b;g;a;a;a;g;b;f;f;f;s_s;f;f;f;b;g;a;g;a;g;b;f;f;f;s_s;f;f;f;b;g;a;a;a;g;b;f;f;f;s_s;f;f;f;f;b;g;g;g;b;f;f;f;f;s_s;f;f;f;f;f;b;f;b;f;f;f;f;f;s_s;f;f;f;f;f;f;f;f;f;f;f;f;d;s_s;s;s;s;s;s;s;s;s;s;s;s;s;s;s
 
+
+map4
 s;s;s;s;s;s;s;s;s;s;s;s;s;s;s
-s;f;f;f;f;f;f;f;f;f;f;f;f;f;s
-s;f;f;f;f;f;b;b;b;f;f;f;f;f;s
-s;f;f;f;f;b;g;g;g;b;f;f;f;f;s
-s;f;f;f;b;g;a;a;a;g;b;f;f;f;s
-s;f;f;f;b;g;a;a;a;g;b;f;f;f;s
-s;f;f;f;b;g;a;a;a;g;b;f;f;f;s
-s;f;f;f;f;b;g;g;g;b;f;f;f;f;s
-s;f;f;f;f;f;b;f;b;f;f;f;f;f;s
-s;f;f;f;f;f;f;f;f;f;f;f;f;d;s
+s;d;a;a;a;a;a;a;a;a;a;a;a;d;s
+s;a;a;a;a;a;b;b;b;a;a;a;a;a;s
+s;a;a;a;d;b;g;g;g;b;d;a;a;a;s
+s;a;a;a;b;g;a;a;a;g;b;a;a;a;s
+s;a;a;a;b;g;a;a;a;g;b;a;a;a;s
+s;a;a;a;b;g;a;a;a;g;b;a;a;a;s
+s;a;a;a;d;b;g;g;g;b;d;a;a;a;s
+s;a;a;a;a;a;b;a;b;a;a;a;a;a;s
+s;d;a;a;a;a;a;a;a;a;a;a;a;d;s
 s;s;s;s;s;s;s;s;s;s;s;s;s;s;s
+
+s;s;s;s;s;s;s;s;s;s;s;s;s;s;s_s;d;a;a;a;a;a;a;a;a;a;a;a;d;s_s;a;a;a;a;a;b;b;b;a;a;a;a;a;s_s;a;a;a;d;b;g;g;g;b;d;a;a;a;s_s;a;a;a;b;g;a;a;a;g;b;a;a;a;s_s;a;a;a;b;g;a;a;a;g;b;a;a;a;s_s;a;a;a;b;g;a;a;a;g;b;a;a;a;s_s;a;a;a;d;b;g;g;g;b;d;a;a;a;s_s;a;a;a;a;a;b;a;b;a;a;a;a;a;s_s;d;a;a;a;a;a;a;a;a;a;a;a;d;s_s;s;s;s;s;s;s;s;s;s;s;s;s;s;s

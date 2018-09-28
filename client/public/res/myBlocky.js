@@ -195,6 +195,11 @@ function regist(){
   
   
 }
+
+
+socket.on("forceUpdate",()=>{
+  sendServer();
+})
     
 socket.on("regist",(isSuc)=>{
  

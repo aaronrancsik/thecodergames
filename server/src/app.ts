@@ -134,6 +134,12 @@ export class App {
                 
 
                 
+            });
+
+            socket.on("forceUpdate",(m)=>{
+                console.log("forceUpdate");
+                
+                this.io.emit("forceUpdate",m);
             })
 
             socket.on("changeMap",(m)=>{
