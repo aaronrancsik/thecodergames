@@ -30,7 +30,7 @@ export class App {
 
     private users:Array<User>;
 
-    public static readonly PORT:number = 8080;
+    public static readonly PORT:number = 80;
     private app: express.Application;
     private server: Server;
     private io: SocketIO.Server;

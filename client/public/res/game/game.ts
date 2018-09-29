@@ -96,7 +96,7 @@ class Player {
                 this.posX--;
             }
         }else if(this.dir==1){
-            if(mygame.map.getBlock(this.posY-1,this.posX+1).breakable){
+            if(mygame.map.getBlock(this.posY,this.posX+1).breakable){
                 this.posX++;
             }
         }
@@ -126,7 +126,7 @@ class Player {
             }
            
         }else if(this.dir==1){
-            if(mygame.map.getBlock(this.posY-1,this.posX-1).breakable){
+            if(mygame.map.getBlock(this.posY,this.posX-1).breakable){
                 this.posX--;
             }
             
@@ -204,7 +204,7 @@ class Game{
                 this.player.score =0;
                 break;
             case "3": 
-                this.map  = GameMap.MapFromTxt("s;s;s;s;s;s;s;s;s;s;s;s;s;s;s_s;f;f;f;f;f;f;f;f;f;f;f;f;f;s_s;f;f;f;f;f;b;b;b;f;f;f;f;f;s_s;f;f;f;f;b;g;g;g;b;f;f;f;f;s_s;f;f;f;b;g;a;a;a;g;b;f;f;f;s_s;f;f;f;b;g;a;g;a;g;b;f;f;f;s_s;f;f;f;b;g;a;a;a;g;b;f;f;f;s_s;f;f;f;f;b;g;g;g;b;f;f;f;f;s_s;f;f;f;f;f;b;f;b;f;f;f;f;f;s_s;f;f;f;f;f;f;f;f;f;f;f;f;d;s_s;s;s;s;s;s;s;s;s;s;s;s;s;s;s")
+                this.map  = GameMap.MapFromTxt("s;s;s;s;s;s;s;s;s;s;s;s;s;s;s_s;f;f;f;f;f;f;f;f;f;f;f;f;f;s_s;f;f;f;f;f;b;b;b;f;f;f;f;f;s_s;f;f;f;f;b;g;g;g;b;f;f;f;f;s_s;f;f;f;b;g;a;a;a;g;b;f;f;f;s_s;f;f;f;b;g;a;a;a;g;b;f;f;f;s_s;f;f;f;b;g;a;a;a;g;b;f;f;f;s_s;f;f;f;f;b;g;g;g;b;f;f;f;f;s_s;f;f;f;f;f;b;f;b;f;f;f;f;f;s_s;f;f;f;f;f;f;f;f;f;f;f;f;d;s_s;s;s;s;s;s;s;s;s;s;s;s;s;s;s")
                 this.player.posX =7;
                 this.player.oldX =7;
                 this.player.posY = 5;

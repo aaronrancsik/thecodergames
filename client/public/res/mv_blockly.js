@@ -320,13 +320,13 @@ socket.on("playGame",(code)=>{
   }
   var myInterpreter = new Interpreter(code+"\n Iteration();", initApi);
 
-  var maxStep = 1500;
+  var maxStep = 5000;
   
   function nextStep() {
     if (myInterpreter.step()) {
       if(maxStep>0){
         maxStep--;
-        window.setTimeout(nextStep, 8);
+        window.setTimeout(nextStep, 4);
       }else{
         //alert("Tűl sok lépés")
       }

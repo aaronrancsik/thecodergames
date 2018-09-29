@@ -192,8 +192,6 @@ function regist(){
   
   socket.emit("regist",{"name":name});
   
-  
-  
 }
 
 

@@ -129,6 +129,6 @@ class App {
         return this.app;
     }
 }
-App.PORT = 8080;
+App.PORT = 80;
 exports.App = App;
 //# sourceMappingURL=app.js.map
