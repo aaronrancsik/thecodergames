@@ -14,7 +14,4 @@ cd ./server
 sudo npm start
 ```
 
-URLs:
-localhost/index.html        Editor for kids
-localhost/match_view.html   Fullscreen map and leaderboard for projector
-localhost/controll.html     Controll Panel for teachers
+
