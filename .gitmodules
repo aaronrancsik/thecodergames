@@ -1,0 +1,3 @@
+[submodule "client/public/blockly"]
+	path = client/public/blockly
+	url = https://github.com/google/blockly.git
