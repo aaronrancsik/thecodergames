@@ -19,7 +19,6 @@ class User{
         this.name =name;
         this.token ="";
         this.scoreLevel =[0,0,0,0,0];
-
     }
     
 }
@@ -88,32 +87,33 @@ export class App {
             } else {
                 next(new Error('Authentication error'));
             }    
-          })
-          this.io.on('connect', (socket: any) => {
+        });
+
+        this.io.on('connect', (socket: any) => {
             console.log('Connected client on port %s.', this.port);
 
 
             socket.on('codeUpdate', (code:any) => {
                 //a, controll, viewer
                 
-                let a:any = jwt.decode(socket.handshake.query.token);
+                let decodedToken:any = jwt.decode(socket.handshake.query.token);
 
-                if(a.user!="a"){
-                    let aktUser:User = this.users.find((x)=>{return x.name==a.user});
+                if(decodedToken.user!="a"){
+                    let aktUser:User = this.users.find((x)=>{return x.name==decodedToken.user});
                     //console.log(aktUser);
                     if(aktUser!=undefined){
                         aktUser.code[this.aktMap] = code.code;
                     }else{
                         console.log("reconect after crash");
-                        this.users.push(new User(a.user));
-                        let token = jwt.sign({"user": a.user},sec);
+                        this.users.push(new User(decodedToken.user));
+                        let token = jwt.sign({"user": decodedToken.user},sec);
                         socket.emit("regist",{"suc":true, "token": token});
                         this.io.emit("updateUserList",{"users":this.users});
-                        aktUser = this.users.find((x)=>{return x.name==a.user});
+                        aktUser = this.users.find((x)=>{return x.name==decodedToken.user});
                         aktUser.code[this.aktMap] = code.code;
                     }
                 
-                    this.io.emit("toViwer",{code:code, name:a.user});
+                    this.io.emit("toViwer",{code:code, name:decodedToken.user});
                 }
                 
                 
@@ -128,12 +128,7 @@ export class App {
     
                     this.io.emit("leaderUpdate",{users:this.users})
                 }
-                
-               
                 //console.log(aktUser);
-                
-
-                
             });
 
             socket.on("forceUpdate",(m)=>{
