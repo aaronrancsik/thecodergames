@@ -1,6 +1,0 @@
-[submodule "client/public/blockly"]
-	path = client/public/blockly
-	url = https://github.com/google/blockly.git
-[submodule "client/public/JS-Interpreter"]
-	path = client/public/JS-Interpreter
-	url = https://github.com/NeilFraser/JS-Interpreter.git
