@@ -2,10 +2,10 @@
     "compilerOptions": {
       "target": "ES2017",
       "module": "CommonJs",
-      "outDir": "./client/build/game"
+      "outDir": "./client/build/"
     },
     "include": [
-        "./client/src/game/**/*.ts"
+        "./client/src/page/**/*.ts"
     ],
     "exclude": [
         "node_modules",
