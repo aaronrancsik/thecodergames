@@ -14,8 +14,11 @@
     "@types/jsonwebtoken": "^7.2.8",
     "@types/node": "^10.9.4",
     "@types/socket.io": "^1.4.38",
+    "expose-loader": "^0.7.5",
     "nodemon": "^1.18.9",
-    "typescript": "^3.2.2"
+    "ts-loader": "^5.3.2",
+    "typescript": "^3.2.2",
+    "webpack-cli": "^3.1.2"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
