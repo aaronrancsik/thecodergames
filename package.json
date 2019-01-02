@@ -14,7 +14,8 @@
     "@types/jsonwebtoken": "^7.2.8",
     "@types/node": "^10.9.4",
     "@types/socket.io": "^1.4.38",
-    "nodemon": "^1.18.9"
+    "nodemon": "^1.18.9",
+    "typescript": "^3.2.2"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
