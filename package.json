@@ -2,9 +2,9 @@
   "name": "dashcraft_rn_game",
   "version": "1.0.0",
   "description": "A game for resarchers night by University Obuda NJSZK",
-  "main": " ./out/index.js",
+  "main": " ./server/build/index.js",
   "scripts": {
-    "start": "nodemon ./out/index.js",
+    "start": "nodemon ./server/out/index.js",
     "prod": "npm run build && npm run start"
   },
   "author": "Aaron Rancsik",
