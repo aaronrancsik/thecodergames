@@ -190,6 +190,7 @@ class LevelScene extends Phaser.Scene {
     }
     create() {
         
+        
         this.tileMap = this.make.tilemap({ key: 'level01' });
         this.tileSet = this.tileMap.addTilesetImage('assets');
         this.createLevel();
