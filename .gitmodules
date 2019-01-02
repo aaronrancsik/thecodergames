@@ -1,0 +1,6 @@
+[submodule "client/build/JS-Interpreter"]
+	path = client/build/JS-Interpreter
+	url = https://github.com/NeilFraser/JS-Interpreter.git
+[submodule "client/build/blockly"]
+	path = client/build/blockly
+	url = https://github.com/google/blockly.git
