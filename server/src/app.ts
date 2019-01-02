@@ -47,7 +47,7 @@ export class App {
 
     private createApp(): void {
         this.app = express();
-        this.app.use(express.static('../client/public'));     
+        this.app.use(express.static('./client/build'));     
     }
 
     private createServer(): void {
