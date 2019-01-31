@@ -29,7 +29,7 @@ export class App {
 
     private users:Array<User>;
 
-    public static readonly PORT:number = 80;
+    public static readonly PORT:number = 4455 || Number(process.env.PORT);
     private app: express.Application;
     private server: Server;
     private io: SocketIO.Server;
