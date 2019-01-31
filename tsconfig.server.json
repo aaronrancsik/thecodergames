@@ -7,6 +7,7 @@
         "moduleResolution": "node",
         "pretty": true,
         "sourceMap": true,
+        "watch": true
         
     },
     "include": [
