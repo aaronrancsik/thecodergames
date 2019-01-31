@@ -5,7 +5,7 @@
   "main": " ./server/build/index.js",
   "scripts": {
     "start": "nodemon ./server/build/index.js",
-    "dev":    "tsc --p tsconfig.server.json && tsc --p tsconfig.client.json && webpack --mode development && nodemon ./server/build/index.js",
+    "dev":    "nodemon ./server/build/index.js",
     "build":  "tsc --p tsconfig.server.json && tsc --p tsconfig.client.json && webpack --mode production"
   },
   "author": "Aaron Rancsik",
