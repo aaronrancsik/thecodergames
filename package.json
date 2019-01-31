@@ -1,14 +1,14 @@
 {
   "engines": {
     "node": "8.10.0",
-    "npm": "3.5.2"
+    "npm": "3.10.8"
   },
   "name": "dashcraft_rn_game",
   "version": "1.0.0",
   "description": "A game for resarchers night by University Obuda NJSZK",
   "main": " ./server/build/index.js",
   "scripts": {
-    "start": "node ./server/build/index.js",
+    "start": "tsc --p tsconfig.server.json && tsc --p tsconfig.client.json && webpack --mode production && node ./server/build/index.js",
     "dev":    "nodemon ./server/build/index.js",
     "build":  "tsc --p tsconfig.server.json && tsc --p tsconfig.client.json && webpack --mode production"
   },
