@@ -1,4 +1,8 @@
 {
+  "engines": {
+    "node": "8.10.X",
+    "npm": "3.5.X"
+  },
   "name": "dashcraft_rn_game",
   "version": "1.0.0",
   "description": "A game for resarchers night by University Obuda NJSZK",
