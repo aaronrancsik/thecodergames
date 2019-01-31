@@ -1,4 +1,8 @@
 {
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/aaronrancsik/researchers-night-prog-game.git"
+  },
   "engines": {
     "node": "8.10.0",
     "npm": "3.10.8"
