@@ -6,9 +6,7 @@
         "outDir":"./server/build",
         "moduleResolution": "node",
         "pretty": true,
-        "sourceMap": true,
-        "watch": true
-        
+        "sourceMap": true
     },
     "include": [
         "./server/src/**/*.ts"
