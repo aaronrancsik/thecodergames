@@ -106,15 +106,15 @@ IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
 )
 
 :: 4. Build
-echo MyBuildProcessStarted..
-pushd "%DEPLOYMENT_TARGET%"
-call :ExecuteCmd !NPM_CMD! install typescript -g
-IF !ERRORLEVEL! NEQ 0 goto error
-call :ExecuteCmd !NPM_CMD! install webpack -g
-IF !ERRORLEVEL! NEQ 0 goto error
-call :ExecuteCmd !NPM_CMD! run build
-IF !ERRORLEVEL! NEQ 0 goto error
-popd
+:: echo MyBuildProcessStarted..
+:: pushd "%DEPLOYMENT_TARGET%"
+:: call :ExecuteCmd !NPM_CMD! install typescript -g
+:: IF !ERRORLEVEL! NEQ 0 goto error
+:: call :ExecuteCmd !NPM_CMD! install webpack -g
+:: IF !ERRORLEVEL! NEQ 0 goto error
+:: call :ExecuteCmd !NPM_CMD! run build
+::  IF !ERRORLEVEL! NEQ 0 goto error
+:: popd
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
