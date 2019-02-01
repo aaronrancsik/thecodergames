@@ -3,10 +3,7 @@
         "target": "es6",
         "module": "commonjs",
         "noImplicitAny": false,
-        "outDir":"./server/build",
-        "moduleResolution": "node",
-        "pretty": true,
-        "sourceMap": true
+        "outDir":"./server/build"
     },
     "include": [
         "./server/src/**/*.ts"
