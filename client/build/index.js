@@ -1,1 +1,1 @@
-alert("Hello Universe, I`am just a code from Earth :)");
+alert("Hello Universe, I`m just a code from Earth :)");
