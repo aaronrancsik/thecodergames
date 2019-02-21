@@ -12,6 +12,10 @@
   "description": "A game for resarchers night by University Obuda NJSZK",
   "main": " ./server/build/index.js",
   "scripts": {
+    "devN": "nuxt",
+    "buildN": "nuxt build",
+    "startN": "nuxt start",
+    "generateN": "nuxt generate",
     "start": "node ./server/build/index.js",
     "dev": "nodemon ./server/build/index.js",
     "build": "tsc --p tsconfig.server.json && tsc --p tsconfig.client.json && webpack --mode production",
@@ -20,8 +24,16 @@
   "author": "Aaron Rancsik",
   "license": "ISC",
   "devDependencies": {
+    "@vue/test-utils": "^1.0.0-beta.27",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
+    "jest": "^23.6.0",
+    "vue-jest": "^3.0.2"
   },
   "dependencies": {
+    "cross-env": "^5.2.0",
+    "nuxt": "^2.4.0",
+    "@nuxtjs/axios": "^5.3.6",
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.3.0",
