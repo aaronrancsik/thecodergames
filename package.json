@@ -30,12 +30,18 @@
     "vue-jest": "^3.0.2"
   },
   "dependencies": {
-    "cross-env": "^5.2.0",
-    "nuxt": "^2.4.0",
     "@nuxtjs/axios": "^5.3.6",
+    "@types/express": "^4.16.0",
+    "@types/jsonwebtoken": "^7.2.8",
+    "@types/node": "^10.9.4",
+    "@types/socket.io": "^1.4.38",
     "body-parser": "^1.18.3",
+    "cross-env": "^5.2.0",
+    "expose-loader": "^0.7.5",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.3.0",
+    "nodemon": "^1.18.9",
+    "nuxt": "^2.4.0",
     "nuxt-typescript": "^0.11.0",
     "phaser": "^3.15.1",
     "redis": "^2.8.0",
@@ -43,13 +49,6 @@
     "ts-loader": "^5.3.3",
     "typescript": "^3.3.1",
     "webpack": "^4.29.0",
-    "webpack-cli": "^3.2.1",
-    "@types/express": "^4.16.0",
-    "@types/jsonwebtoken": "^7.2.8",
-    "@types/node": "^10.9.4",
-    "@types/socket.io": "^1.4.38",
-    "expose-loader": "^0.7.5",
-    "nodemon": "^1.18.9",
-    "ts-loader": "^5.3.3"
+    "webpack-cli": "^3.2.1"
   }
 }
