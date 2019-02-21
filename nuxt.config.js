@@ -4,6 +4,9 @@ const pkg = require('./package')
 module.exports = {
   srcDir: 'client/',
   buildDir: './client/dist',
+  generate: {
+    dir: './client/stat-dist'
+  },
   
   mode: 'universal',
   
