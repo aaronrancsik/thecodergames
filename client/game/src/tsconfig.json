@@ -12,7 +12,7 @@
         "noUnusedLocals": true,
         "experimentalDecorators": true,
 
-        
+
         "target": "ES2017",
         "module": "CommonJs"
     },
