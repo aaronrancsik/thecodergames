@@ -48,7 +48,7 @@ export class App {
     private createApp(): void {
         //console.log("PLS CALL THIS LOG"+__dirname+'/../../client/build')
         this.app = express();
-        this.app.use(express.static(__dirname+'/../../client/build'));
+        //this.app.use(express.static(__dirname+'/../../client/build'));
         
     }
 
