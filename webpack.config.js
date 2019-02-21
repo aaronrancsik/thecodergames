@@ -3,9 +3,9 @@ var pathToPhaser = path.join(__dirname, '/node_modules/phaser/');
 var phaser = path.join(pathToPhaser, 'dist/phaser.js');
 
 module.exports = {
-    entry: './client/src/game/game.ts',
+    entry: './client/game/src/game.ts',
     output: {
-      path: __dirname+'/client/build/game',
+      path: __dirname+'/client/game/build',
       filename: 'game_boudle.js',
     },
     module: {
