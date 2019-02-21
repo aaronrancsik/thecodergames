@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "jsx": "preserve",
+        "moduleResolution": "node",
+        "baseUrl": ".",
+        "paths": {
+          "~/*": ["./*"],
+          "@/*": ["./*"]
+        },
+        "strict": true,
+        "sourceMap": true,
+        "noUnusedLocals": true,
+        "experimentalDecorators": true,
+
+        
+        "target": "ES2017",
+        "module": "CommonJs"
+    },
+    "files": ["game.ts","phaser.d.ts"]
+}
