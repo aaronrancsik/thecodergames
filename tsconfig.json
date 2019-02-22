@@ -6,11 +6,20 @@
           "@/*": ["./*"]
         },
         "esModuleInterop": true,
+        
         "moduleResolution": "node",
         "sourceMap": true,
         "experimentalDecorators": true,
         "target": "ES2017",
-        "module": "CommonJs"
+        "module": "CommonJs",
+
+        "noImplicitAny": false,
+        "noImplicitThis": false,
+        "strictNullChecks": true,
+        "removeComments": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "allowSyntheticDefaultImports": true,
+        "allowJs": true,
     },
     "files": ["./client/game/game.ts","./client/game/phaser.d.ts"]
 }
