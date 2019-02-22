@@ -28,5 +28,5 @@
     
       "noUnusedLocals": false,
       "noUnusedParameters": false
-  }
+  },"files": [ "./client/*" ]
 }
