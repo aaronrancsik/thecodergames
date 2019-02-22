@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+          "~/*": ["./*"],
+          "@/*": ["./*"]
+        },
+        "esModuleInterop": true,
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "experimentalDecorators": true,
+        "target": "ES2017",
+        "module": "CommonJs"
+    },
+    "files": ["./client/game/game.ts","./client/game/phaser.d.ts"]
+}
