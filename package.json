@@ -12,10 +12,10 @@
   "description": "A game for resarchers night by University Obuda NJSZK",
   "main": " ./server/build/index.js",
   "scripts": {
-    "devN": "nuxt dev",
-    "buildN": "nuxt build",
-    "startN": "nuxt start",
-    "generateN": "nuxt generate",
+    "devN": "nuxt-ts dev",
+    "buildN": "nuxt-ts build",
+    "startN": "nuxt-ts start",
+    "generateN": "nuxt-ts generate",
     "start": "node ./server/build/index.js",
     "dev": "nodemon ./server/build/index.js",
     "build": "tsc --p tsconfig.server.json && webpack --mode production"
