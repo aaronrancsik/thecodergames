@@ -1,0 +1,32 @@
+{
+  "extends": "@nuxt/typescript",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "types": [
+      "@types/node",
+      "@nuxt/vue-app"
+    ],
+    "noImplicitAny": false,
+      "experimentalDecorators": true,
+      "paths": {
+        "~/*": ["./client/*"],
+        "@/*": ["./client/*"]
+      },
+      "plugins": [{
+        "name": "ts-vue-plugin"
+      }],
+      "target": "es5",
+      "lib": ["dom", "es2015","scripthost"],
+      "module": "esnext",
+      "moduleResolution": "node",
+      "noImplicitThis": false,
+      "strictNullChecks": true,
+      "removeComments": true,
+      "suppressImplicitAnyIndexErrors": true,
+      "allowSyntheticDefaultImports": true,
+      "allowJs": true,
+    
+      "noUnusedLocals": false,
+      "noUnusedParameters": false
+  }
+}
