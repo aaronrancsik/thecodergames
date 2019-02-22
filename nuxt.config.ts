@@ -6,7 +6,7 @@ export default {
   generate: {
     dir: './client/stat-dist'
   },
-  plugins: ['~/plugins/hello'],
+  plugins: [],
   mode: 'universal',
   head: {
     title: pkg.name,
