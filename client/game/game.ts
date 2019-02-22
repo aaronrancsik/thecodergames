@@ -17,7 +17,7 @@ function launch(){
     height: 1040,
     type: Phaser.AUTO,
     parent: "gameid",
-    scene: LevelScene,
+    scene: LevelScene
   });
 }
 
