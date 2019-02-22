@@ -18,7 +18,13 @@ class Crate extends Phaser.GameObjects.Sprite{
     }
 
 
-    private state:string = "standing";
+    private _state: string = "standing";
+    public get state(): string {
+      return this._state;
+    }
+    public set state(value: string) {
+      this._state = value;
+    }
 
 
     private getDirection(newX: number, newY: number): PlayerDirection | null {
