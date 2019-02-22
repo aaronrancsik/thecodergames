@@ -19,7 +19,7 @@
         "removeComments": true,
         "suppressImplicitAnyIndexErrors": true,
         "allowSyntheticDefaultImports": true,
-        "allowJs": true,
+        "allowJs": true
     },
     "files": ["./client/game/game.ts","./client/game/phaser.d.ts"]
 }
