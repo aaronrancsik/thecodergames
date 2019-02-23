@@ -18,7 +18,7 @@
     "generateN": "nuxt-ts generate",
     "start": "node ./server/build/index.js",
     "dev": "nodemon ./server/build/index.js",
-    "build": "tsc --p tsconfig.server.json && webpack --mode production"
+    "build": "tsc --p tsconfig.server.json"
   },
   "author": "Aaron Rancsik",
   "license": "ISC",
