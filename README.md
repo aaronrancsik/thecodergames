@@ -4,19 +4,17 @@ credit: Obuda University Information Technology College For Advanced Students
 
 For install dependencies:
 ```
-cd ./server
-npm install
+yarn
 ```
 
-Start server:
+Start client for developement:
 ```
-cd ./server
-sudo npm start
+yarn devN
 ```
 
-URLs:
+Start server for developement:
 ```
-localhost/index.html        Editor for kids
-localhost/match_view.html   Fullscreen map and leaderboard for projector
-localhost/controll.html     Controll Panel for teachers
+yarn dev
 ```
+
+
