@@ -28,6 +28,5 @@
     
       "noUnusedLocals": false,
       "noUnusedParameters": false
-  },
-  "files": [ "./client/*" ]
+  },"exclude": ["./server"]
 }
