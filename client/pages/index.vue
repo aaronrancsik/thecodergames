@@ -21,6 +21,7 @@ export default class Home extends Vue {}
 <style>
 #wrapper{
   height: 100%;
+  width: 50%;
 }
 </style>
 
