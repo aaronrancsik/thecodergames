@@ -4,8 +4,8 @@
     "url": "git://github.com/aaronrancsik/researchers-night-prog-game.git"
   },
   "engines": {
-    "node": ">10.14.1",
-    "npm": ">6.4.1"
+    "node": ">=10.14.1",
+    "npm": ">=6.4.1"
   },
   "name": "dashcraft_rn_game",
   "version": "1.0.0",
