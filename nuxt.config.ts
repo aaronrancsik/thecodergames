@@ -1,9 +1,6 @@
 const pkg = require('./package');
 
 export default {
-  router: {
-    base: '/TheCoderGames/'
-  },
   srcDir: './client/',
   buildDir: './client/dist',
   generate: {
