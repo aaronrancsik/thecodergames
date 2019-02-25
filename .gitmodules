@@ -4,3 +4,6 @@
 [submodule "client/build/blockly"]
 	path = client/build/blockly
 	url = https://github.com/google/blockly.git
+[submodule "client/static/blockly"]
+	path = client/static/blockly
+	url = https://github.com/google/blockly.git
