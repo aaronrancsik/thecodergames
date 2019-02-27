@@ -13,7 +13,7 @@ export default {
   mode: 'universal',
   head: {
     script:[
-      {src:"https://raw.githubusercontent.com/google/blockly/master/blocks_compressed.js"},
+      {src:"/blockly/blockly_compressed.js"},
       {src:"/blockly/blocks_compressed.js"},
       {src:"/blockly/javascript_compressed.js"},
       {src:"/blockly/msg/js/hu.js"},
