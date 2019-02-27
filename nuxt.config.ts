@@ -24,5 +24,15 @@ export default {
   }
   ,css:[
     '~/assets/main.css'
-  ]
+  ],
+  build:{
+    extend(config, {isDev, isClient}){
+      config.module.rules.push(
+        {
+          test: /\.xml$/,
+          loader: 'url-loader'
+        }
+      )
+    }
+  }
 }
