@@ -11,7 +11,7 @@ const config: GameConfig = {
       height:1040,
       width:1040
     },
-    autoCenter: Phaser.Scale.CENTER_VERTICALLY
+    autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
 
   },
   type: Phaser.AUTO,
