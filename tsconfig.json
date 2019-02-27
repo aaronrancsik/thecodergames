@@ -28,5 +28,5 @@
     
       "noUnusedLocals": false,
       "noUnusedParameters": false
-  },"exclude": ["./server", "./client/static"]
+  },"exclude": ["./server", "./client/static","./client/stat-dist"]
 }
