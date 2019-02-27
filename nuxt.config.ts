@@ -9,6 +9,12 @@ export default {
   plugins: [],
   mode: 'universal',
   head: {
+    script:[
+      {src:"/blockly/blockly_compressed.js"},
+      {src:"/blockly/blocks_compressed.js"},
+      {src:"/blockly/javascript_compressed.js"},
+      {src:"/blockly/msg/js/hu.js"},
+    ],
     title: pkg.name,
     meta: [
       { charset: 'utf-8' },
