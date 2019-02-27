@@ -37,6 +37,7 @@
     "nuxt-ts": "latest",
     "phaser": "^3.16.2",
     "socket.io": "^2.1.1",
-    "typescript": "^3.3.1"
+    "typescript": "^3.3.1",
+    "url-loader": "^1.1.2"
   }
 }
