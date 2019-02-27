@@ -1,3 +1,11 @@
+/**
+  * vue-class-component v6.3.2
+  * (c) 2015-present Evan You
+  * @license MIT
+  */
+
+/*! http://mths.be/base64 v0.1.0 by @mathias | MIT license */
+
 /*!
  * vue-no-ssr v1.1.1
  * (c) 2018-present egoist <0x142857@gmail.com>
@@ -27,12 +35,6 @@
 	(c) Sindre Sorhus
 	@license MIT
 	*/
-
-/**
-  * vue-class-component v6.3.2
-  * (c) 2015-present Evan You
-  * @license MIT
-  */
 
 /**
  * @author       Richard Davey <rich@photonstorm.com>
