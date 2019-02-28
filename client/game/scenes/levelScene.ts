@@ -184,8 +184,8 @@ class LevelScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.atlas("assets", './assets/assets.png', './assets/assets.json');
-        this.load.tilemapTiledJSON('level01', './assets/levels/level01.json');
+        this.load.atlas("assets", '/assets/assets.png', '/assets/assets.json');
+        this.load.tilemapTiledJSON('level01', '/assets/levels/level01.json');
     }
     create() {
         
