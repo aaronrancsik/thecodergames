@@ -20,8 +20,8 @@ export default {
     ],
     title: pkg.name,
     meta: [
-      { charset: 'utf-8' },
-      { hid: 'description', name: 'description', content: pkg.description }
+      { charset: 'utf-8' }
+      // { hid: 'description', name: 'description', content: pkg.description }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   }
