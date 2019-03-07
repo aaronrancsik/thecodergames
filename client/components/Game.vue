@@ -39,7 +39,13 @@ export default class Game extends Vue  {
     mounted(){
         import('../game/game').then(game =>{
             this.downloaded =true;
-            this.$nextTick(()=>game.launch());
+            
+            this.$nextTick(()=>{
+                game.launch();
+                this.gameInst =game.getGame();
+            });
+
+            
         });
     }
 }
