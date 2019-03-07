@@ -131,7 +131,7 @@ export default class BlocklyEditor extends Vue{
             block.setDeletable(false);
             var statements_iterationsin = Blockly.JavaScript.statementToCode(block, 'iterationsin');
             // TODO: Assemble JavaScript into code variable.
-            var code = 'Iteration(){\n'+statements_iterationsin+'\n};\n';
+            var code = statements_iterationsin;
             return code;
             };
             
