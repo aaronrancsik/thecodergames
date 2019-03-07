@@ -17,6 +17,8 @@ export default {
       {src:"/blockly/blocks_compressed.js"},
       {src:"/blockly/javascript_compressed.js"},
       {src:"/blockly/msg/js/hu.js"},
+
+      {src:"/JS-Interpreter/acorn_interpreter.js"}
     ],
     title: pkg.name,
     meta: [
