@@ -1,5 +1,5 @@
 import "phaser";
-import LevelScene from "./scenes/levelScene";
+import {LevelScene} from "./scenes/levelScene";
 // main game configuration
 const config: GameConfig = {
   scale:{
