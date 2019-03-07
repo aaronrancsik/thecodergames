@@ -20,6 +20,16 @@ export default class BlocklyEditor extends Vue{
     
     mounted(){
         
+        let getBlocksByType=(type)=> {
+            var blocks:any = [];
+            for (var blockID in this.workspace.blockDB_) {
+                if (this.workspace.blockDB_[blockID].type == type) {
+                    blocks.push(this.workspace.blockDB_[blockID]);
+                }
+            }
+            return(blocks);
+        }
+        
         let sendServer =()=>{
             this.code = Blockly.JavaScript.blockToCode(getBlocksByType("iterations")[0]);
 
