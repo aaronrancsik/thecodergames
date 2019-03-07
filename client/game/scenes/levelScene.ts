@@ -7,6 +7,12 @@ export type PlayerDirection = 'playerLeft' | 'playerRight' | 'playerUp' | 'playe
 
 class LevelScene extends Phaser.Scene {
 
+    public moveForward(){
+        //this.troToMovePlayer();
+        this.updatePlayer("playerRight");
+        console.log("OK FROM PHASER");
+    }
+
     private updatePlayer(direction: PlayerDirection | null) {
         if (!direction) {
             return;
