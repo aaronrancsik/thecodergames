@@ -323,5 +323,5 @@ class LevelScene extends Phaser.Scene {
 
 }
 
-export default LevelScene;
+export {LevelScene };
 
