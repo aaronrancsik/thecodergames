@@ -18,6 +18,81 @@ export default class BlocklyEditor extends Vue{
     code:string = "";
     workspace :any;
     
+    run(){
+        console.log(this.workspace);
+        let highlightBlock= (id)=>{
+            this.workspace.highlightBlock(id);
+        }
+        function StepForward(){
+            console.log("player.stepForward()");
+        }
+        function  StepBack(){
+            console.log("player.stepBack()");
+        }
+        function TurnLeft(){
+            console.log("player.rotLeft()");
+        }
+        function TurnRight(){
+            console.log("player.rotRight()");
+        }
+        var initApi = function(myInterpreter, scope){
+            let wrapper:any;
+            wrapper = function() {
+                return StepForward();
+            };
+            myInterpreter.setProperty(scope, 'StepForward',
+            myInterpreter.createNativeFunction(wrapper));
+
+            wrapper = function() {
+                return StepBack();
+            };
+            myInterpreter.setProperty(scope, 'StepBack',
+            myInterpreter.createNativeFunction(wrapper));
+
+            wrapper = function() {
+                return TurnLeft();
+            };
+            myInterpreter.setProperty(scope, 'TurnLeft',
+            myInterpreter.createNativeFunction(wrapper));
+
+            wrapper = function() {
+                return TurnRight();
+            };
+            myInterpreter.setProperty(scope, 'TurnRight',
+            myInterpreter.createNativeFunction(wrapper));
+
+            //highlightBlock
+            wrapper = function(text) {
+                return highlightBlock(text);
+            };
+            myInterpreter.setProperty(scope, 'highlightBlock',
+            myInterpreter.createNativeFunction(wrapper));
+
+        }
+        console.log(this.code);
+        var myCode = this.code;
+        //alert(myCode);
+
+        var myInterpreter = new Interpreter(myCode, initApi);
+        let maxStep = 5000;
+
+        function nextStep() {
+            if (myInterpreter.step()) {
+                if(maxStep>0){
+                    maxStep--;
+                    window.setTimeout(nextStep, 1);
+                }else{
+                    //alert("Tul sok lépés")
+                }
+            
+            }else{
+            //socket.emit("updateScore",{"map": aktamap,"user":user,"score": document.getElementById("score").innerText});
+            //socket.emit("")
+            }
+        }
+        nextStep();
+    }
+    
     mounted(){
         
         let getBlocksByType=(type)=> {
