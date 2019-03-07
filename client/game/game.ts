@@ -32,7 +32,9 @@ export class Game extends Phaser.Game {
 let gamee:Game;
 
 function launch(){
-  new Game(config);
+  gamee = new Game(config());
+    
+}
 }
 
 export default launch;
