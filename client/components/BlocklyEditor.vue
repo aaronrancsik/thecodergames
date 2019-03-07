@@ -21,7 +21,6 @@ export default class BlocklyEditor extends Vue{
     
     
     run(){
-        console.log(this.workspace);
         let highlightBlock= (id)=>{
             this.workspace.highlightBlock(id);
         }
