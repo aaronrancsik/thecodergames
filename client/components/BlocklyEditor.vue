@@ -1,5 +1,6 @@
 <template>
 <div class="blocklyDiv">
+    <button @click="run"> RUN </button>
     <div ref="blocklyDiv" class="blocklyDiv"></div>
 </div>
    
@@ -14,9 +15,10 @@ declare const Interpreter:any;
 
 @Component
 export default class BlocklyEditor extends Vue{
-    
+
     code:string = "";
     workspace :any;
+    
     
     run(){
         console.log(this.workspace);
@@ -94,7 +96,7 @@ export default class BlocklyEditor extends Vue{
     }
     
     mounted(){
-        
+
         let getBlocksByType=(type)=> {
             var blocks:any = [];
             for (var blockID in this.workspace.blockDB_) {
@@ -279,6 +281,8 @@ export default class BlocklyEditor extends Vue{
         this.workspace.scrollbar.setContainerVisible(false);
         
     }
+
+    
 
 
 
