@@ -35,6 +35,9 @@ function launch(){
   gamee = new Game(config());
     
 }
+
+function getGame(): Game {
+  return gamee;
 }
 
 export default launch;
