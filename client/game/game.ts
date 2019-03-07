@@ -1,7 +1,9 @@
 import "phaser";
 import {LevelScene} from "./scenes/levelScene";
 // main game configuration
-const config: GameConfig = {
+let Ls = new LevelScene();
+let  config =()=>{
+  return {
   scale:{
     parent: "gameid",
     mode:Phaser.Scale.FIT,
@@ -12,11 +14,11 @@ const config: GameConfig = {
       width:1040
     },
     autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
-
   },
   type: Phaser.AUTO,
-  scene: LevelScene,
-};
+    scene: Ls
+  }
+}
 
 // game class
 export class Game extends Phaser.Game {
