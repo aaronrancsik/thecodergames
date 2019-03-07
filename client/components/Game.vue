@@ -22,7 +22,7 @@ export default class Game extends Vue  {
         import('../game/game').then(game =>{
             this.downloaded =true;
             this.$nextTick(()=>game.launch());
-        })
+        });
     }
 }
 </script>
