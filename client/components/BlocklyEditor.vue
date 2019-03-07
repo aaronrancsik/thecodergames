@@ -71,7 +71,7 @@ export default class BlocklyEditor extends Vue{
             myInterpreter.createNativeFunction(wrapper));
 
         }
-        console.log(this.code);
+        //console.log(this.code);
         var myCode = this.code;
         //alert(myCode);
 
