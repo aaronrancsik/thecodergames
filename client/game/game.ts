@@ -4,18 +4,18 @@ import {LevelScene} from "./scenes/levelScene";
 let Ls = new LevelScene();
 let  config =()=>{
   return {
-  scale:{
-    parent: "gameid",
-    mode:Phaser.Scale.FIT,
-    width:1040,
-    height:1040,
-    max:{
+    scale:{
+      parent: "gameid",
+      mode:Phaser.Scale.FIT,
+      width:1040,
       height:1040,
-      width:1040
+      max:{
+        height:1040,
+        width:1040
+      },
+      autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
     },
-    autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
-  },
-  type: Phaser.AUTO,
+    type: Phaser.AUTO,
     scene: Ls
   }
 }
@@ -27,7 +27,7 @@ export class Game extends Phaser.Game {
   }
   public  alma=()=>{
     Ls.moveForward();
-}
+  }
 }
 let gamee:Game;
 
@@ -40,6 +40,6 @@ function getGame(): Game {
   return gamee;
 }
 
-export default launch;
+//export default launch;
 
-export {launch};
+export {launch, getGame};
