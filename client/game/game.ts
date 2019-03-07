@@ -25,6 +25,9 @@ export class Game extends Phaser.Game {
   constructor(config: GameConfig) {
     super(config);
   }
+  public  alma=()=>{
+    Ls.moveForward();
+}
 }
 
 function launch(){
