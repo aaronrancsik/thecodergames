@@ -10,6 +10,8 @@ import {Component ,Vue} from 'vue-property-decorator'
 import base64 from 'base-64';
 
 declare const Blockly;
+declare const Interpreter:any;
+
 @Component
 export default class BlocklyEditor extends Vue{
     
