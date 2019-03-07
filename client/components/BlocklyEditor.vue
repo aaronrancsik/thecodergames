@@ -1,6 +1,10 @@
 <template>
+<div class="blocklyDiv">
     <div ref="blocklyDiv" class="blocklyDiv"></div>
+</div>
+   
 </template>
+
 <script lang="ts">
 import {Component ,Vue} from 'vue-property-decorator'
 import base64 from 'base-64';
@@ -177,7 +181,10 @@ export default class BlocklyEditor extends Vue{
         workspace.addChangeListener(sendServer);
         workspace.toolbox_.flyout_.autoClose = false;
         workspace.scrollbar.setContainerVisible(false);
-    }   
+    }
+
+
+
 }
 </script>
 
