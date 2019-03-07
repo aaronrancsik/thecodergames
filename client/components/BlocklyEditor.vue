@@ -15,6 +15,7 @@ declare const Interpreter:any;
 @Component
 export default class BlocklyEditor extends Vue{
     
+    code:string = "";
     workspace :any;
     
     mounted(){
