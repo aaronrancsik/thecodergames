@@ -29,6 +29,7 @@ export class Game extends Phaser.Game {
     Ls.moveForward();
 }
 }
+let gamee:Game;
 
 function launch(){
   new Game(config);
