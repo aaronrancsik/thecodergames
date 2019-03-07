@@ -24,17 +24,21 @@ export default class BlocklyEditor extends Vue{
         let highlightBlock= (id)=>{
             this.workspace.highlightBlock(id);
         }
-        function StepForward(){
-            console.log("player.stepForward()");
+        let StepForward=()=>{
+            this.$nuxt.$emit('STEP_FORWARD',0);
+            //console.log("player.stepForward()");
         }
-        function  StepBack(){
-            console.log("player.stepBack()");
+        let StepBack=()=>{
+            this.$nuxt.$emit('STEP_BACK',0);
+            //console.log("player.stepBack()");
         }
-        function TurnLeft(){
-            console.log("player.rotLeft()");
+        let TurnLeft=()=>{
+            this.$nuxt.$emit('TURN_LEFT',0);
+            //console.log("player.rotLeft()");
         }
-        function TurnRight(){
-            console.log("player.rotRight()");
+        let TurnRight=()=>{
+            this.$nuxt.$emit('TURN_RIGHT',0);
+            //console.log("player.rotRight()");
         }
         var initApi = function(myInterpreter, scope){
             let wrapper:any;
