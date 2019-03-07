@@ -15,6 +15,7 @@ declare const Interpreter:any;
 @Component
 export default class BlocklyEditor extends Vue{
     
+    workspace :any;
     
     mounted(){
         
@@ -167,8 +168,7 @@ export default class BlocklyEditor extends Vue{
         addCustomBlocks();
 
         let blocklyDiv = this.$refs.blocklyDiv;
-        let workspace = Blockly.inject(blocklyDiv, options);
-
+        this.workspace = Blockly.inject(blocklyDiv, options);
         //Blockly.svgResize(workspace);
         
         let xmlInitBlocks =  new DOMParser().parseFromString(
@@ -177,12 +177,13 @@ export default class BlocklyEditor extends Vue{
             )
             ,"text/xml"
         ).firstChild;
-        Blockly.Xml.domToWorkspace(xmlInitBlocks, workspace);
+        Blockly.Xml.domToWorkspace(xmlInitBlocks, this.workspace);
  
         //workspace.registerButtonCallback("SEND_SERVER", sendServer);
-        workspace.addChangeListener(sendServer);
-        workspace.toolbox_.flyout_.autoClose = false;
-        workspace.scrollbar.setContainerVisible(false);
+        this.workspace.addChangeListener(sendServer);
+        this.workspace.toolbox_.flyout_.autoClose = false;
+        this.workspace.scrollbar.setContainerVisible(false);
+        
     }
 
 
