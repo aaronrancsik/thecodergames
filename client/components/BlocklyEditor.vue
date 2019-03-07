@@ -253,8 +253,13 @@ export default class BlocklyEditor extends Vue{
             }
         }
         
+        
         customColor();
         addCustomBlocks();
+
+        Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
+        Blockly.JavaScript.addReservedWords('highlightBlock');
+
 
         let blocklyDiv = this.$refs.blocklyDiv;
         this.workspace = Blockly.inject(blocklyDiv, options);
