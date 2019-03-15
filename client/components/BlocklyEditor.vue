@@ -1,10 +1,30 @@
 <template>
-<div class="blocklyDiv">
-    <button @click="run"> RUN </button>
+<div class="base">
+    <div class="controlls">
+        <button @click="run"> RUN </button>
+        <button> STOP </button>
+    </div>
     <div ref="blocklyDiv" class="blocklyDiv"></div>
 </div>
    
 </template>
+
+
+<style scoped>
+.blocklyDiv{
+    height: 100%;
+}
+.base{
+    height: 100%;
+    display: grid;
+    grid-template-rows: 40px auto; 
+}
+.controlls{
+    display: grid;
+    height: 100%;
+    grid-template-columns: auto auto;
+}
+</style>
 
 <script lang="ts">
 import {Component ,Vue} from 'vue-property-decorator'
