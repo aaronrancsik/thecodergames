@@ -105,7 +105,7 @@ export default class BlocklyEditor extends Vue{
             if (myInterpreter.step()) {
                 if(maxStep>0){
                     maxStep--;
-                    window.setTimeout(nextStep, 1);
+                    window.setTimeout(nextStep, 10);
                 }else{
                     //alert("Tul sok lépés")
                 }
