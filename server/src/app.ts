@@ -59,7 +59,7 @@ export class App {
         });
 
         this.app.get('/', (req, res) => {
-            return res.send('Received a GET HTTP method ok 2');
+            return res.send('Received a GET HTTP method ok 3');
         });
 
         this.io.use(function(socket, next){
