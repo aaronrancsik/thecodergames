@@ -7,21 +7,8 @@ import * as jwt from 'jsonwebtoken';
 
 let sec ="My_super_Secret123";
 
-class User{
-    public name:string;
-    public token:string;
-    public scoreLevel:Array<number>;
-    public code:Array<string>;
-
-    constructor(name:string){
-        this.code = [];
-        this.name =name;
-        this.token ="";
-        this.scoreLevel =[0,0,0,0,0];
-    }
+import {User} from './User';
     
-}
-
 export class App {
     
     private aktMap:number;
