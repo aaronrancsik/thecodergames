@@ -44,6 +44,7 @@ export default class BlocklyEditor extends Vue{
     workspace :any;
     
     test(){
+        alert('ok');
         this['$axios'].get('/').then(res=>{
             alert(res.data);
         });
