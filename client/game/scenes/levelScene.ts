@@ -90,11 +90,7 @@ class LevelScene extends Phaser.Scene {
         return crateAtNewLocation[0];
     }
 
-    private getNextTile(
-        start: Phaser.Tilemaps.Tile,
-        direction: PlayerDirection,
-        layer: Phaser.Tilemaps.DynamicTilemapLayer | Phaser.Tilemaps.StaticTilemapLayer,
-    ): Phaser.Tilemaps.Tile {
+    private getNextTile(start: Phaser.Tilemaps.Tile, direction: PlayerDirection, layer: Phaser.Tilemaps.DynamicTilemapLayer | Phaser.Tilemaps.StaticTilemapLayer,): Phaser.Tilemaps.Tile {
         const { x, y } = start;
         switch (direction) {
             case 'playerDown':
@@ -126,8 +122,6 @@ class LevelScene extends Phaser.Scene {
         }
         this.player.moveTo(ol.x, ol.y);
     }
-
-
 
     private leftKeys!: Phaser.Input.Keyboard.Key[];
     private rightKeys!: Phaser.Input.Keyboard.Key[];
@@ -187,7 +181,6 @@ class LevelScene extends Phaser.Scene {
     }
 
     //Layers
-
     private floorLayer!: Phaser.Tilemaps.DynamicTilemapLayer;
     private wallLayer!: Phaser.Tilemaps.StaticTilemapLayer;
     private spawnLayer!: Phaser.Tilemaps.StaticTilemapLayer;
@@ -273,7 +266,6 @@ class LevelScene extends Phaser.Scene {
             return test(tile);
         }, this, 0, 0, this.tileMap.width, this.tileMap.height);
     }
-
 
     private createGridLines() {
         const lineLength = 6;
