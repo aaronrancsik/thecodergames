@@ -4,7 +4,6 @@ import * as socketIo from 'socket.io';
 
 
 import * as jwt from 'jsonwebtoken';
-import { constants } from 'os';
 
 let sec ="My_super_Secret123";
 
