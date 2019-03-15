@@ -312,9 +312,3 @@ export default class BlocklyEditor extends Vue{
 }
 </script>
 
-<style>
-.blocklyDiv{
-    height: 100%;
-
-}
-</style>
