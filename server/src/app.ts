@@ -38,12 +38,12 @@ export class App {
         
     }
 
-    private createServer(): void {
-        this.server = createServer(this.app);
-    }
-
     private config(): void {
         this.port = process.env.PORT || App.PORT;
+    }
+
+    private createServer(): void {
+        this.server = createServer(this.app);
     }
 
     private sockets(): void {
