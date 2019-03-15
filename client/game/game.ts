@@ -25,21 +25,32 @@ export class Game extends Phaser.Game {
   constructor(config: GameConfig) {
     super(config);
   }
-  public  alma=()=>{
+  public moveForward=()=>{
     Ls.moveForward();
+  }
+  public moveBackward=()=>{
+    Ls.moveBackward();
+  }
+  public turnLeft=()=>{
+    Ls.turnLeft();
+  }
+  public turnRight=()=>{
+    Ls.turnRight();
   }
 }
 let gamee:Game;
 
 function launch(){
   gamee = new Game(config());
-    
 }
 
 function getGame(): Game {
   return gamee;
 }
+function getLs(){
+  return this.Ls;
+}
 
 //export default launch;
 
-export {launch, getGame};
+export {launch, getGame, getLs};
