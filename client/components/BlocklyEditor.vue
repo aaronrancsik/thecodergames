@@ -131,8 +131,8 @@ export default class BlocklyEditor extends Vue{
         }
         
         let sendServer =()=>{
-            this.code = Blockly.JavaScript.blockToCode(getBlocksByType("iterations")[0]);
-
+            //this.code = Blockly.JavaScript.blockToCode(getBlocksByType("iterations")[0]);
+            this.code = Blockly.JavaScript.workspaceToCode(this.workspace);
             let code = Blockly.JavaScript.workspaceToCode(this.workspace);
             let xml = Blockly.Xml.workspaceToDom(this.workspace);
             let xml_text = Blockly.Xml.domToPrettyText(xml);
