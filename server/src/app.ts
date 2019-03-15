@@ -8,7 +8,7 @@ import * as jwt from 'jsonwebtoken';
 let sec ="My_super_Secret123";
 
 import {User} from './User';
-    
+
 export class App {
     
     private aktMap:number;
@@ -56,6 +56,10 @@ export class App {
     private listen(): void {
         this.server.listen(this.port, () => {
             console.log('Running server on port %s', this.port);
+        });
+
+        this.app.get('/', (req, res) => {
+            return res.send('Received a GET HTTP method');
         });
 
         this.io.use(function(socket, next){
