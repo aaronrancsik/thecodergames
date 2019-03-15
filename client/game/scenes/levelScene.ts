@@ -201,21 +201,23 @@ class LevelScene extends Phaser.Scene {
         this.tileSet = this.tileMap.addTilesetImage('assets');
         this.createLevel();
         this.createPlayer();
+        this.cameras.main.startFollow(this.player,false,0.5,0.5,0,0);
+        this.cameras.main.setBounds(0,0,this.tileMap.widthInPixels,this.tileMap.heightInPixels);
+        //this.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
         this.createGridLines();
         this.createInputHandler();
     }
     update() {
-        
         if(this.player.state!=='moving'){
             this.updatePlayer(this.getPlayerDirection());
         }
-        
     }
 
     private createLevel() {
         this.createLayers();
         this.createCrates();
     }
+
     private createLayers() {
         const x = 0;
         const y = 0;
