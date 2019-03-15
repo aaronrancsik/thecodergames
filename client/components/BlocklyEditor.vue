@@ -96,7 +96,7 @@ export default class BlocklyEditor extends Vue{
         }
         //console.log(this.code);
         var myCode = this.code;
-        //alert(myCode);
+        alert(myCode);
 
         var myInterpreter = new Interpreter(myCode, initApi);
         let maxStep = 5000;
