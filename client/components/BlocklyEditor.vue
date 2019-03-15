@@ -248,7 +248,7 @@ export default class BlocklyEditor extends Vue{
         }
 
         let customColor=()=>{
-            Blockly.HSV_SATURATION = 0.7;
+            Blockly.HSV_SATURATION = 0.8;
             Blockly.HSV_VALUE = 0.9;
             Blockly.BlockSvg.START_HAT = true;
         }
