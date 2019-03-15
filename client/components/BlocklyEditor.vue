@@ -2,7 +2,7 @@
 <div class="base">
     <div class="controlls">
         <button @click="run"> RUN </button>
-        <button> STOP </button>
+        <button @click="test"> STOP </button>
     </div>
     <div ref="blocklyDiv" class="blocklyDiv"></div>
 </div>
@@ -27,8 +27,12 @@
 </style>
 
 <script lang="ts">
-import {Component ,Vue} from 'vue-property-decorator'
+import Vue from 'vue'
+import Component from 'vue-class-component'
 import base64 from 'base-64';
+
+
+//import axios from 'axios';
 
 declare const Blockly;
 declare const Interpreter:any;
@@ -38,6 +42,12 @@ export default class BlocklyEditor extends Vue{
 
     code:string = "";
     workspace :any;
+    
+    test(){
+        this['$axios'].get('/').then(res=>{
+            alert(res.data);
+        });
+    }
     
     
     run(){
@@ -119,6 +129,7 @@ export default class BlocklyEditor extends Vue{
     }
     
     mounted(){
+        
 
         let getBlocksByType=(type)=> {
             var blocks:any = [];
