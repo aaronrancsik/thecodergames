@@ -4,6 +4,12 @@
   * @license MIT
   */
 
+/**
+  * vue-class-component v7.0.1
+  * (c) 2015-present Evan You
+  * @license MIT
+  */
+
 /*! http://mths.be/base64 v0.1.0 by @mathias | MIT license */
 
 /*!
@@ -13,7 +19,7 @@
  */
 
 /*!
- * Vue.js v2.6.7
+ * Vue.js v2.6.9
  * (c) 2014-2019 Evan You
  * Released under the MIT License.
  */
@@ -35,6 +41,13 @@
 	(c) Sindre Sorhus
 	@license MIT
 	*/
+
+/*!
+ * Determine if an object is a Buffer
+ *
+ * @author   Feross Aboukhadijeh <https://feross.org>
+ * @license  MIT
+ */
 
 /**
  * @author       Richard Davey <rich@photonstorm.com>
