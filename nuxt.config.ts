@@ -1,6 +1,20 @@
 const pkg = require('./package');
 
-export default {
+export default{
+  modules: [                                                                                                                                                           
+    ['@nuxtjs/axios', {                                                                                                                                              
+        baseURL: 'https://proggame.azurewebsites.net/',                                                                                                                            
+        browserBaseURL: 'https://proggame.azurewebsites.net/'                                                                                                                      
+                                                                                                                                                                    
+    }]                                                                                                                                                               
+  ],                                                                                                                                                                   
+                                                                                                                                                                     
+  axios: {
+    // proxyHeaders: false
+  },  
+
+
+
   server:{
     host: '0.0.0.0'
   },
@@ -33,6 +47,19 @@ export default {
   ],
   build:{
     extend(config, {isDev, isClient}){
+
+      // if(isClient){
+      //   if(isDev){
+      //     config.resolve.alias['api']='https://proggame.azurewebsites.net';
+      //     console.log(config.resolve.alias);
+      //   }else{
+      //     config.resolve.alias['api']='http://localhost:4455';
+      //     console.log(config.resolve.alias);
+      //   }
+      // }
+      //config.modules.push('@nuxtjs/axios');
+      console.log(config.module);
+
       config.module.rules.push(
         {
           test: /\.xml$/,
@@ -42,3 +69,4 @@ export default {
     }
   }
 }
+
