@@ -58,6 +58,12 @@ export class App {
             console.log('Running server on port %s', this.port);
         });
 
+        this.app.use(function(req, res, next) {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+            next();
+        });
+
         this.app.get('/', (req, res) => {
             return res.send('Received a GET HTTP method ok 6s');
         });
