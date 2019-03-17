@@ -4,7 +4,9 @@ import * as socketIo from 'socket.io';
 import * as bodyParser from "body-parser";
 import { Routes } from "./routes/api-router";
 import * as mongoose from "mongoose";
+import * as dotenv from 'dotenv';
 
+dotenv.config();
 export class App {
     public static readonly PORT:number = 4455 || Number(process.env.PORT);
     private app: express.Application;
@@ -20,6 +22,7 @@ export class App {
         this.createServer();
         this.AddRoutes();
         this.sockets();
+        this.mongoSetup();
         this.listen();
     }
 
@@ -58,7 +61,7 @@ export class App {
     }
     private mongoSetup(): void{
         (<any>mongoose).Promise = global.Promise;
-        mongoose.connect(this.mongoUrl);    
+        mongoose.connect(this.mongoUrl, {dbName:'pgdb',useNewUrlParser:true});    
     }
     public getApp(): express.Application {
         return this.app;
