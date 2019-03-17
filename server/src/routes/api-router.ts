@@ -1,18 +1,18 @@
 import {Request, Response} from "express";
 import { UserController } from "../controllers/userController";
-
+import {checkJWT} from '../middlwares/userAuth';
 
 export class Routes {
     public userController: UserController = new UserController();
     
 
     public routes(app): void {          
-        app.route('/').get((req: Request, res: Response) => {            
+        app.route('/').get([checkJWT],(req: Request, res: Response) => {            
             res.status(200).send({
                 status: 'API Its Working',
                 message: 'Welcome to the jungle!'
             })
-        })      
+        });      
         
         // Contact 
         app.route('/user') 
