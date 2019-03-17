@@ -1,6 +1,7 @@
 import { createServer, Server } from 'http';
 import * as express from 'express';
 import * as socketIo from 'socket.io';
+import * as bodyParser from "body-parser";
 
 export class App {
     public static readonly PORT:number = 4455 || Number(process.env.PORT);
@@ -29,6 +30,8 @@ export class App {
             res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
             next();
         });
+        this.app.use(bodyParser.json());
+        this.app.use(bodyParser.urlencoded({ extended: false }));
 
                 }
 
