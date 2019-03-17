@@ -4,7 +4,9 @@ import * as socketIo from 'socket.io';
 import * as bodyParser from "body-parser";
 import { Routes } from "./routes/api-router";
 import * as mongoose from "mongoose";
+import * as dotenv from 'dotenv';
 
+dotenv.config();
 export class App {
     public static readonly PORT:number = 4455 || Number(process.env.PORT);
     private app: express.Application;
