@@ -6,12 +6,11 @@ export class Routes {
     public userController: UserController = new UserController();
     
 
-    public routes(app, test): void {          
+    public routes(app): void {          
         app.route('/').get((req: Request, res: Response) => {            
             res.status(200).send({
                 status: 'API Its Working',
-                message: 'Welcome to the jungle!',
-                test: test
+                message: 'Welcome to the jungle!'
             })
         })      
         
