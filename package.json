@@ -17,7 +17,7 @@
     "startN": "nuxt-ts start",
     "generateN": "nuxt-ts generate",
     "start": "node ./server/build/index.js",
-    "dev": "nodemon ./server/build/index.js",
+    "dev": "CUSTOMCONNSTR_Mongo=tesstring nodemon ./server/build/index.js",
     "build": "tsc --p tsconfig.server.json",
     "postinstall": "tsc --p tsconfig.server.json"
   },
