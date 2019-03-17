@@ -1,14 +1,61 @@
 import * as mongoose from 'mongoose';
 import { UserSchema } from '../models/userModel';
 import { Request, Response, NextFunction } from 'express';
+import * as jwt from 'jsonwebtoken';
 const User = mongoose.model('User', UserSchema);
 
 export class UserController{
 
 
+    static login = async (req:Request, res:Response, next:NextFunction) => {
+        const { username, password } = req.body;
+
+        if (!(username && password)) {
+            res.status(400).json({
+                status:0,
+                err:'username or pass cant be empty'
+            });
+            return;
+        }
+        
+        User.findOne({username:username, password:password},(err, user)=>{
+            if(err){
+                res.status(418).json({
+                    status:0,
+                    msg:err
+                });
+                return;
+            }
+            
+            if(!user){
+                res.status(401).json({
+                    status: 0,
+                    msg: "There is no user with the given data"
+                });
+                return;
+            }
+
+            //Sing JWT, valid for plus 1 hour
+            const token = jwt.sign({   
+                    userId: user._id, 
+                    username:  username
+                },
+                process.env.CUSTOMCONNSTR_Token,
+                { expiresIn: "1h" }
+            );
+
+            res.json({
+                status: 1,
+                token:token
+            });
+            
+        });
+    }
+
+
     public addNewUser (req: Request, res: Response) {   
         let newUser = new User(req.body);
-
+        
         newUser.save((err, user) => {
             if(err){
                 res.send(err);
