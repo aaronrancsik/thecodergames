@@ -20,6 +20,7 @@ export class App {
         this.createServer();
         this.AddRoutes();
         this.sockets();
+        this.mongoSetup();
         this.listen();
     }
 
