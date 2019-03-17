@@ -2,6 +2,7 @@ import { createServer, Server } from 'http';
 import * as express from 'express';
 import * as socketIo from 'socket.io';
 import * as bodyParser from "body-parser";
+import * as mongoose from "mongoose";
 
 export class App {
     public static readonly PORT:number = 4455 || Number(process.env.PORT);
@@ -9,6 +10,7 @@ export class App {
     private server: Server;
     private io: SocketIO.Server;
     private port: string | number;
+    public mongoUrl: string = process.env.CUSTOMCONNSTR_Mongo;
 
     constructor() {
         this.createApp();
@@ -49,8 +51,9 @@ export class App {
             console.log('Running server on port %s', this.port);
             });
                     }
-    
-                    this.io.emit("leaderUpdate",{users:this.users})
+    private mongoSetup(): void{
+        (<any>mongoose).Promise = global.Promise;
+        mongoose.connect(this.mongoUrl);    
                 }
     public getApp(): express.Application {
         return this.app;
