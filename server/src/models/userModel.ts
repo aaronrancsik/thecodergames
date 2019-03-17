@@ -10,7 +10,7 @@ export const UserSchema = new Schema({
         type: String            
     },
     school: {
-        type: String            
+        type: String 
     },
     created_date: {
         type: Date,
