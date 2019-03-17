@@ -46,7 +46,7 @@ export class App {
         this.server = createServer(this.app);
     }
     private AddRoutes(){
-        this.routePrv.routes(this.app, this.mongoUrl);
+        this.routePrv.routes(this.app);
     }
     private sockets(): void {
         this.io = socketIo(this.server);
