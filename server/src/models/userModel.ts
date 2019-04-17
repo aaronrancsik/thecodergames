@@ -1,6 +1,5 @@
 import * as mongoose from 'mongoose';
 const Schema = mongoose.Schema;
-import  {LevelSchema} from './levelModel';
 
 export const UserSchema = new Schema({
     roles:{
@@ -26,7 +25,16 @@ export const UserSchema = new Schema({
         required:'Password is required',
         type:String
     },
-    levels:{
-        type: [LevelSchema]
+    code:{
+        type:[String]
+    },
+    maxScore:{
+        type:Number
+    },
+    isOnline:{
+        type:Boolean
+    },
+    lastOnline:{
+        type:Date
     }
 });
