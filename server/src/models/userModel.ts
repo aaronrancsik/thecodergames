@@ -3,6 +3,9 @@ const Schema = mongoose.Schema;
 import  {LevelSchema} from './levelModel';
 
 export const UserSchema = new Schema({
+    roles:{
+        type: [String]
+    },
     username: {
         type: String,
         required: 'Name is required'

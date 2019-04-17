@@ -38,10 +38,11 @@ export class UserController{
             //Sing JWT, valid for plus 1 hour
             const token = jwt.sign({   
                     userId: user._id, 
-                    username:  username
+                    username:  username,
+                    roles:user.get('roles')
                 },
                 process.env.CUSTOMCONNSTR_Token,
-                { expiresIn: "1h" }
+                { expiresIn: 3600 }
             );
 
             res.json({
