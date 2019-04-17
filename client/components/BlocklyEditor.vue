@@ -56,19 +56,35 @@ export default class BlocklyEditor extends Vue{
             this.workspace.highlightBlock(id);
         }
         let StepForward=()=>{
-            this.$nuxt.$emit('STEP_FORWARD',0);
+            move =true;
+            this.$nuxt.$emit('STEP_FORWARD',()=>{
+                move =false;
+                uresJaras();
+            });
             //console.log("player.stepForward()");
         }
         let StepBack=()=>{
-            this.$nuxt.$emit('STEP_BACK',0);
+            move =true;
+            this.$nuxt.$emit('STEP_BACK',()=>{
+                move =false;
+                uresJaras();
+            });
             //console.log("player.stepBack()");
         }
         let TurnLeft=()=>{
-            this.$nuxt.$emit('TURN_LEFT',0);
+            move =true;
+            this.$nuxt.$emit('TURN_LEFT',()=>{
+                move =false;
+                uresJaras();
+            });
             //console.log("player.rotLeft()");
         }
         let TurnRight=()=>{
-            this.$nuxt.$emit('TURN_RIGHT',0);
+            move =true;
+            this.$nuxt.$emit('TURN_RIGHT',()=>{
+                move =false;
+                uresJaras();
+            });
             //console.log("player.rotRight()");
         }
         var initApi = function(myInterpreter, scope){
@@ -110,23 +126,57 @@ export default class BlocklyEditor extends Vue{
         alert(myCode);
 
         var myInterpreter = new Interpreter(myCode, initApi);
-        let maxStep = 5000;
+        let remainSteps = 11343;
 
-        function nextStep() {
-            if (myInterpreter.step()) {
-                if(maxStep>0){
-                    maxStep--;
-                    window.setTimeout(nextStep, 10);
-                }else{
-                    //alert("Tul sok lépés")
+        let move =false;
+
+        let db = 1000000;
+        let uresJaras = ()=>{
+            try{
+                
+                while(myInterpreter.step() && !move && !this.isCancel && db > 0){
+                    db--;
+                    if(db == 0){
+                        alert("Végtelen ciklust, vagy túlsok számolást csináltál! :)")
                 }
-            
-            }else{
-            //socket.emit("updateScore",{"map": aktamap,"user":user,"score": document.getElementById("score").innerText});
-            //socket.emit("")
             }
+            }catch(e){
+                alert(e);
+                this.isCancel = true;
         }
-        nextStep();
+           
+        };
+        uresJaras();
+
+        // function nextStep() {
+        //     if (myInterpreter.step()) {
+        //         if(remainSteps > 0){
+        //             if(!move){
+        //               remainSteps--;
+        //               nextStep();
+        //             }else{
+        //                 let  continueExec = () => {
+        //                   if(move){
+        //                     setTimeout(continueExec, 1);
+        //                     return;
+        //                   }
+        //                   remainSteps--;
+        //                   window.setTimeout(nextStep);                    
+        //                 }
+        //                 continueExec();
+        //             }
+                    
+        //         }else{
+        //             alert("Tul sok lepes");
+        //         }
+                
+        //     }else{
+               
+        //     }
+        //     console.log(remainSteps);
+        // }
+        //nextStep();
+        
     }
     
     mounted(){
