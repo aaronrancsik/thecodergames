@@ -50,7 +50,7 @@ export default class BlocklyEditor extends Vue{
             alert(res.data);
         });
     }
-    
+
     stop(){
         this.isCancel=true;
     }
@@ -144,12 +144,12 @@ export default class BlocklyEditor extends Vue{
                     db--;
                     if(db == 0){
                         alert("Végtelen ciklust, vagy túlsok számolást csináltál! :)")
+                    }
                 }
-            }
             }catch(e){
                 alert(e);
                 this.isCancel = true;
-        }
+            }
            
         };
         uresJaras();
@@ -350,8 +350,8 @@ export default class BlocklyEditor extends Vue{
         customColor();
         addCustomBlocks();
 
-        //Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
-        //Blockly.JavaScript.addReservedWords('highlightBlock');
+        Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
+        Blockly.JavaScript.addReservedWords('highlightBlock');
 
 
         let blocklyDiv = this.$refs.blocklyDiv;
