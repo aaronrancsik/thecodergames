@@ -3,6 +3,7 @@
     <div class="controlls">
         <button @click="run"> RUN </button>
         <button @click="test"> STOP </button>
+        <button @click="stop"> REAL STOP </button>
     </div>
     <div ref="blocklyDiv" class="blocklyDiv"></div>
 </div>
@@ -30,8 +31,8 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import base64 from 'base-64';
-
-
+// import { constants } from 'crypto';
+// import { truncate, truncateSync } from 'fs';
 //import axios from 'axios';
 
 declare const Blockly;
@@ -42,7 +43,7 @@ export default class BlocklyEditor extends Vue{
 
     code:string = "";
     workspace :any;
-    
+    isCancel =false;
     test(){
         alert('ok');
         this['$axios'].get('/').then(res=>{
@@ -50,8 +51,13 @@ export default class BlocklyEditor extends Vue{
         });
     }
     
+    stop(){
+        this.isCancel=true;
+    }
+    
     
     run(){
+        this.isCancel = false;
         let highlightBlock= (id)=>{
             this.workspace.highlightBlock(id);
         }
