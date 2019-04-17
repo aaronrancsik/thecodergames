@@ -25,17 +25,17 @@ export class Game extends Phaser.Game {
   constructor(config: GameConfig) {
     super(config);
   }
-  public moveForward=()=>{
-    Ls.moveForward();
+  public moveForward=(callback)=>{
+    Ls.moveForward(callback);
   }
-  public moveBackward=()=>{
-    Ls.moveBackward();
+  public moveBackward=(callback)=>{
+    Ls.moveBackward(callback);
   }
-  public turnLeft=()=>{
-    Ls.turnLeft();
+  public turnLeft=(callback)=>{
+    Ls.turnLeft(callback);
   }
-  public turnRight=()=>{
-    Ls.turnRight();
+  public turnRight=(callback)=>{
+    Ls.turnRight(callback);
   }
 }
 let gamee:Game;

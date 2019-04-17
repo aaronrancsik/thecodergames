@@ -7,30 +7,31 @@ export type PlayerDirection = 'playerLeft' | 'playerRight' | 'playerUp' | 'playe
 
 class LevelScene extends Phaser.Scene {
 
-    public moveForward(){
-        this.updatePlayer("playerUp");
+    public moveForward(callback){
+        this.updatePlayer("playerUp",callback);
     }
 
-    public moveBackward(){
-        this.updatePlayer("playerDown");
+    public moveBackward(callback){
+        this.updatePlayer("playerDown",callback);
     }
 
-    public turnLeft(){
-        this.updatePlayer("playerLeft");
+    public turnLeft(callback){
+        this.updatePlayer("playerLeft",callback);
     }
 
-    public turnRight(){
-        this.updatePlayer("playerRight");
+    public turnRight(callback){
+        this.updatePlayer("playerRight",callback);
     }
 
-    private updatePlayer(direction: PlayerDirection | null) {
+    private updatePlayer(direction: PlayerDirection | null, callback:CallableFunction ) {
         if (!direction) {
+            //callback();
             return;
         }
-        this.troToMovePlayer(direction);
+        this.troToMovePlayer(direction, callback);
     }
 
-    private troToMovePlayer(direction: PlayerDirection) {
+    private troToMovePlayer(direction: PlayerDirection, callback:CallableFunction) {
 
 
         const { x, y } = this.player;
@@ -41,11 +42,13 @@ class LevelScene extends Phaser.Scene {
 
 
         if (wall !== null) { // got wall
+            callback();
             return;
         }
 
         const floor = this.getNextTile(currentTile, direction, this.floorLayer);
         if (floor === null) { //out of boudle
+            callback();
             return;
         }
 
@@ -54,23 +57,25 @@ class LevelScene extends Phaser.Scene {
         
         if (crate !== null) {
             const oneFurther = this.getNextTile(floor, direction, this.floorLayer);
-            if ((oneFurther===null)) { // out of bounds            
+            if ((oneFurther===null)) { // out of bounds
+                callback();            
                 return false;
             }
             if (!this.checkIfLocationIsFree(oneFurther)) {
+                callback();
                 return false;
             }
         }
-        this.movePlayer(floor);
+        this.movePlayer(floor, callback);
     }
 
-    private checkIfLocationIsFree(oneFurther:Phaser.Tilemaps.Tile): boolean {
+    private checkIfLocationIsFree(oneFurther:Phaser.Tilemaps.Tile) {
         if (oneFurther.x < 0 || oneFurther.x >= this.tileMap.width || oneFurther.y < 0 || oneFurther.y >= this.tileMap.height) {
-            return false;
+            return;
         }
         const hasWall = !!this.wallLayer.getTileAt(oneFurther.x, oneFurther.y);
         if (hasWall) {
-            return false;
+            return;
         }
         const crate = this.getCrateAt(oneFurther);
         return !crate;
@@ -106,7 +111,7 @@ class LevelScene extends Phaser.Scene {
         }
     }
 
-    private movePlayer(tile:Phaser.Tilemaps.Tile) {
+    private movePlayer(tile:Phaser.Tilemaps.Tile, callback:CallableFunction) {
         
         const { x, y } = this.tileToWordFixOrigin(tile);
         const ol = this.tileMap.tileToWorldXY(tile.x,tile.y);
@@ -120,7 +125,7 @@ class LevelScene extends Phaser.Scene {
             const newTile = this.floorLayer.getTileAtWorldXY(crateX, crateY);
             crate.moveTo(crateX, crateY, newTile);
         }
-        this.player.moveTo(ol.x, ol.y);
+        this.player.moveTo(ol.x, ol.y,callback);
     }
 
     private leftKeys!: Phaser.Input.Keyboard.Key[];
@@ -209,7 +214,7 @@ class LevelScene extends Phaser.Scene {
     }
     update() {
         if(this.player.state!=='moving'){
-            this.updatePlayer(this.getPlayerDirection());
+            this.updatePlayer(this.getPlayerDirection(),()=>{console.log("test2")}   );
         }
     }
 

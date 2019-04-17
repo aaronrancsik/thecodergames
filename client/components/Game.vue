@@ -21,16 +21,16 @@ export default class Game extends Vue  {
          // $on method will receive the updated count value from the sender component
         this.$nuxt.$on('STEP_FORWARD', data => {
             //alert("STEP_FORWARD"+data);
-            this.gameInst.moveForward();
+            this.gameInst.moveForward(data);
         });
         this.$nuxt.$on('STEP_BACK', data => {
-           this.gameInst.moveBackward();
+           this.gameInst.moveBackward(data);
         });
         this.$nuxt.$on('TURN_LEFT', data => {
-             this.gameInst.turnLeft();
+             this.gameInst.turnLeft(data);
         });
         this.$nuxt.$on('TURN_RIGHT', data => {
-            this.gameInst.turnRight();
+            this.gameInst.turnRight(data);
         });
     }
 
