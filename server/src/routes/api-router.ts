@@ -14,7 +14,7 @@ export class Routes {
             })
         });      
         
-        app.route('/login')
+        app.route('/user/login')
         .post(UserController.login)
 
         // User 
