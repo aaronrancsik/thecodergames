@@ -22,6 +22,7 @@ export const checkJWT= (req:Request, res:Response, next:NextFunction)=>{
         res.status(401).send();
         return;
     }
+    
 
     //The token is valid for 1 hour
     //We want to send a new token on every request
@@ -34,6 +35,7 @@ export const checkJWT= (req:Request, res:Response, next:NextFunction)=>{
 }
 
 export const chechAdmin = (req:Request, res:Response, next:NextFunction)=>{
+    
     const token =<string>req.headers['auth'];
     let jwtPayload;
 
@@ -45,7 +47,7 @@ export const chechAdmin = (req:Request, res:Response, next:NextFunction)=>{
         
 
     }catch(err){
-        //console.log(err);
+        console.log(err);
         res.status(401).send();
         return;
     }
@@ -56,12 +58,12 @@ export const chechAdmin = (req:Request, res:Response, next:NextFunction)=>{
     //console.log(roles);
     try{
         if(roles.includes('admin')){
-        const newToken =jwt.sign({userId, username, roles},process.env.CUSTOMCONNSTR_Token,{expiresIn:'1h'});
-        res.setHeader('token', newToken);
-        next();
-    }else{
-        res.send(401);
-    }
+            const newToken =jwt.sign({userId, username, roles},process.env.CUSTOMCONNSTR_Token,{expiresIn:'1h'});
+            res.setHeader('token', newToken);
+            next();
+        }else{
+            res.send(401);
+        }
     }catch(e){
         console.log(e);
         res.status(401).send();
