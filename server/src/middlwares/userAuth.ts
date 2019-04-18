@@ -50,20 +50,24 @@ export const chechAdmin = (req:Request, res:Response, next:NextFunction)=>{
         return;
     }
 
-    
-
     //The token is valid for 1 hour
     //We want to send a new token on every request
     const {userId, username, roles} = jwtPayload;
     //console.log(roles);
-    
-    if(JSON.parse(roles).includes('admin')){
+    try{
+        if(roles.includes('admin')){
         const newToken =jwt.sign({userId, username, roles},process.env.CUSTOMCONNSTR_Token,{expiresIn:'1h'});
         res.setHeader('token', newToken);
         next();
     }else{
         res.send(401);
     }
+    }catch(e){
+        console.log(e);
+        res.status(401).send();
+    }
+
+    
     
     
     //Call the next middleware or controller
