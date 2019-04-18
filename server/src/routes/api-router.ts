@@ -28,6 +28,9 @@ export class Routes {
         .put([chechAdmin],this.userController.updateUser)
         .delete([chechAdmin],this.userController.deleteUser);
 
+        app.route('/user/chechin').
+        put([checkJWT],this.userController.checkIn);
+
         
     }
 }

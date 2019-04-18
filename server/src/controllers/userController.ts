@@ -101,6 +101,31 @@ export class UserController{
         });
     }
 
+    public checkIn(req: Request, res: Response){
+        const token = <string>req.headers['auth'];
+
+        let jwtPayload;
+        //Try to validate the token and get data
+        try{
+            //console.log(jwt.decode(token));
+            jwtPayload =<any>jwt.verify(token, process.env.CUSTOMCONNSTR_Token);
+            //res.locals.jwtPayload= jwtPayload;
+        }catch(e)
+        {
+            res.status(401).send();
+            return;
+        }
+        const {userId, username, roles} = jwtPayload;
+        User.findById(userId, (err, user) => {
+            if(err){
+                res.send(err);
+            }
+            user.set("isOnline", true);
+            user.set("lastOnline", Date.now);
+            res.json(user);
+        });
+    }
+
 
 
 }
