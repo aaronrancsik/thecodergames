@@ -1,20 +1,34 @@
 <template>
-    <div class="conti">   
-        <Game class="game" />
-        <BlocklyEditor class="editor" />
-    </div>
+<v-container bg fill-height grid-list-md text-xs-center fluid>
+  <v-layout row wrap >
+    <v-flex xs12>
+      <AccountManage/>
+    </v-flex>
+    <v-flex xs6 style="height:100%;padding-bottom: 40px;"> <!-- very ugly, but Phaser need it :( ) --> 
+      <Game />
+    </v-flex>
+      <v-flex xs6 style="height:95%">
+        <BlocklyEditor />
+      </v-flex>
+  </v-layout>
+</v-container>
 </template>
 <script lang="ts">
 
 import { Vue, Component} from "vue-property-decorator";
 import Game from "~/components/Game.vue";
 import BlocklyEditor from "~/components/BlocklyEditor.vue";
+import AccountManage from "~/components/AccountManage.vue";
 
 @Component({
   components: {
     Game,
-    BlocklyEditor
-  }
+    BlocklyEditor,
+    AccountManage
+  },
+  middleware:[
+    'authenticated'
+  ]
 })
 
 export default class Crafter extends Vue {
@@ -22,14 +36,3 @@ export default class Crafter extends Vue {
     mounted() { }
 }
 </script>
-<style scoped>
-.conti{
-    margin:0;
-    height: 100%;
-    display: grid;
-    grid-template-columns: 50% 50%;
-    grid-template-rows: 100%; 
-    grid-template-areas: "game editor"
-    /* height: 100%; */
-}
-</style>
