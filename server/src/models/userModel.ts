@@ -6,10 +6,12 @@ export const UserSchema = new Schema({
         type: [String]
     },
     username: {
+        unique:true,
         type: String,
         required: 'Name is required'
     },
     email: {
+        unique:true,
         required:'Email is required',
         type: String            
     },
