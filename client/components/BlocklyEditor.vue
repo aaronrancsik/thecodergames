@@ -1,21 +1,40 @@
 <template>
 <div class="base">
     <div class="controlls">
-        <button @click="run"> RUN </button>
-        <button @click="test"> STOP </button>
-        <button @click="stop"> REAL STOP </button>
+        <button @click="run" class="start"> Indítás </button>
+        <button @click="stop" class="stop"> Leállítás </button>
     </div>
     <div ref="blocklyDiv" class="blocklyDiv"></div>
 </div>
    
 </template>
 
+<style>
+.blocklyToolboxDiv{
+    background-color: #202020;
+}
+.blocklyFlyoutBackground{
+    background-color:#333;
+    fill-opacity: 0.2;
+}
+.blocklySvg{
+    background-color:#303030;
+}
+</style>
+
 
 <style scoped>
+.start{
+    background-color: seagreen;
+}
+.stop{
+    background-color: tomato;
+}
 .blocklyDiv{
-    height: 100%;
+    height: 99%;
 }
 .base{
+    
     height: 100%;
     display: grid;
     grid-template-rows: 40px auto; 
@@ -25,6 +44,7 @@
     height: 100%;
     grid-template-columns: auto auto;
 }
+
 </style>
 
 <script lang="ts">
@@ -44,13 +64,6 @@ export default class BlocklyEditor extends Vue{
     code:string = "";
     workspace :any;
     isCancel =false;
-    test(){
-        alert('ok');
-        this['$axios'].get('/').then(res=>{
-            alert(res.data);
-        });
-    }
-
     stop(){
         this.isCancel=true;
     }
@@ -332,16 +345,16 @@ export default class BlocklyEditor extends Vue{
             comments : true, 
             disable : true, 
             maxBlocks : Infinity,  
-            horizontalLayout : false, 
+            horizontalLayout : true, 
             toolboxPosition : 'end', 
             css : true, 
             rtl : false,
             sounds : false, 
-            trashcan: false,
+            trashcan: true,
             grid:{ 
                 spacing: 20,
                 length: 3,
-                colour: '#ccc',
+                colour: '#1E1E1E',
                 snap: false
             }
         }
@@ -365,6 +378,7 @@ export default class BlocklyEditor extends Vue{
             ,"text/xml"
         ).firstChild;
         Blockly.Xml.domToWorkspace(xmlInitBlocks, this.workspace);
+        
  
         //workspace.registerButtonCallback("SEND_SERVER", sendServer);
         this.workspace.addChangeListener(sendServer);
