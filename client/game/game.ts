@@ -7,8 +7,8 @@ let  config =()=>{
     scale:{
       parent: "gameid",
       mode:Phaser.Scale.FIT,
-      width:1040,
-      height:1040,
+      width:960,
+      height:960,
       max:{
         height:1040,
         width:1040
