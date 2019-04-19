@@ -6,7 +6,6 @@ import { UserSchema } from '../models/userModel';
 const User = mongoose.model('User', UserSchema);
 
 export const checkJWT= (req:Request, res:Response, next:NextFunction)=>{
-
     const token = <string>req.headers['auth'];
     let jwtPayload;
 
