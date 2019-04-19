@@ -102,6 +102,7 @@ export class UserController{
     }
 
     public checkIn(req: Request, res: Response){
+        
         const token = <string>req.headers['auth'];
 
         let jwtPayload;
@@ -116,12 +117,14 @@ export class UserController{
             return;
         }
         const {userId, username, roles} = jwtPayload;
+        
         User.findById(userId, (err, user) => {
             if(err){
                 res.send(err);
             }
             user.set("isOnline", true);
-            user.set("lastOnline", Date.now);
+            user.set("lastOnline", Date.now());
+            user.save();
             res.json(user);
         });
     }
