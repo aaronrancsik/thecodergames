@@ -129,6 +129,29 @@ export class UserController{
         });
     }
 
+    public getAllOnline(req: Request, res: Response){
+        const token = <string>req.headers['auth'];
+
+        let jwtPayload;
+        //Try to validate the token and get data
+        try{
+            //console.log(jwt.decode(token));
+            jwtPayload =<any>jwt.verify(token, process.env.CUSTOMCONNSTR_Token);
+            //res.locals.jwtPayload= jwtPayload;
+        }catch(e)
+        {
+            res.status(401).send();
+            return;
+        }
+        const {userId, username, roles} = jwtPayload;
+        
+        let a =[];
+        var query = User.find({isOnline: true},(err,user)=>{
+        });
+        query.exec((err, val)=>{
+            res.json(val);
+        })
+    }
 
 
 }

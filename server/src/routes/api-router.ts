@@ -29,7 +29,10 @@ export class Routes {
         .delete([chechAdmin],this.userController.deleteUser);
 
         app.route('/user/chechin').
-        put([checkJWT],this.userController.checkIn);
+        post([checkJWT],this.userController.checkIn);
+
+        app.route('/user/getallonline').
+        post([chechAdmin],this.userController.getAllOnline);
 
         
     }
