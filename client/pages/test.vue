@@ -1,4 +1,4 @@
-<template >
+<template>
  <v-container bg fill-height grid-list-md text-xs-center fluid>
     <v-layout row wrap >
         <v-flex xs12>
