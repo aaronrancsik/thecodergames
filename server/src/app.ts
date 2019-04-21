@@ -6,7 +6,6 @@ import { Routes } from "./routes/api-router";
 import { SocketEvent } from "./routes/api-socket";
 import * as mongoose from "mongoose";
 import * as dotenv from 'dotenv';
-
 dotenv.config();
 export class App {
     public static readonly PORT:number = 4455 || Number(process.env.PORT);
@@ -60,7 +59,7 @@ export class App {
         this.server.listen(this.port, () => {
             console.log('Running server on port %s', this.port);
         });
-        
+        this.io.use(this.socketEvent.middleware);
         this.io.on('connect', (socket) => {
             this.socketEvent.events(socket);
         });
