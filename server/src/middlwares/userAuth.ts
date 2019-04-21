@@ -13,11 +13,11 @@ export const checkJWT= (req:Request, res:Response, next:NextFunction)=>{
     try{
         //console.log(jwt.decode(token));
         jwtPayload =<any>jwt.verify(token, process.env.CUSTOMCONNSTR_Token);
-        res.locals.jwtPayload= jwtPayload;
+        res.locals.jwtPayload = jwtPayload;
         
 
     }catch(err){
-        //console.log(err);
+        console.log(err);
         res.status(401).send();
         return;
     }

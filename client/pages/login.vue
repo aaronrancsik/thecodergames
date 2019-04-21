@@ -85,6 +85,7 @@ export default class Login extends Vue {
             console.log(auth);
             this.$router.push('/craft');
         }).catch(function (error) {
+            console.log(error);
             if (error.response) {
                 a.err = "Hibás felhasználó név, vagy jelszó";
                 a.dialog=true;

@@ -23,7 +23,10 @@ export default{
   generate: {
     dir: './client/stat-dist'
   },
-  plugins: ['~/plugins/vuetify.js'],
+  plugins: [
+    '~/plugins/axios',
+    '~/plugins/vuetify.js'
+  ],
   mode: 'universal',
   head: {
     script:[
