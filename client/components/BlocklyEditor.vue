@@ -192,7 +192,7 @@ export default class BlocklyEditor extends Vue{
 
     saveToServer(){
         let thiss = this;
-        this['$axios'].post('/user/updatecode',{level:0,code:this.xmlCode}).then((res,err)=>{
+        this['$axios'].post('/updatecode',{level:0,code:this.xmlCode}).then((res,err)=>{
         }).catch(function (error) {
             if (error) {
                 console.log("Hiba a menetesben");

@@ -28,13 +28,13 @@ export class Routes {
         .put([chechAdmin],this.userController.updateUser)
         .delete([chechAdmin],this.userController.deleteUser);
 
-        app.route('/user/chechin').
+        app.route('/chechin').
         post([checkJWT],this.userController.checkIn);
 
-        app.route('/user/getallonline').
+        app.route('/getallonline').
         post([chechAdmin],this.userController.getAllOnline);
 
-        app.route('/user/updatecode').
+        app.route('/updatecode').
         post([checkJWT],this.userController.updateCode);
     }
 }
