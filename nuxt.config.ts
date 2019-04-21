@@ -1,5 +1,9 @@
 const pkg = require('./package');
 
+import * as dotenv from 'dotenv';
+dotenv.config();
+
+
 export default{
   modules: [                                                                                                                                                           
     ['@nuxtjs/axios', {                                                                                                                                              
@@ -12,6 +16,9 @@ export default{
   axios: {
     // proxyHeaders: false
   },  
+  env: {
+    SOCKET_HOST_URL: process.env.SOCKET_HOST_URL || 'https://proggame.azurewebsites.net/'
+  },
 
 
 
@@ -24,6 +31,7 @@ export default{
     dir: './client/stat-dist'
   },
   plugins: [
+    '~/plugins/socket.io',
     '~/plugins/axios',
     '~/plugins/vuetify.js'
   ],

@@ -3,6 +3,7 @@ import * as express from 'express';
 import * as socketIo from 'socket.io';
 import * as bodyParser from "body-parser";
 import { Routes } from "./routes/api-router";
+import { SocketEvent } from "./routes/api-socket";
 import * as mongoose from "mongoose";
 import * as dotenv from 'dotenv';
 
@@ -14,6 +15,7 @@ export class App {
     private io: SocketIO.Server;
     private port: string | number;
     public routePrv: Routes = new Routes();
+    public socketEvent:SocketEvent = new SocketEvent();
     public mongoUrl: string = process.env.CUSTOMCONNSTR_Mongo;
 
     constructor() {
@@ -57,6 +59,10 @@ export class App {
     private listen(): void {
         this.server.listen(this.port, () => {
             console.log('Running server on port %s', this.port);
+        });
+        
+        this.io.on('connect', (socket) => {
+            this.socketEvent.events(socket);
         });
     }
     private mongoSetup(): void{
