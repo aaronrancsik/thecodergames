@@ -6,7 +6,6 @@ export class SocketEvent {
     
     public events(socket:socketIo.Socket):void{
         let authenticated = false;
-        console.log(socket.request);
         setTimeout(()=> {
             // If the connection hasn't been authenticated in a period of time,
             // disconnect it.
@@ -28,7 +27,7 @@ export class SocketEvent {
                 socket.disconnect();
             }else{
                 socket.on('message',(m)=>{
-                    console.log("hi:"+m);
+                    //console.log("hi:"+m);
                     socket.emit('message',m);
                 });
             }
