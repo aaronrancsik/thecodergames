@@ -2,28 +2,36 @@
 <div class="base">
     <div class="controlls text-xs-center pt-2">
         <v-layout row >
-        <v-flex xs4>
+        <v-flex xs3>
             <v-btn
                 color="primary"
                 @click="saveToServer"
             >
-            Mentés
+            <v-icon>save</v-icon>
             </v-btn>
         </v-flex>
-        <v-flex xs4>
+        <v-flex xs3>
+            <v-btn
+                color="primary"
+                @click="loadFromServer"
+            >
+            <v-icon>cloud_download</v-icon>
+            </v-btn>
+        </v-flex>
+        <v-flex xs3>
              <v-btn
             color="success"
             @click="run" class="start"
             >
-            Indítás
+            <v-icon>play_arrow</v-icon>
             </v-btn>
         </v-flex>
-        <v-flex xs4>
+        <v-flex xs3>
             <v-btn
                 color="error"
                 @click="stop" class="stop"
             >
-            Leállítás
+            <v-icon>stop</v-icon>
             </v-btn>
         </v-flex>
         </v-layout>
@@ -77,7 +85,6 @@ import base64 from 'base-64';
 
 declare const Blockly;
 declare const Interpreter:any;
-const Cookie = process.client ? require('js-cookie') : undefined
 @Component
 export default class BlocklyEditor extends Vue{
 
@@ -87,6 +94,7 @@ export default class BlocklyEditor extends Vue{
     isCancel =false;
     stop(){
         this.isCancel=true;
+        this.workspace.highlightBlock(null);
     }
     
     run(){
@@ -197,9 +205,25 @@ export default class BlocklyEditor extends Vue{
             if (error) {
                 console.log("Hiba a menetesben");
                 console.log(error);
-                Cookie.remove('auth');
-                thiss.$store.commit('setAuth', null);
-                location.reload(true);
+            }
+        });
+    }
+
+    loadFromServer(){
+        this['$axios'].get('/getcode',{level:0,code:this.xmlCode}).then((res,err)=>{
+            //console.log(res.data);
+            if(res.data){
+                var xml = Blockly.Xml.textToDom(res.data);
+                this.workspace.clear();
+                Blockly.Xml.domToWorkspace(xml, this.workspace);
+                //taChange();
+            }
+
+        })
+        .catch((error) => {
+            if (error) {
+                console.log("Hiba a menetesben");
+                console.log(error);
             }
         });
     }

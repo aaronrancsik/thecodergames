@@ -36,6 +36,9 @@ export class Routes {
 
         app.route('/updatecode').
         post([checkJWT],this.userController.updateCode);
+
+        app.route('/getcode').
+        get([checkJWT],this.userController.loadLatestCode);
     }
 }
 

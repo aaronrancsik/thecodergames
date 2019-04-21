@@ -193,9 +193,37 @@ export class UserController{
         }catch(e){
             res.status(400).send();
         }
+    }
+
+    public loadLatestCode(req: Request, res: Response){
+        const token = <string>req.headers['auth'];
+
+        let jwtPayload;
+        //Try to validate the token and get data
+        try{
+            //console.log(jwt.decode(token));
+            jwtPayload =<any>jwt.verify(token, process.env.CUSTOMCONNSTR_Token);
+            //res.locals.jwtPayload= jwtPayload;
+        }catch(e)
+        {
+            res.status(401).send();
+            return;
+        }
         
-        
-        
+        try{
+            const {userId, username, roles} = jwtPayload;
+            User.findById(userId,(err, user) => {
+                if(err){
+                    console.log(err);
+                    res.status(400).send();
+                }else{
+                    res.json(user['code'][user['code'].length-1]);
+                }            
+            });
+        }catch(e){
+            res.status(400).send();
+        }
+
     }
 
 
