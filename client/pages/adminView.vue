@@ -1,15 +1,16 @@
 <template>
-    <AdminGame />
+  <GameAdmin />
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import AdminGame from '~/components/AdminGame.vue';
+import GameAdmin from '~/components/GameAdmin.vue';
 
 @Component({
   components: {
-    AdminGame
+    GameAdmin
   }
 })
-export default class AdminView extends Vue {}
+export default class AdminView extends Vue {
+}
 </script>
