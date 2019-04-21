@@ -41,7 +41,7 @@ export default class Game extends Vue  {
             this.downloaded =true;
             
             this.$nextTick(()=>{
-                game.launch();
+                game.launch("levelScene");
                 this.gameInst =game.getGame();
             });
 
