@@ -1,6 +1,7 @@
 <template>
     <section class="sec">
         <v-btn @click="ok" color="success">text</v-btn>
+        <v-btn @click="foo" color="success">foo</v-btn>
         <div id="gameid" v-if="downloaded" />
         <div class="placeholder"  v-else >
             Downloading...
@@ -22,12 +23,19 @@ export default class GameAdmin extends Vue  {
     gameInst
 
     beforeMount() {
+        
         socket.on('message', (message) => {
             alert(message);
         });
     }
     ok(){
-        socket.emit('message', "hello");
+        socket.connect();
+        //console.log(this.$store.state.auth.accessToken);
+        socket.emit('authenticate', {token: this.$store.state.auth ? this.$store.state.auth.accessToken : ""});
+    }
+
+    foo(){
+        socket.emit('message',"Hello World!");
     }
     
     created(){
