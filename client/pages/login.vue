@@ -32,17 +32,16 @@
             </v-flex>
             <v-flex xs12 md6>
                 <v-text-field
-                    v-model="password"
-                    name="name"
+                    v-model="stpassword"
+                    name="stpassword"
                     label="Jelszó"
-                    :append-icon="password ? 'visibility' : 'visibility_off'"
-                    @click:append="() => (password = !password)"
-                    :type="password ? 'password' : 'text'"
+                    :append-icon="show2 ? 'visibility' : 'visibility_off'"
+                    :type="show2 ? 'text' : 'password'"
+                    @click:append="show2 = !show2"
                 ></v-text-field>
             </v-flex>
             <v-flex xs12 md12>
                 <v-btn
-                    :disabled="!valid"
                     color="primary"
                     @click="postLogin"
                 >
@@ -68,16 +67,17 @@ const Cookie = process.client ? require('js-cookie') : undefined
   ]
 })
 export default class Login extends Vue {
+    show2= false;
     dialog=false;
     err="";
     valid= false;
     email= '';
     username ="";
-    password ="";
+    stpassword ="";
     postLogin() {
         let a = this;
         // we simulate the async request with timeout.
-        this['$axios'].post('/user/login',{username:this.username,password:this.password}).then((res,err)=>{
+        this['$axios'].post('/user/login',{username:this.username,password:this.stpassword}).then((res,err)=>{
             
             let auth = {accessToken : res.data["token"]};
             this.$store.commit('setAuth', auth) // mutating to store for client rendering
