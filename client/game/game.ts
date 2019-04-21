@@ -1,8 +1,11 @@
 import "phaser";
 import {LevelScene} from "./scenes/levelScene";
+import { ViewScene } from "./scenes/viewScene";
 // main game configuration
 let Ls = new LevelScene();
-let  config =()=>{
+let vs = new ViewScene();
+
+let  config =(scene:string)=>{
   return {
     scale:{
       parent: "gameid",
@@ -16,7 +19,7 @@ let  config =()=>{
       autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
     },
     type: Phaser.AUTO,
-    scene: Ls
+    scene: scene==="levelScene" ? Ls : vs
   }
 }
 
@@ -40,8 +43,8 @@ export class Game extends Phaser.Game {
 }
 let gamee:Game;
 
-function launch(){
-  gamee = new Game(config());
+function launch(scene:string){
+  gamee = new Game(config(scene));
 }
 
 function getGame(): Game {
@@ -50,7 +53,5 @@ function getGame(): Game {
 function getLs(){
   return this.Ls;
 }
-
-//export default launch;
 
 export {launch, getGame, getLs};
