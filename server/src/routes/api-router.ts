@@ -5,7 +5,6 @@ import {checkJWT, chechAdmin} from '../middlwares/userAuth';
 export class Routes {
     public userController: UserController = new UserController();
     
-    //[checkJWT,chechAdmin]
     public routes(app): void {          
         app.route('/').get((req: Request, res: Response) => {            
             res.status(200).send({
