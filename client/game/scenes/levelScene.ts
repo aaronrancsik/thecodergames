@@ -214,7 +214,7 @@ class LevelScene extends Phaser.Scene {
     }
     update() {
         if(this.player.state!=='moving'){
-            this.updatePlayer(this.getPlayerDirection(),()=>{console.log("test2")}   );
+            this.updatePlayer(this.getPlayerDirection(),()=>{}   );
         }
     }
 
