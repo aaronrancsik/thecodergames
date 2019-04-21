@@ -5,7 +5,7 @@ import Player from '../sprites/player';
 export type PlayerDirection = 'playerLeft' | 'playerRight' | 'playerUp' | 'playerDown';
 
 
-class LevelScene extends Phaser.Scene {
+class ViewScene extends Phaser.Scene {
 
     
 
@@ -152,8 +152,8 @@ class LevelScene extends Phaser.Scene {
         this.tileSet = this.tileMap.addTilesetImage('assets');
         this.createLevel();
         this.createPlayers();
-        this.cameras.main.startFollow(this.selectedPlayer,false,0.5,0.5,0,0);
-        this.cameras.main.setBounds(0,0,this.tileMap.widthInPixels,this.tileMap.heightInPixels);
+        //this.cameras.main.startFollow(this.selectedPlayer,false,0.5,0.5,0,0);
+        //this.cameras.main.setBounds(0,0,this.tileMap.widthInPixels,this.tileMap.heightInPixels);
         //this.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
         this.createGridLines();
     }
@@ -198,14 +198,14 @@ class LevelScene extends Phaser.Scene {
         
         //TODO
         //get players from API
-        for(;;){
-            let playerSpawn = playerSpawns[0];
+        // for(;;){
+        //     let playerSpawn = playerSpawns[0];
             
-            const { x, y } = this.tileToWordFixOrigin(playerSpawn);
-            this.players[0] = new Player(this, x, y);
-            this.add.existing(this.players[0]);
-            break;
-        }
+        //     const { x, y } = this.tileToWordFixOrigin(playerSpawn);
+        //     this.players[0] = new Player(this, x, y);
+        //     this.add.existing(this.players[0]);
+        //     break;
+        // }
         //TODO
        
     }
@@ -288,5 +288,5 @@ class LevelScene extends Phaser.Scene {
 
 }
 
-export {LevelScene };
+export {ViewScene };
 
