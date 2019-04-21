@@ -34,7 +34,8 @@ export class Routes {
         app.route('/user/getallonline').
         post([chechAdmin],this.userController.getAllOnline);
 
-        
+        app.route('/user/updatecode').
+        post([checkJWT],this.userController.updateCode);
     }
 }
 

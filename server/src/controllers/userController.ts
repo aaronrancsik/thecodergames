@@ -2,10 +2,11 @@ import * as mongoose from 'mongoose';
 import { UserSchema } from '../models/userModel';
 import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
+
+
 const User = mongoose.model('User', UserSchema);
 
 export class UserController{
-
 
     static login = async (req:Request, res:Response, next:NextFunction) => {
         const { username, password } = req.body;
@@ -116,6 +117,7 @@ export class UserController{
             res.status(401).send();
             return;
         }
+
         const {userId, username, roles} = jwtPayload;
         
         User.findById(userId, (err, user) => {
@@ -151,6 +153,49 @@ export class UserController{
         query.exec((err, val)=>{
             res.json(val);
         })
+    }
+
+    public updateCode(req: Request, res: Response){
+        const token = <string>req.headers['auth'];
+
+        let jwtPayload;
+        //Try to validate the token and get data
+        try{
+            //console.log(jwt.decode(token));
+            jwtPayload =<any>jwt.verify(token, process.env.CUSTOMCONNSTR_Token);
+            //res.locals.jwtPayload= jwtPayload;
+        }catch(e)
+        {
+            res.status(401).send();
+            return;
+        }
+
+        try{
+            const {userId, username, roles} = jwtPayload;
+            let c = req.body['code'];
+            if(c!==undefined && c !== null){
+                User.updateOne({_id:userId},{
+                    $push:{
+                        code:c
+                    }
+                },(err, raw)=>{
+                    if(err){
+                        console.log(err);
+                        console.log(raw);
+                        res.status(400).send();
+                    }else{
+                        res.json("ok");
+                    }
+                });
+            }else{
+                res.status(400).send();
+            }
+        }catch(e){
+            res.status(400).send();
+        }
+        
+        
+        
     }
 
 

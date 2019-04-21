@@ -1,8 +1,32 @@
 <template>
 <div class="base">
-    <div class="controlls">
-        <button @click="run" class="start"> Indítás </button>
-        <button @click="stop" class="stop"> Leállítás </button>
+    <div class="controlls text-xs-center pt-2">
+        <v-layout row >
+        <v-flex xs4>
+            <v-btn
+                color="primary"
+                @click="saveToServer"
+            >
+            Mentés
+            </v-btn>
+        </v-flex>
+        <v-flex xs4>
+             <v-btn
+            color="success"
+            @click="run" class="start"
+            >
+            Indítás
+            </v-btn>
+        </v-flex>
+        <v-flex xs4>
+            <v-btn
+                color="error"
+                @click="stop" class="stop"
+            >
+            Leállítás
+            </v-btn>
+        </v-flex>
+        </v-layout>
     </div>
     <div ref="blocklyDiv" class="blocklyDiv"></div>
 </div>
@@ -57,11 +81,12 @@ import base64 from 'base-64';
 
 declare const Blockly;
 declare const Interpreter:any;
-
+const Cookie = process.client ? require('js-cookie') : undefined
 @Component
 export default class BlocklyEditor extends Vue{
 
     code:string = "";
+    xmlCode:string ="";
     workspace :any;
     isCancel =false;
     stop(){
@@ -196,6 +221,18 @@ export default class BlocklyEditor extends Vue{
         // }
         //nextStep();
         
+    saveToServer(){
+        let thiss = this;
+        this['$axios'].post('/user/updatecode',{level:0,code:this.xmlCode}).then((res,err)=>{
+        }).catch(function (error) {
+            if (error) {
+                console.log("Hiba a menetesben");
+                console.log(error);
+                Cookie.remove('auth');
+                thiss.$store.commit('setAuth', null);
+                location.reload(true);
+            }
+        });
     }
     
     mounted(){
@@ -212,13 +249,10 @@ export default class BlocklyEditor extends Vue{
         }
         
         let sendServer =()=>{
-            //this.code = Blockly.JavaScript.blockToCode(getBlocksByType("iterations")[0]);
             this.code = Blockly.JavaScript.workspaceToCode(this.workspace);
-            let code = Blockly.JavaScript.workspaceToCode(this.workspace);
             let xml = Blockly.Xml.workspaceToDom(this.workspace);
-            let xml_text = Blockly.Xml.domToPrettyText(xml);
-            //this.code =Blockly.JavaScript.workspaceToCode(workspace);
-            //console.log(xml_text);
+            this.xmlCode = Blockly.Xml.domToPrettyText(xml);
+            
         }
 
         let addCustomBlocks=()=>{
