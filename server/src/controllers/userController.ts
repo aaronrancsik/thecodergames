@@ -54,7 +54,6 @@ export class UserController{
         });
     }
 
-
     public addNewUser (req: Request, res: Response) {   
         let newUser = new User(req.body);
         
