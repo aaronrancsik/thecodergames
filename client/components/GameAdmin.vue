@@ -1,5 +1,6 @@
 <template>
     <section class="sec">
+        <v-btn @click="ok" color="success">text</v-btn>
         <div id="gameid" v-if="downloaded" />
         <div class="placeholder"  v-else >
             Downloading...
@@ -14,9 +15,21 @@ import {
   Provide
 } from "vue-property-decorator";
 
+import socket from '~/plugins/socket.io';
+
 @Component
 export default class GameAdmin extends Vue  {
     gameInst
+
+    beforeMount() {
+        socket.on('message', (message) => {
+            alert(message);
+        });
+    }
+    ok(){
+        socket.emit('message', "hello");
+    }
+    
     created(){
     }
 
