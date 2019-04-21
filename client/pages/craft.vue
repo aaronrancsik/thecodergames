@@ -7,7 +7,7 @@
     <v-flex xs6 style="height:100%;padding-bottom: 40px;"> <!-- very ugly, but Phaser need it :( ) --> 
       <Game />
     </v-flex>
-      <v-flex xs6 style="height:95%">
+      <v-flex xs6 style="height:100%;padding-bottom:30px;">
         <BlocklyEditor />
       </v-flex>
   </v-layout>

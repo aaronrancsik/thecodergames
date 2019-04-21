@@ -56,17 +56,13 @@
 }
 .blocklyDiv{
     height: 99%;
+    position: relative;
 }
 .base{
     
     height: 100%;
     display: grid;
-    grid-template-rows: 40px auto; 
-}
-.controlls{
-    display: grid;
-    height: 100%;
-    grid-template-columns: auto auto;
+    grid-template-rows: 50px auto; 
 }
 
 </style>
@@ -93,8 +89,13 @@ export default class BlocklyEditor extends Vue{
         this.isCancel=true;
     }
     
-    
     run(){
+        //Make blockly not accessable in running but not needed
+        //let bd:any = this.$refs.blocklyDiv;
+        //let block = document.createElement('div');
+        //block.setAttribute("style", "position: absolute; min-width: 100%;min-height: 100%;z-index: 100; background-color: #00ff6e21;");
+        //bd.insertBefore(block,bd.firstChild);
+
         this.isCancel = false;
         let highlightBlock= (id)=>{
             this.workspace.highlightBlock(id);
@@ -167,17 +168,13 @@ export default class BlocklyEditor extends Vue{
         }
         //console.log(this.code);
         var myCode = this.code;
-        alert(myCode);
-
         var myInterpreter = new Interpreter(myCode, initApi);
-        let remainSteps = 11343;
 
         let move =false;
 
         let db = 1000000;
         let uresJaras = ()=>{
             try{
-                
                 while(myInterpreter.step() && !move && !this.isCancel && db > 0){
                     db--;
                     if(db == 0){
@@ -188,39 +185,11 @@ export default class BlocklyEditor extends Vue{
                 alert(e);
                 this.isCancel = true;
             }
-           
         };
         uresJaras();
 
-        // function nextStep() {
-        //     if (myInterpreter.step()) {
-        //         if(remainSteps > 0){
-        //             if(!move){
-        //               remainSteps--;
-        //               nextStep();
-        //             }else{
-        //                 let  continueExec = () => {
-        //                   if(move){
-        //                     setTimeout(continueExec, 1);
-        //                     return;
-        //                   }
-        //                   remainSteps--;
-        //                   window.setTimeout(nextStep);                    
-        //                 }
-        //                 continueExec();
-        //             }
-                    
-        //         }else{
-        //             alert("Tul sok lepes");
-        //         }
-                
-        //     }else{
-               
-        //     }
-        //     console.log(remainSteps);
-        // }
-        //nextStep();
-        
+    }
+
     saveToServer(){
         let thiss = this;
         this['$axios'].post('/user/updatecode',{level:0,code:this.xmlCode}).then((res,err)=>{
