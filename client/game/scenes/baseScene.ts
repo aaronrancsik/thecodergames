@@ -5,7 +5,7 @@ import Player from '../sprites/player';
 export type PlayerDirection = 'playerLeft' | 'playerRight' | 'playerUp' | 'playerDown';
 
 
-class ViewScene extends Phaser.Scene {
+class BaseScene extends Phaser.Scene {
 
     private players!:Array<Player>;
     private selectedPlayer!:Player;
@@ -273,5 +273,5 @@ class ViewScene extends Phaser.Scene {
 
 }
 
-export {ViewScene };
+export { BaseScene };
 
