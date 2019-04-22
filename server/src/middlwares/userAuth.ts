@@ -27,7 +27,7 @@ export const checkJWT= (req:Request, res:Response, next:NextFunction)=>{
     //We want to send a new token on every request
     const {userId, username, roles} = jwtPayload;
     const newToken =jwt.sign({userId, username,roles},process.env.CUSTOMCONNSTR_Token,{expiresIn:'1h'});
-    res.setHeader('token', newToken);
+    res.setHeader('auth', newToken);
     
     //Call the next middleware or controller
     next();
@@ -58,7 +58,7 @@ export const chechAdmin = (req:Request, res:Response, next:NextFunction)=>{
     try{
         if(roles.includes('admin')){
             const newToken =jwt.sign({userId, username, roles},process.env.CUSTOMCONNSTR_Token,{expiresIn:'1h'});
-            res.setHeader('token', newToken);
+            res.setHeader('auth', newToken);
             next();
         }else{
             res.send(401);

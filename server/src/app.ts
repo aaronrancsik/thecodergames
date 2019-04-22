@@ -6,6 +6,7 @@ import { Routes } from "./routes/api-router";
 import { SocketEvent } from "./routes/api-socket";
 import * as mongoose from "mongoose";
 import * as dotenv from 'dotenv';
+import * as cors from 'cors'; 
 dotenv.config();
 export class App {
     public static readonly PORT:number = 4455 || Number(process.env.PORT);
@@ -36,11 +37,16 @@ export class App {
     private config(): void {
         this.port = process.env.PORT || App.PORT;
 
-        this.app.use(function(req, res, next) {
-            res.header("Access-Control-Allow-Origin", "*");
-            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, auth");
-            next();
-        });
+        // this.app.use(function(req, res, next) {
+        //     res.header("Access-Control-Allow-Origin", "*");
+        //     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, auth");
+        //     res.header("Access-Control-Expose-Headers", "auth");
+        //     next();
+        // });
+        const corsOptions = {
+            exposedHeaders: 'auth',
+        };
+        this.app.use(cors(corsOptions));
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: false }));
 
