@@ -2,7 +2,7 @@
  <v-toolbar light dense>
       <v-toolbar-title >Szerkersztő panel</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-toolbar-items class="hidden-sm-and-down">
+      <v-toolbar-items class="">
         <v-btn flat @click="logout">Kilépés</v-btn>
       </v-toolbar-items>
     </v-toolbar>
