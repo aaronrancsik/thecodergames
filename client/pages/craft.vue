@@ -1,15 +1,18 @@
 <template>
 <v-container bg fill-height grid-list-md text-xs-center fluid>
   <v-layout row wrap >
+    <v-flex xs1>
+      <v-btn color="success" router-link to="/adminView">text</v-btn>
+    </v-flex>
     <v-flex xs12>
       <AccountManage/>
     </v-flex>
     <v-flex xs6 style="height:100%;padding-bottom: 40px;"> <!-- very ugly, but Phaser need it :( ) --> 
       <Game />
     </v-flex>
-      <v-flex xs6 style="height:100%;padding-bottom:30px;">
-        <BlocklyEditor />
-      </v-flex>
+    <v-flex xs6 style="height:100%;padding-bottom:30px;">
+      <BlocklyEditor />
+    </v-flex>
   </v-layout>
 </v-container>
 </template>

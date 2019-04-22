@@ -1,6 +1,10 @@
-import io from 'socket.io-client'
+import io from 'socket.io-client';
 
-const socket =  io(process.env.SOCKET_HOST_URL||"");
+let socket =  io(process.env.SOCKET_HOST_URL||"");
+
+// export function start(){
+//     socket =  io(process.env.SOCKET_HOST_URL||"");
+// }
 
 export default socket;
 

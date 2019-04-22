@@ -5,28 +5,31 @@ export class SocketEvent {
     public middleware = require('socketio-wildcard')();
     
     public events(socket:socketIo.Socket):void{
+        
         let authenticated = false;
         let decodedToken ="";
-        setTimeout(()=> {
-            // If the connection hasn't been authenticated in a period of time,
-            // disconnect it.
-            if (!authenticated) {
-              // You'll probably want to log the username or ID here instead.
-              console.log(`socket ID "${socket.id}" failed to authenticate, ` +
-                `disconnecting`)
         
-              socket.emit('unauthorized', {
-                message: 'failed to authenticate'
-              })
         
-              socket.disconnect()
-            }
-        }, 5000);
         
         socket.on('*', (packet)=> {
+          if(authenticated===false){
+            setTimeout(()=> {
+              // If the connection hasn't been authenticated in a period of time,
+              // disconnect it.
+              if (!authenticated) {
+                // You'll probably want to log the username or ID here instead.
+                console.log(`socket ID "${socket.id}" failed to authenticate, disconnecting`);
+                if(socket.disconnected===false){
+                  socket.disconnect();
+                }
+              }
+            }, 5000);
+          }
           let a = packet.data[0]!='authenticate';
           if(a===true && !authenticated){
+            if(socket.disconnected===false){
               socket.disconnect();
+            }
           }
         });
 
