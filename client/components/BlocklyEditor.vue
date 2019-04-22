@@ -1,40 +1,44 @@
 <template>
 <div class="base">
-    <div class="controlls text-xs-center pt-2">
-        <v-layout row >
-        <v-flex xs3>
-            <v-btn
-                color="primary"
-                @click="saveToServer"
-            >
-            <v-icon>save</v-icon>
-            </v-btn>
-        </v-flex>
-        <v-flex xs3>
-            <v-btn
-                color="primary"
-                @click="loadFromServer"
-            >
-            <v-icon>cloud_download</v-icon>
-            </v-btn>
-        </v-flex>
-        <v-flex xs3>
-             <v-btn
-            color="success"
-            @click="run" class="start"
-            >
-            <v-icon>play_arrow</v-icon>
-            </v-btn>
-        </v-flex>
-        <v-flex xs3>
-            <v-btn
-                color="error"
-                @click="stop" class="stop"
-            >
-            <v-icon>stop</v-icon>
-            </v-btn>
-        </v-flex>
-        </v-layout>
+    <div class="">
+        <v-toolbar light dense>
+            <v-toolbar-items class="">
+                <v-btn
+                    flat
+                    color="success"
+                    @click="saveToServer"
+                >
+                <v-icon>save</v-icon>
+                </v-btn>
+            </v-toolbar-items>
+            <v-toolbar-items class="">
+                <v-btn
+                
+                color="success"
+                @click="run" class="start"
+                >
+                <v-icon>play_arrow</v-icon>
+                </v-btn>
+            </v-toolbar-items>
+            <v-spacer></v-spacer>
+            <v-toolbar-items class="">
+                <v-btn
+                    color="error"
+                    @click="stop" class="stop"
+                >
+                <v-icon>stop</v-icon>
+                </v-btn>
+            </v-toolbar-items>
+            <v-toolbar-items class="">
+                <v-btn
+                    flat
+                    color="error"
+                    @click="loadFromServer"
+                >
+                <v-icon>cloud_download</v-icon>
+                </v-btn>
+            </v-toolbar-items>
+        </v-toolbar>
     </div>
     <div ref="blocklyDiv" class="blocklyDiv"></div>
 </div>
@@ -64,7 +68,7 @@
 }
 .blocklyDiv{
     height: 99%;
-    position: relative;
+    /* position: relative; */
 }
 .base{
     
