@@ -29,6 +29,7 @@ export default class GameAdmin extends Vue  {
         });
     }
     ok(){
+        
         socket.connect();
         //console.log(this.$store.state.auth.accessToken);
         socket.emit('authenticate', {token: this.$store.state.auth ? this.$store.state.auth.accessToken : ""});
