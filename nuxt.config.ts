@@ -1,5 +1,9 @@
 const pkg = require('./package');
 
+import * as dotenv from 'dotenv';
+dotenv.config();
+
+
 export default{
   modules: [                                                                                                                                                           
     ['@nuxtjs/axios', {                                                                                                                                              
@@ -12,6 +16,9 @@ export default{
   axios: {
     // proxyHeaders: false
   },  
+  env: {
+    SOCKET_HOST_URL: process.env.SOCKET_HOST_URL || 'https://proggame.azurewebsites.net/'
+  },
 
 
 
@@ -23,7 +30,11 @@ export default{
   generate: {
     dir: './client/stat-dist'
   },
-  plugins: [],
+  plugins: [
+    '~/plugins/socket.io',
+    '~/plugins/axios',
+    '~/plugins/vuetify.js'
+  ],
   mode: 'universal',
   head: {
     script:[
@@ -37,15 +48,20 @@ export default{
     title: pkg.name,
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial scale=1' },
+      { name: 'viewport', content: 'width=device-width', scale:1 },
       // { hid: 'description', name: 'description', content: pkg.description }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel:"stylesheet", href: 'https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons'}
+    ]
   }
   ,css:[
-    '~/assets/main.css'
+    '~/assets/app.styl',
+    '~/assets/main.css',
   ],
   build:{
+    vendor:['vuetify'],
     extend(config, {isDev, isClient}){
 
       // if(isClient){

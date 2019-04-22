@@ -5,36 +5,53 @@ import Player from '../sprites/player';
 export type PlayerDirection = 'playerLeft' | 'playerRight' | 'playerUp' | 'playerDown';
 
 
-class LevelScene extends Phaser.Scene {
+class BaseScene extends Phaser.Scene {
 
-    public moveForward(callback){
-        this.updatePlayer("playerUp",callback);
+    private players!:Array<Player>;
+    private selectedPlayer!:Player;
+    private crates!: Phaser.GameObjects.Group;
+
+    //tilemap
+    private tileSet!: Phaser.Tilemaps.Tileset;
+    private tileMap!: Phaser.Tilemaps.Tilemap;
+
+    //Layers
+    private floorLayer!: Phaser.Tilemaps.DynamicTilemapLayer;
+    private wallLayer!: Phaser.Tilemaps.StaticTilemapLayer;
+    private spawnLayer!: Phaser.Tilemaps.StaticTilemapLayer;
+    private crateLayer!: Phaser.Tilemaps.StaticTilemapLayer;
+
+    constructor(stKey:string) {
+        super({
+            key: stKey,
+        });
     }
 
-    public moveBackward(callback){
-        this.updatePlayer("playerDown",callback);
+
+    preload() {
+        this.load.atlas("assets", '/assets/assets.png', '/assets/assets.json');
+        this.load.tilemapTiledJSON('level01', '/assets/levels/level02.json');
+    }
+    create() {
+        this.tileMap = this.make.tilemap({ key: 'level01' });
+        this.tileSet = this.tileMap.addTilesetImage('assets');
+        this.createLevel();
+        this.createPlayers();
+        //this.cameras.main.startFollow(this.selectedPlayer,false,0.5,0.5,0,0);
+        //this.cameras.main.setBounds(0,0,this.tileMap.widthInPixels,this.tileMap.heightInPixels);
+        //this.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
+        this.createGridLines();
+    }
+    update() {
+        // if(this.player.state!=='moving'){
+        //     this.updatePlayer(this.getPlayerDirection(),()=>{console.log("test2")}   );
+        // }
     }
 
-    public turnLeft(callback){
-        this.updatePlayer("playerLeft",callback);
-    }
-
-    public turnRight(callback){
-        this.updatePlayer("playerRight",callback);
-    }
-
-    private updatePlayer(direction: PlayerDirection | null, callback:CallableFunction ) {
-        if (!direction) {
-            //callback();
-            return;
-        }
-        this.troToMovePlayer(direction, callback);
-    }
-
-    private troToMovePlayer(direction: PlayerDirection, callback:CallableFunction) {
+    private tryToMovePlayer(player:Player, direction: PlayerDirection, callback:CallableFunction) {
 
 
-        const { x, y } = this.player;
+        const { x, y } = player;
         const currentTile = this.tileMap.getTileAtWorldXY(x, y, true);
 
 
@@ -66,7 +83,7 @@ class LevelScene extends Phaser.Scene {
                 return false;
             }
         }
-        this.movePlayer(floor, callback);
+        this.movePlayer(player, floor, callback);
     }
 
     private checkIfLocationIsFree(oneFurther:Phaser.Tilemaps.Tile) {
@@ -111,7 +128,7 @@ class LevelScene extends Phaser.Scene {
         }
     }
 
-    private movePlayer(tile:Phaser.Tilemaps.Tile, callback:CallableFunction) {
+    private movePlayer(player:Player ,tile:Phaser.Tilemaps.Tile, callback:CallableFunction) {
         
         const { x, y } = this.tileToWordFixOrigin(tile);
         const ol = this.tileMap.tileToWorldXY(tile.x,tile.y);
@@ -120,62 +137,13 @@ class LevelScene extends Phaser.Scene {
         if (crate) {
             // not the prettiest way, we simply move the crate along the same direction
             // knowing that the next spot is available
-            const crateX = crate.x + x - this.player.x;
-            const crateY = crate.y + y - this.player.y;
+            const crateX = crate.x + x - player.x;
+            const crateY = crate.y + y - player.y;
             const newTile = this.floorLayer.getTileAtWorldXY(crateX, crateY);
             crate.moveTo(crateX, crateY, newTile);
         }
-        this.player.moveTo(ol.x, ol.y,callback);
+        player.moveTo(ol.x, ol.y,callback);
     }
-
-    private leftKeys!: Phaser.Input.Keyboard.Key[];
-    private rightKeys!: Phaser.Input.Keyboard.Key[];
-    private upKeys!: Phaser.Input.Keyboard.Key[];
-    private downKeys!: Phaser.Input.Keyboard.Key[];
-
-    private createInputHandler() {
-        this.leftKeys = [Phaser.Input.Keyboard.KeyCodes.LEFT, Phaser.Input.Keyboard.KeyCodes.A, Phaser.Input.Keyboard.KeyCodes.Q].map((key) => {
-            return this.input.keyboard.addKey(key);
-        });
-        this.rightKeys = [Phaser.Input.Keyboard.KeyCodes.RIGHT, Phaser.Input.Keyboard.KeyCodes.D].map((key) => {
-            return this.input.keyboard.addKey(key);
-        });
-        this.upKeys = [Phaser.Input.Keyboard.KeyCodes.UP, Phaser.Input.Keyboard.KeyCodes.W, Phaser.Input.Keyboard.KeyCodes.Z].map((key) => {
-            return this.input.keyboard.addKey(key);
-        });
-        this.downKeys = [Phaser.Input.Keyboard.KeyCodes.DOWN, Phaser.Input.Keyboard.KeyCodes.S].map((key) => {
-            return this.input.keyboard.addKey(key);
-        });
-    }
-
-    private getPlayerDirection(): PlayerDirection | null {
-        if (this.leftKeys.some((key) => key.isDown)) {
-            //console.log("left");
-            return 'playerLeft';
-        }
-        if (this.rightKeys.some((key) => key.isDown)) {
-            //console.log("right");
-            return 'playerRight';
-        }
-
-        if (this.upKeys.some((key) => key.isDown)) {
-            //console.log("up");
-            return 'playerUp';
-        }
-        if (this.downKeys.some((key) => key.isDown)) {
-            //console.log("down");
-            return 'playerDown';
-        }
-        return null;
-    }
-
-    
-    private player!: Player;
-    private crates!: Phaser.GameObjects.Group;
-
-    //tilemap
-    private tileSet!: Phaser.Tilemaps.Tileset;
-    private tileMap!: Phaser.Tilemaps.Tilemap;
 
     // return the tiles to word centered coordinate
     private tileToWordFixOrigin(tile:Phaser.Tilemaps.Tile):Phaser.Math.Vector2{
@@ -185,38 +153,6 @@ class LevelScene extends Phaser.Scene {
         return vec;
     }
 
-    //Layers
-    private floorLayer!: Phaser.Tilemaps.DynamicTilemapLayer;
-    private wallLayer!: Phaser.Tilemaps.StaticTilemapLayer;
-    private spawnLayer!: Phaser.Tilemaps.StaticTilemapLayer;
-    private crateLayer!: Phaser.Tilemaps.StaticTilemapLayer;
-
-    constructor() {
-        super({
-            key: 'LevelScene',
-        });
-    }
-
-    preload() {
-        this.load.atlas("assets", '/assets/assets.png', '/assets/assets.json');
-        this.load.tilemapTiledJSON('level01', '/assets/levels/level02.json');
-    }
-    create() {
-        this.tileMap = this.make.tilemap({ key: 'level01' });
-        this.tileSet = this.tileMap.addTilesetImage('assets');
-        this.createLevel();
-        this.createPlayer();
-        this.cameras.main.startFollow(this.player,false,0.5,0.5,0,0);
-        this.cameras.main.setBounds(0,0,this.tileMap.widthInPixels,this.tileMap.heightInPixels);
-        //this.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
-        this.createGridLines();
-        this.createInputHandler();
-    }
-    update() {
-        if(this.player.state!=='moving'){
-            this.updatePlayer(this.getPlayerDirection(),()=>{}   );
-        }
-    }
 
     private createLevel() {
         this.createLayers();
@@ -248,21 +184,28 @@ class LevelScene extends Phaser.Scene {
         this.crates = this.add.group(crateSprites);
     }
 
-    private createPlayer() {
-        const playerSpawn = this.getSpawn();
-        const { x, y } = this.tileToWordFixOrigin(playerSpawn);
-        this.player = new Player(this, x, y);
-        this.add.existing(this.player);
+    private createPlayers() {
+        const playerSpawns = this.getSpawns();
+        
+        //TODO
+        //get players from API
+        // for(;;){
+        //     let playerSpawn = playerSpawns[0];
+            
+        //     const { x, y } = this.tileToWordFixOrigin(playerSpawn);
+        //     this.players[0] = new Player(this, x, y);
+        //     this.add.existing(this.players[0]);
+        //     break;
+        // }
+        //TODO
+       
     }
 
-    private getSpawn() {
+    private getSpawns():Array<Phaser.Tilemaps.Tile> {
         const spawns = this.getTiles((tile) => {
             return tile.index > - 1
         }, this.spawnLayer);
-        if (spawns.length !== 1) {
-            throw new Error(`[LevelScene] Expected single spawn`);
-        }
-        return spawns[0];
+        return spawns;
     }
 
     private getTiles(test: (tile: Phaser.Tilemaps.Tile) => boolean, layer?: Phaser.Tilemaps.StaticTilemapLayer): Phaser.Tilemaps.Tile[] {
@@ -305,13 +248,7 @@ class LevelScene extends Phaser.Scene {
         }
     }
 
-    private addGridLine(
-        startX: number,
-        startY: number,
-        next: (x: number, y: number) => { x: number, y: number },
-        skip: (x: number, y: number) => { x: number, y: number },
-        stop: (x: number, y: number) => boolean,
-    ) {
+    private addGridLine(startX: number, startY: number, next: (x: number, y: number) => { x: number, y: number }, skip: (x: number, y: number) => { x: number, y: number }, stop: (x: number, y: number) => boolean, ) {
         let currentX = startX;
         let currentY = startY;
         const line = this.add.graphics({
@@ -336,5 +273,5 @@ class LevelScene extends Phaser.Scene {
 
 }
 
-export {LevelScene };
+export { BaseScene };
 

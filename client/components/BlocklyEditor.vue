@@ -1,74 +1,150 @@
 <template>
 <div class="base">
-    <div class="controlls">
-        <button @click="run"> RUN </button>
-        <button @click="test"> STOP </button>
+    <div class="">
+        <v-toolbar dense >
+            <v-menu class="hidden-md-and-up">
+                <v-toolbar-side-icon slot="activator"></v-toolbar-side-icon>
+                <v-list>
+                <v-list-tile v-for="item in menu" :key="item.icon" @click="menuSwitch(item.title)">
+                    <v-list-tile-content>
+                    <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>   
+                </v-list>
+            </v-menu>
+            
+            <v-toolbar-items class="hidden-sm-and-down" v-for="item in menu" :key="item.id">
+                <v-btn
+                    v-bind:color="item.color"
+                    v-bind:flat="item.flat"
+                    v-on:click="menuSwitch(item.title)"
+                >
+                <v-icon>{{item.icon}}</v-icon>
+                </v-btn>
+            </v-toolbar-items>
+
+        </v-toolbar>
     </div>
     <div ref="blocklyDiv" class="blocklyDiv"></div>
 </div>
    
 </template>
 
+<style>
+.blocklyToolboxDiv{
+    background-color: #202020;
+}
+.blocklyFlyoutBackground{
+    background-color:#333;
+    fill-opacity: 0.2;
+}
+.blocklySvg{
+    background-color:#303030;
+}
+</style>
+
 
 <style scoped>
+.start{
+    background-color: seagreen;
+}
+.stop{
+    background-color: tomato;
+}
 .blocklyDiv{
-    height: 100%;
+    height: 99%;
+    padding-bottom: 50px;
+    /* position: relative; */
 }
 .base{
+    
     height: 100%;
-    display: grid;
-    grid-template-rows: 40px auto; 
+    /* display: grid;
+    grid-template-rows: 50px auto;  */
 }
-.controlls{
-    display: grid;
-    height: 100%;
-    grid-template-columns: auto auto;
-}
+
 </style>
 
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import base64 from 'base-64';
-
-
+// import { constants } from 'crypto';
+// import { truncate, truncateSync } from 'fs';
 //import axios from 'axios';
 
 declare const Blockly;
 declare const Interpreter:any;
-
 @Component
 export default class BlocklyEditor extends Vue{
+    menu = [
+        {flat:true, icon:'save', color:'success', title:'Save'},
+        {flat:false, icon:'play_arrow', color:'success',title:'Play'},
+        {flat:false, icon:'stop', color:'error',title:'Stop'},
+        {flat:true, icon:'cloud_download', color:'primary',title:'Load Saved'},
+    ]
+
 
     code:string = "";
+    xmlCode:string ="";
     workspace :any;
-    
-    test(){
-        alert('ok');
-        this['$axios'].get('/').then(res=>{
-            alert(res.data);
-        });
+    isCancel =false;
+
+    menuSwitch(title:string){
+        switch(title){
+            case "Play" : this.run(); break;
+            case "Save" : this.saveToServer(); break;
+            case "Stop" : this.stop(); break;
+            case "Load Saved" : this.loadFromServer(); break;
+
+        }
+    }
+    stop(){
+        this.isCancel=true;
+        this.workspace.highlightBlock(null);
     }
     
-    
     run(){
+        //Make blockly not accessable in running but not needed
+        //let bd:any = this.$refs.blocklyDiv;
+        //let block = document.createElement('div');
+        //block.setAttribute("style", "position: absolute; min-width: 100%;min-height: 100%;z-index: 100; background-color: #00ff6e21;");
+        //bd.insertBefore(block,bd.firstChild);
+
+        this.isCancel = false;
         let highlightBlock= (id)=>{
             this.workspace.highlightBlock(id);
         }
         let StepForward=()=>{
-            this.$nuxt.$emit('STEP_FORWARD',0);
+            move =true;
+            this.$nuxt.$emit('STEP_FORWARD',()=>{
+                move =false;
+                uresJaras();
+            });
             //console.log("player.stepForward()");
         }
         let StepBack=()=>{
-            this.$nuxt.$emit('STEP_BACK',0);
+            move =true;
+            this.$nuxt.$emit('STEP_BACK',()=>{
+                move =false;
+                uresJaras();
+            });
             //console.log("player.stepBack()");
         }
         let TurnLeft=()=>{
-            this.$nuxt.$emit('TURN_LEFT',0);
+            move =true;
+            this.$nuxt.$emit('TURN_LEFT',()=>{
+                move =false;
+                uresJaras();
+            });
             //console.log("player.rotLeft()");
         }
         let TurnRight=()=>{
-            this.$nuxt.$emit('TURN_RIGHT',0);
+            move =true;
+            this.$nuxt.$emit('TURN_RIGHT',()=>{
+                move =false;
+                uresJaras();
+            });
             //console.log("player.rotRight()");
         }
         var initApi = function(myInterpreter, scope){
@@ -107,26 +183,56 @@ export default class BlocklyEditor extends Vue{
         }
         //console.log(this.code);
         var myCode = this.code;
-        alert(myCode);
-
         var myInterpreter = new Interpreter(myCode, initApi);
-        let maxStep = 5000;
 
-        function nextStep() {
-            if (myInterpreter.step()) {
-                if(maxStep>0){
-                    maxStep--;
-                    window.setTimeout(nextStep, 10);
-                }else{
-                    //alert("Tul sok lépés")
+        let move =false;
+
+        let db = 1000000;
+        let uresJaras = ()=>{
+            try{
+                while(myInterpreter.step() && !move && !this.isCancel && db > 0){
+                    db--;
+                    if(db == 0){
+                        alert("Végtelen ciklust, vagy túlsok számolást csináltál! :)")
+                    }
                 }
-            
-            }else{
-            //socket.emit("updateScore",{"map": aktamap,"user":user,"score": document.getElementById("score").innerText});
-            //socket.emit("")
+            }catch(e){
+                alert(e);
+                this.isCancel = true;
             }
-        }
-        nextStep();
+        };
+        uresJaras();
+
+    }
+
+    saveToServer(){
+        let thiss = this;
+        this['$axios'].post('/updatecode',{level:0,code:this.xmlCode}).then((res,err)=>{
+        }).catch(function (error) {
+            if (error) {
+                console.log("Hiba a menetesben");
+                console.log(error);
+            }
+        });
+    }
+
+    loadFromServer(){
+        this['$axios'].get('/getcode',{level:0,code:this.xmlCode}).then((res,err)=>{
+            //console.log(res.data);
+            if(res.data){
+                var xml = Blockly.Xml.textToDom(res.data);
+                this.workspace.clear();
+                Blockly.Xml.domToWorkspace(xml, this.workspace);
+                //taChange();
+            }
+
+        })
+        .catch((error) => {
+            if (error) {
+                console.log("Hiba a menetesben");
+                console.log(error);
+            }
+        });
     }
     
     mounted(){
@@ -143,13 +249,10 @@ export default class BlocklyEditor extends Vue{
         }
         
         let sendServer =()=>{
-            //this.code = Blockly.JavaScript.blockToCode(getBlocksByType("iterations")[0]);
             this.code = Blockly.JavaScript.workspaceToCode(this.workspace);
-            let code = Blockly.JavaScript.workspaceToCode(this.workspace);
             let xml = Blockly.Xml.workspaceToDom(this.workspace);
-            let xml_text = Blockly.Xml.domToPrettyText(xml);
-            //this.code =Blockly.JavaScript.workspaceToCode(workspace);
-            //console.log(xml_text);
+            this.xmlCode = Blockly.Xml.domToPrettyText(xml);
+            
         }
 
         let addCustomBlocks=()=>{
@@ -276,16 +379,16 @@ export default class BlocklyEditor extends Vue{
             comments : true, 
             disable : true, 
             maxBlocks : Infinity,  
-            horizontalLayout : false, 
+            horizontalLayout : true, 
             toolboxPosition : 'end', 
             css : true, 
             rtl : false,
             sounds : false, 
-            trashcan: false,
+            trashcan: true,
             grid:{ 
                 spacing: 20,
                 length: 3,
-                colour: '#ccc',
+                colour: '#1E1E1E',
                 snap: false
             }
         }
@@ -294,8 +397,8 @@ export default class BlocklyEditor extends Vue{
         customColor();
         addCustomBlocks();
 
-        //Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
-        //Blockly.JavaScript.addReservedWords('highlightBlock');
+        Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
+        Blockly.JavaScript.addReservedWords('highlightBlock');
 
 
         let blocklyDiv = this.$refs.blocklyDiv;
@@ -309,6 +412,7 @@ export default class BlocklyEditor extends Vue{
             ,"text/xml"
         ).firstChild;
         Blockly.Xml.domToWorkspace(xmlInitBlocks, this.workspace);
+        
  
         //workspace.registerButtonCallback("SEND_SERVER", sendServer);
         this.workspace.addChangeListener(sendServer);

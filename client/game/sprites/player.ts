@@ -17,12 +17,14 @@ class Player extends Phaser.GameObjects.Sprite{
 
     
 
-    moveTo(newX: number, newY: number) {
+    moveTo(newX: number, newY: number, callback:CallableFunction) {
         const direction = this.getDirection(newX, newY);
         if (!direction) {
+          callback();
           return;
         }
         if(this._state==="moving"){
+            callback();
             return;
         }
         this._state = 'moving';
@@ -33,8 +35,28 @@ class Player extends Phaser.GameObjects.Sprite{
           duration: GAME_SPEED,
           onStart: this.onMoveStart,
           onStartParams: [direction],
-          onComplete: this.onMoveComplete,
+          onComplete: () => {
+            this._state = 'standing';
+            //this.anims.stop();
+        
+            // in the final version we have undos and restarts that destroys our player
+            // this check ensures that the callback doesnt crash
+            if (!this.scene) {
+              callback();
+              return;
+            }
+        
+            // reset player to start frame after movement is complete
+            /*
+            this.idleTimer = this.scene.time.delayedCall(500, () => {
+              this.setFrame(START_FRAME);
+              this.idleTimer = null;
+            }, [], this);*/
+            this.idleTimer = null;
+            callback();
+          },
         });
+
       }
     
       private onMoveStart = () => {
@@ -46,24 +68,7 @@ class Player extends Phaser.GameObjects.Sprite{
         }
       }
     
-      private onMoveComplete = () => {
-        this._state = 'standing';
-        //this.anims.stop();
-    
-        // in the final version we have undos and restarts that destroys our player
-        // this check ensures that the callback doesnt crash
-        if (!this.scene) {
-          return;
-        }
-    
-        // reset player to start frame after movement is complete
-        /*
-        this.idleTimer = this.scene.time.delayedCall(500, () => {
-          this.setFrame(START_FRAME);
-          this.idleTimer = null;
-        }, [], this);*/
-        this.idleTimer = null;
-      }
+      //private onMoveComplete = 
     
       private getDirection(newX: number, newY: number): PlayerDirection | null {
         if (newX > this.x) {

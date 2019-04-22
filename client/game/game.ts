@@ -1,14 +1,17 @@
 import "phaser";
 import {LevelScene} from "./scenes/levelScene";
+import { ViewScene } from "./scenes/viewScene";
 // main game configuration
 let Ls = new LevelScene();
-let  config =()=>{
+let vs = new ViewScene();
+
+let  config =(scene:string)=>{
   return {
     scale:{
       parent: "gameid",
       mode:Phaser.Scale.FIT,
-      width:1040,
-      height:1040,
+      width:960,
+      height:960,
       max:{
         height:1040,
         width:1040
@@ -16,7 +19,7 @@ let  config =()=>{
       autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
     },
     type: Phaser.AUTO,
-    scene: Ls
+    scene: scene==="levelScene" ? Ls : vs
   }
 }
 
@@ -25,23 +28,23 @@ export class Game extends Phaser.Game {
   constructor(config: GameConfig) {
     super(config);
   }
-  public moveForward=()=>{
-    Ls.moveForward();
+  public moveForward=(callback)=>{
+    Ls.moveForward(callback);
   }
-  public moveBackward=()=>{
-    Ls.moveBackward();
+  public moveBackward=(callback)=>{
+    Ls.moveBackward(callback);
   }
-  public turnLeft=()=>{
-    Ls.turnLeft();
+  public turnLeft=(callback)=>{
+    Ls.turnLeft(callback);
   }
-  public turnRight=()=>{
-    Ls.turnRight();
+  public turnRight=(callback)=>{
+    Ls.turnRight(callback);
   }
 }
 let gamee:Game;
 
-function launch(){
-  gamee = new Game(config());
+function launch(scene:string){
+  gamee = new Game(config(scene));
 }
 
 function getGame(): Game {
@@ -50,7 +53,5 @@ function getGame(): Game {
 function getLs(){
   return this.Ls;
 }
-
-//export default launch;
 
 export {launch, getGame, getLs};

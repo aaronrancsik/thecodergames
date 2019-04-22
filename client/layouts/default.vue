@@ -1,5 +1,7 @@
 <template>
+  <v-app dark>
     <nuxt/>
+  </v-app>
 </template>
 <style>
 html, body {
@@ -9,3 +11,4 @@ html, body {
   height: 100%;
 }
 </style>
+

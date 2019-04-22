@@ -2,10 +2,11 @@ import * as mongoose from 'mongoose';
 import { UserSchema } from '../models/userModel';
 import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
+
+
 const User = mongoose.model('User', UserSchema);
 
 export class UserController{
-
 
     static login = async (req:Request, res:Response, next:NextFunction) => {
         const { username, password } = req.body;
@@ -38,10 +39,11 @@ export class UserController{
             //Sing JWT, valid for plus 1 hour
             const token = jwt.sign({   
                     userId: user._id, 
-                    username:  username
+                    username:  username,
+                    roles:user.get('roles')
                 },
                 process.env.CUSTOMCONNSTR_Token,
-                { expiresIn: "1h" }
+                { expiresIn: 3600 }
             );
 
             res.json({
@@ -51,7 +53,6 @@ export class UserController{
             
         });
     }
-
 
     public addNewUser (req: Request, res: Response) {   
         let newUser = new User(req.body);
@@ -100,6 +101,129 @@ export class UserController{
         });
     }
 
+    public checkIn(req: Request, res: Response){
+        
+        const token = <string>req.headers['auth'];
+
+        let jwtPayload;
+        //Try to validate the token and get data
+        try{
+            //console.log(jwt.decode(token));
+            jwtPayload =<any>jwt.verify(token, process.env.CUSTOMCONNSTR_Token);
+            //res.locals.jwtPayload= jwtPayload;
+        }catch(e)
+        {
+            res.status(401).send();
+            return;
+        }
+
+        const {userId, username, roles} = jwtPayload;
+        
+        User.findById(userId, (err, user) => {
+            if(err){
+                res.send(err);
+            }
+            user.set("isOnline", true);
+            user.set("lastOnline", Date.now());
+            user.save();
+            res.json(user);
+        });
+    }
+
+    public getAllOnline(req: Request, res: Response){
+        const token = <string>req.headers['auth'];
+
+        let jwtPayload;
+        //Try to validate the token and get data
+        try{
+            //console.log(jwt.decode(token));
+            jwtPayload =<any>jwt.verify(token, process.env.CUSTOMCONNSTR_Token);
+            //res.locals.jwtPayload= jwtPayload;
+        }catch(e)
+        {
+            res.status(401).send();
+            return;
+        }
+        const {userId, username, roles} = jwtPayload;
+        
+        let a =[];
+        var query = User.find({isOnline: true},(err,user)=>{
+        });
+        query.exec((err, val)=>{
+            res.json(val);
+        })
+    }
+
+    public updateCode(req: Request, res: Response){
+        const token = <string>req.headers['auth'];
+
+        let jwtPayload;
+        //Try to validate the token and get data
+        try{
+            //console.log(jwt.decode(token));
+            jwtPayload =<any>jwt.verify(token, process.env.CUSTOMCONNSTR_Token);
+            //res.locals.jwtPayload= jwtPayload;
+        }catch(e)
+        {
+            res.status(401).send();
+            return;
+        }
+
+        try{
+            const {userId, username, roles} = jwtPayload;
+            let c = req.body['code'];
+            if(c!==undefined && c !== null){
+                User.updateOne({_id:userId},{
+                    $push:{
+                        code:c
+                    }
+                },(err, raw)=>{
+                    if(err){
+                        console.log(err);
+                        console.log(raw);
+                        res.status(400).send();
+                    }else{
+                        res.json("ok");
+                    }
+                });
+            }else{
+                res.status(400).send();
+            }
+        }catch(e){
+            res.status(400).send();
+        }
+    }
+
+    public loadLatestCode(req: Request, res: Response){
+        const token = <string>req.headers['auth'];
+
+        let jwtPayload;
+        //Try to validate the token and get data
+        try{
+            //console.log(jwt.decode(token));
+            jwtPayload =<any>jwt.verify(token, process.env.CUSTOMCONNSTR_Token);
+            //res.locals.jwtPayload= jwtPayload;
+        }catch(e)
+        {
+            res.status(401).send();
+            return;
+        }
+        
+        try{
+            const {userId, username, roles} = jwtPayload;
+            User.findById(userId,(err, user) => {
+                if(err){
+                    console.log(err);
+                    res.status(400).send();
+                }else{
+                    res.json(user['code'][user['code'].length-1]);
+                }            
+            });
+        }catch(e){
+            res.status(400).send();
+        }
+
+    }
 
 
 }
