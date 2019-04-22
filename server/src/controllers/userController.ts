@@ -48,7 +48,8 @@ export class UserController{
 
             res.json({
                 status: 1,
-                token:token
+                token:token,
+                roles:user.get('roles')
             });
             
         });

@@ -1,9 +1,6 @@
 <template>
 <v-container bg fill-height grid-list-md text-xs-center fluid>
   <v-layout row wrap >
-    <v-flex xs1>
-      <v-btn color="success" router-link to="/adminView">text</v-btn>
-    </v-flex>
     <v-flex xs12>
       <AccountManage/>
     </v-flex>

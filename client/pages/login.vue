@@ -58,9 +58,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import HelloWorld from '~/components/HelloWorld.vue';
 import Game from '~/components/Game.vue';
-
-const Cookie = process.client ? require('js-cookie') : undefined
-
+import Cookie from 'js-cookie';
 @Component({
   middleware:[
       'notAuthenticated'
@@ -75,20 +73,23 @@ export default class Login extends Vue {
     username ="";
     stpassword ="";
     postLogin() {
-        let a = this;
-        // we simulate the async request with timeout.
         this['$axios'].post('/user/login',{username:this.username,password:this.stpassword}).then((res,err)=>{
-            
-            let auth = {accessToken : res.data["token"]};
+            let auth = {accessToken : res.data["token"],roles:res.data["roles"]};
             this.$store.commit('setAuth', auth) // mutating to store for client rendering
-            Cookie.set('auth', auth) // saving token in cookie for server rendering
-            console.log(auth);
-            this.$router.push('/craft');
-        }).catch(function (error) {
+            
+            Cookie.set('auth', auth);
+
+            if(this.$store.state.auth.roles[0]==="admin"){
+                this.$router.push('/adminControl');
+            }else{
+                this.$router.push('/craft');
+            }
+            
+        }).catch((error)=> {
             console.log(error);
             if (error.response) {
-                a.err = "Hibás felhasználó név, vagy jelszó";
-                a.dialog=true;
+                this.err = "Hibás felhasználó név, vagy jelszó";
+                this.dialog=true;
             }
         });
     }

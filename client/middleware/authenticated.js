@@ -4,7 +4,7 @@ export default function ({ store, redirect }) {
     if (!store.state.auth) {
       return redirect('/login');
     }else{
-      return socket.emit('authenticate', {token: store.state.auth ? store.state.auth.accessToken : ""});
+      socket.emit('authenticate', {token: store.state.auth ? store.state.auth.accessToken : ""});
     }
   }
   
