@@ -1,43 +1,28 @@
 <template>
 <div class="base">
     <div class="">
-        <v-toolbar light dense>
-            <v-toolbar-items class="">
+        <v-toolbar dense >
+            <v-menu class="hidden-md-and-up">
+                <v-toolbar-side-icon slot="activator"></v-toolbar-side-icon>
+                <v-list>
+                <v-list-tile v-for="item in menu" :key="item.icon" @click="menuSwitch(item.title)">
+                    <v-list-tile-content>
+                    <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>   
+                </v-list>
+            </v-menu>
+            
+            <v-toolbar-items class="hidden-sm-and-down" v-for="item in menu" :key="item.id">
                 <v-btn
-                    flat
-                    color="success"
-                    @click="saveToServer"
+                    v-bind:color="item.color"
+                    v-bind:flat="item.flat"
+                    v-on:click="menuSwitch(item.title)"
                 >
-                <v-icon>save</v-icon>
+                <v-icon>{{item.icon}}</v-icon>
                 </v-btn>
             </v-toolbar-items>
-            <v-toolbar-items class="">
-                <v-btn
-                
-                color="success"
-                @click="run" class="start"
-                >
-                <v-icon>play_arrow</v-icon>
-                </v-btn>
-            </v-toolbar-items>
-            <v-spacer></v-spacer>
-            <v-toolbar-items class="">
-                <v-btn
-                    color="error"
-                    @click="stop" class="stop"
-                >
-                <v-icon>stop</v-icon>
-                </v-btn>
-            </v-toolbar-items>
-            <v-toolbar-items class="">
-                <v-btn
-                    flat
-                    color="error"
-                    @click="loadFromServer"
-                >
-                <v-icon>cloud_download</v-icon>
-                </v-btn>
-            </v-toolbar-items>
+
         </v-toolbar>
     </div>
     <div ref="blocklyDiv" class="blocklyDiv"></div>
@@ -68,13 +53,14 @@
 }
 .blocklyDiv{
     height: 99%;
+    padding-bottom: 50px;
     /* position: relative; */
 }
 .base{
     
     height: 100%;
-    display: grid;
-    grid-template-rows: 50px auto; 
+    /* display: grid;
+    grid-template-rows: 50px auto;  */
 }
 
 </style>
@@ -91,11 +77,28 @@ declare const Blockly;
 declare const Interpreter:any;
 @Component
 export default class BlocklyEditor extends Vue{
+    menu = [
+        {flat:true, icon:'save', color:'success', title:'Save'},
+        {flat:false, icon:'play_arrow', color:'success',title:'Play'},
+        {flat:false, icon:'stop', color:'error',title:'Stop'},
+        {flat:true, icon:'cloud_download', color:'primary',title:'Load Saved'},
+    ]
+
 
     code:string = "";
     xmlCode:string ="";
     workspace :any;
     isCancel =false;
+
+    menuSwitch(title:string){
+        switch(title){
+            case "Play" : this.run(); break;
+            case "Save" : this.saveToServer(); break;
+            case "Stop" : this.stop(); break;
+            case "Load Saved" : this.loadFromServer(); break;
+
+        }
+    }
     stop(){
         this.isCancel=true;
         this.workspace.highlightBlock(null);
