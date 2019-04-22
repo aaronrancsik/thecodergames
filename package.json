@@ -12,10 +12,10 @@
   "description": "A game for resarchers night by University Obuda NJSZK",
   "main": " ./server/build/index.js",
   "scripts": {
-    "devN": "API_URL_BROWSER=http://localhost:4455 nuxt-ts dev",
+    "devN": "SOCKET_HOST_URL=http://localhost:4455 API_URL_BROWSER=http://localhost:4455 nuxt-ts dev",
     "buildN": "nuxt-ts build",
     "startN": "nuxt-ts start",
-    "generateN": "API_URL_BROWSER=https://proggame.azurewebsites.net/ nuxt-ts generate",
+    "generateN": "SOCKET_HOST_URL=https://proggame.azurewebsites.net/ nuxt-ts generate",
     "start": "node ./server/build/index.js",
     "dev": "nodemon ./server/build/index.js",
     "build": "tsc --p tsconfig.server.json",
