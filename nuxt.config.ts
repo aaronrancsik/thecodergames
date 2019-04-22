@@ -1,8 +1,6 @@
 const pkg = require('./package');
 
 import * as dotenv from 'dotenv';
-dotenv.config();
-
 
 export default{
   modules: [                                                                                                                                                           
@@ -63,7 +61,6 @@ export default{
   build:{
     vendor:['vuetify'],
     extend(config, {isDev, isClient}){
-
       // if(isClient){
       //   if(isDev){
       //     config.resolve.alias['api']='https://proggame.azurewebsites.net';
@@ -74,7 +71,7 @@ export default{
       //   }
       // }
       //config.modules.push('@nuxtjs/axios');
-      console.log(config.module);
+      // console.log(config.module);
 
       config.module.rules.push(
         {
