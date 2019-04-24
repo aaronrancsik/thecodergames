@@ -58,7 +58,8 @@
 import { Component, Vue } from 'vue-property-decorator';
 import HelloWorld from '~/components/HelloWorld.vue';
 import Game from '~/components/Game.vue';
-import Cookie from 'js-cookie';
+
+
 @Component({
   middleware:[
       'notAuthenticated'
@@ -73,17 +74,18 @@ export default class Login extends Vue {
     username ="";
     stpassword ="";
     postLogin() {
-        this['$axios'].post('/user/login',{username:this.username,password:this.stpassword}).then((res,err)=>{
-            let auth = {accessToken : res.data["token"],roles:res.data["roles"]};
-            this.$store.commit('setAuth', auth) // mutating to store for client rendering
-            
-            Cookie.set('auth', auth);
+        this['$axios'].post('/user/login',{username:this.username, password:this.stpassword}).then((res,err)=>{
 
-            if(this.$store.state.auth.roles[0]==="admin"){
-                this.$router.push('/adminControl');
-            }else{
-                this.$router.push('/craft');
-            }
+            let auth = res.data["token"];
+            let roles = res.data["roles"];
+            
+            this['$cookies'].set('auth', auth, {
+                path: '/',
+            });
+            this['$cookies'].set('roles', roles, {
+                path : '/',
+            });
+            this.$router.push('/');
             
         }).catch((error)=> {
             console.log(error);

@@ -3,7 +3,8 @@ const pkg = require('./package');
 import * as dotenv from 'dotenv';
 
 export default{
-  modules: [                                                                                                                                                           
+  modules: [
+    'cookie-universal-nuxt',                                                                                                                                                           
     ['@nuxtjs/axios', {                                                                                                                                              
         baseURL: 'https://proggame.azurewebsites.net/',                                                                                                                            
         browserBaseURL: 'https://proggame.azurewebsites.net/'                                                                                                                      

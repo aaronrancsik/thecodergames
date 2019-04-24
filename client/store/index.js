@@ -1,5 +1,6 @@
 import Vuex from 'vuex'
-const cookieparser = import('cookie-parser');
+
+
 
 export const state=()=>{
   auth:null
@@ -15,7 +16,7 @@ export const actions ={
   // nuxtServerInit({ commit }, { req }) {
   //   let auth = null
   //   if (req.headers.cookie) {
-  //     const parsed = cookie----parser.parse(req.headers.cookie)
+  //     const parsed = cookieparser.parse(req.headers.cookie)
   //     try {
   //       auth = JSON.parse(parsed.auth)
   //     } catch (err) {
