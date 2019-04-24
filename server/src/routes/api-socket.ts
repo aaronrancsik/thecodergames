@@ -9,7 +9,9 @@ export class SocketEvent {
         let authenticated = false;
         let decodedToken ="";
         
-        
+        socket.on('disconnect',()=>{
+          console.log(`socket ID "${socket.id}" disconnected`);
+        });
         
         socket.on('*', (packet)=> {
           if(authenticated===false){
