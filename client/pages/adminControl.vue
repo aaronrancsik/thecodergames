@@ -10,7 +10,6 @@ import { Component, Vue } from 'vue-property-decorator';
 })
 export default class AdminControl extends Vue {
     mounted() {
-        console.log(window['$nuxt']._route.params);
         window.open("/adminView","","status");
      }
 }
