@@ -185,8 +185,14 @@ class BaseScene extends Phaser.Scene {
     }
 
     private createPlayers() {
-        const playerSpawns = this.getSpawns();
+
+        const playerSpawn = this.getSpawns()[0];
+        const { x, y } = this.tileToWordFixOrigin(playerSpawn);
+        this.players.push(new Player(this, x, y));
+        this.add.existing(this.players[0]);
+
         
+        //const playerSpawns = this.getSpawns();
         //TODO
         //get players from API
         // for(;;){
