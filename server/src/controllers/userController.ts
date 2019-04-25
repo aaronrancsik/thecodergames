@@ -1,12 +1,57 @@
 import * as mongoose from 'mongoose';
 import { UserSchema } from '../models/userModel';
 import { Request, Response, NextFunction } from 'express';
+import * as request from 'request';
+import {CoreOptions} from 'request';
 import * as jwt from 'jsonwebtoken';
 import { ParseHeader } from '../tools/headerParser';
 
 const User = mongoose.model('User', UserSchema);
 
 export class UserController{
+
+    static regist = async(inReq:Request, inRes:Response, inNext:NextFunction)=>{
+
+
+        try{ 
+            const { username, password, school, email, recaptchatoken } = inReq.body;
+            const verifyUrl = "https://www.google.com/recaptcha/api/siteverify";
+            request({
+                 // will be ignored
+                method: 'POST',
+                uri: verifyUrl,
+ 
+                // HTTP Archive Request Object
+                formData:{
+                    secret:"6LeiGKAUAAAAAFFAHfYFLHJefWDdT0B9rsTCOgUX",
+                    response:recaptchatoken
+                }
+            },(err,res,b)=>{
+                if(JSON.parse(res.body)['success']===true){
+                    let newUser = new User();
+                    newUser.set('username', username);
+                    newUser.set('password', password);
+                    newUser.set('school', school);
+                    newUser.set('email', email);
+                    newUser.set('created_date', Date.now());
+                    newUser.save((err, user) => {
+                        if(err){
+                            console.log(err);
+                            inRes.status(400).send(err);
+                        }else{
+                            console.log('succes reg');
+                            inRes.send('ok');
+                            
+                        }
+                    })
+                }else{
+                    inRes.status(400).send();
+                }
+            })
+        }catch(err){
+            inRes.status(400).send();
+        }
+    }
 
     static login = async (req:Request, res:Response, next:NextFunction) => {
         const { username, password } = req.body;

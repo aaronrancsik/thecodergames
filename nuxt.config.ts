@@ -4,6 +4,8 @@ import * as dotenv from 'dotenv';
 
 export default{
   modules: [
+    
+    '@nuxtjs/recaptcha',
     'cookie-universal-nuxt',                                                                                                                                                           
     ['@nuxtjs/axios', {                                                                                                                                              
         baseURL: 'https://proggame.azurewebsites.net/',                                                                                                                            
@@ -11,6 +13,11 @@ export default{
                                                                                                                                                                     
     }]                                                                                                                                                               
   ],                                                                                                                                                                   
+                                                                                                                                                                     
+  recaptcha: {
+    siteKey:'6LeiGKAUAAAAACB-0Bt6T51iyuR3g0HXqqgxB4Fa',   
+    version: 2    
+  },
                                                                                                                                                                      
   axios: {
     // proxyHeaders: false
@@ -41,8 +48,8 @@ export default{
       {src:"/blockly/blocks_compressed.js"},
       {src:"/blockly/javascript_compressed.js"},
       {src:"/blockly/msg/js/hu.js"},
-
-      {src:"/JS-Interpreter/acorn_interpreter.js"}
+      {src:"/JS-Interpreter/acorn_interpreter.js"},
+      {src:"https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit"},
     ],
     title: pkg.name,
     meta: [
