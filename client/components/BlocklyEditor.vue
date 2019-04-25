@@ -31,6 +31,13 @@
 </template>
 
 <style>
+#__nuxt, #__layout{
+    height: 100%;
+    overflow: hidden; 
+}
+#app{
+    height: 100%;
+}
 .blocklyToolboxDiv{
     background-color: #202020;
 }

@@ -5,7 +5,7 @@
           <v-flex xs12 >
             <h1  class="display-2" id="h1">The Coder<span class="terminal">█</span> Games</h1>    
           </v-flex>
-          <v-layout column  align-center justify-center fill-height>
+          <v-layout column  align-center justify-center id="myconti">
           <v-flex xs1>
             <v-btn id="game" to="/craft" slot="activator" round  color="primary" large> Játék </v-btn>
           </v-flex>
@@ -33,6 +33,9 @@ export default class HelloWorld extends Vue {
 }
 </script>
 <style>
+#myconti{
+  height:95%;
+}
 .terminal {
   font-size: 33px;
   position: relative;
