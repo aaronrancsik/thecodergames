@@ -56,6 +56,16 @@ export default class GameAdmin extends Vue  {
     }
 }
 </script>
+<style>
+#__nuxt, #__layout{
+    height: 100%;
+    overflow: hidden; 
+}
+#app{
+    height: 100%;
+}
+</style>
+
 <style scoped>
 #gameid{
     height: 100%;
