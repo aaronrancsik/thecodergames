@@ -39,7 +39,7 @@
     fill-opacity: 0.2;
 }
 .blocklySvg{
-    background-color:#303030;
+    background-color: #24343D;
 }
 </style>
 
@@ -81,7 +81,7 @@ export default class BlocklyEditor extends Vue{
         {flat:true, icon:'save', color:'success', title:'Save'},
         {flat:false, icon:'play_arrow', color:'success',title:'Play'},
         {flat:false, icon:'stop', color:'error',title:'Stop'},
-        {flat:true, icon:'cloud_download', color:'primary',title:'Load Saved'},
+        {flat:true, icon:'cloud_download', color:'info',title:'Load Saved'},
     ]
 
 

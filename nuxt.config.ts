@@ -12,8 +12,8 @@ export default{
         browserBaseURL: 'https://proggame.azurewebsites.net/'                                                                                                                      
                                                                                                                                                                     
     }]                                                                                                                                                               
-  ],                                                                                                                                                                   
-                                                                                                                                                                     
+  ],
+  
   recaptcha: {
     siteKey:'6LeiGKAUAAAAACB-0Bt6T51iyuR3g0HXqqgxB4Fa',   
     version: 2    
@@ -59,7 +59,8 @@ export default{
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel:"stylesheet", href: 'https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons'}
+      { rel:"stylesheet", href: 'https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons'},
+      { href:"https://fonts.googleapis.com/css?family=Press+Start+2P", rel:"stylesheet"}
     ]
   }
   ,css:[
@@ -67,7 +68,18 @@ export default{
     '~/assets/main.css',
   ],
   build:{
-    vendor:['vuetify'],
+    babel: {
+      plugins: [
+        ["transform-imports", {
+          "vuetify": {
+            "transform": "vuetify/es5/components/${member}",
+            "preventFullImport": false
+          }
+        }]
+      ]
+    },
+    vendor:['@/plugins/vuetify.js'],
+    
     extend(config, {isDev, isClient}){
       config.module.rules.push(
         {

@@ -36,6 +36,7 @@
     "@types/request": "^2.48.1",
     "@types/socket.io": "^2.1.2",
     "@types/socket.io-client": "^1.4.32",
+    "babel-plugin-transform-imports": "^1.5.1",
     "base-64": "^0.1.0",
     "bcrypt": "^3.0.4",
     "body-parser": "^1.18.3",
