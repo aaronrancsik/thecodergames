@@ -1,4 +1,18 @@
 /**
+  * vue-class-component v6.3.2
+  * (c) 2015-present Evan You
+  * @license MIT
+  */
+
+/**
+  * vue-class-component v7.0.1
+  * (c) 2015-present Evan You
+  * @license MIT
+  */
+
+/*! http://mths.be/base64 v0.1.0 by @mathias | MIT license */
+
+/**
  * @author       Richard Davey <rich@photonstorm.com>
  * @copyright    2019 Photon Storm Ltd.
  * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
@@ -103,28 +117,6 @@
  * @license  MIT
  */
 
-/**
-  * vue-class-component v6.3.2
-  * (c) 2015-present Evan You
-  * @license MIT
-  */
-
-/**
-  * vue-class-component v7.0.1
-  * (c) 2015-present Evan You
-  * @license MIT
-  */
-
-/*! http://mths.be/base64 v0.1.0 by @mathias | MIT license */
-
-/*!
- * JavaScript Cookie v2.2.0
- * https://github.com/js-cookie/js-cookie
- *
- * Copyright 2006, 2015 Klaus Hartl & Fagner Brack
- * Released under the MIT license
- */
-
 /*!
  * The buffer module from node.js, for the browser.
  *
@@ -136,6 +128,13 @@
  * vue-no-ssr v1.1.1
  * (c) 2018-present egoist <0x142857@gmail.com>
  * Released under the MIT License.
+ */
+
+/*!
+ * cookie
+ * Copyright(c) 2012-2014 Roman Shtylman
+ * Copyright(c) 2015 Douglas Christopher Wilson
+ * MIT Licensed
  */
 
 /*!*****************************************!*\
