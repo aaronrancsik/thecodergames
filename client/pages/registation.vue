@@ -113,8 +113,8 @@ export default class Registation extends Vue {
         obj['password']=this.stpassword;
         obj['recaptchatoken']=token;
         this['$axios'].post('/user/registation',obj).then((response)=>{
-            console.log(response);
-            //this['$router'].push('/login');
+            //console.log(response);
+            this['$router'].push('/login');
         }).catch((error)=> {
             if(error.response &&  error.response.data && error.response.data.code===11000){
                 this.err = "A felhasználónév vagy email sajnos már foglalt!";
