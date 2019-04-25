@@ -30,6 +30,12 @@ export default class GameAdmin extends Vue  {
                 this.gameInst =game.getGame();
             });
         });
+
+        socket.on('start',(m)=>{
+            this.gameInst.action('0','left', socket);
+            //alert('startGame'+m);
+        });
+        socket.emit('subAdmins', [this['$cookies'].get('auth')]);
     }
 }
 </script>

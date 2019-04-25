@@ -40,6 +40,9 @@ export class Game extends Phaser.Game {
   public turnRight=(callback)=>{
     Ls.turnRight(callback);
   }
+  public action =(id:string,action:string,socket:any)=>{
+    Vs.action(id,action,socket);
+  }
 }
 let gamee:Game;
 

@@ -27,6 +27,13 @@ class BaseScene extends Phaser.Scene {
         });
     }
 
+    public action(id:string, action:string, socket:any){
+
+        this.tryToMovePlayer(this.players[0],'playerRight',()=>{
+            socket.emit('ok');
+        });
+    }
+
 
     preload() {
         this.load.atlas("assets", '/assets/assets.png', '/assets/assets.json');
@@ -191,7 +198,7 @@ class BaseScene extends Phaser.Scene {
         this.players.push(new Player(this, x, y));
         this.add.existing(this.players[0]);
 
-        
+
         //const playerSpawns = this.getSpawns();
         //TODO
         //get players from API

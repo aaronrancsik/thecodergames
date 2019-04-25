@@ -4,6 +4,8 @@
          <v-flex shrink pa-1>
               <v-btn outline @click="getUsers()">Get Users</v-btn>
               <v-btn outline @click="viewer()">Open Viewer</v-btn>
+              <v-btn outline @click="startGame()">Start</v-btn>
+              <v-btn outline @click="stopGame()">Stop</v-btn>
         </v-flex>
         <v-flex shrink pa-1>
           <v-data-table
@@ -25,7 +27,7 @@
               <td>{{ props.item.username }}</td>
               <td class="text-xs-right limit">{{ props.item.auth }}</td>
               <td class="text-xs-right">{{ props.item.socketid }}</td>
-</template>
+            </template>
           </v-data-table>
         </v-flex>
     </v-layout>
@@ -62,7 +64,15 @@ export default class AdminControl extends Vue {
      getUsers(){
        socket.emit('getOnlineUsers',[this['$cookies'].get('auth')]);
      }
-}
+
+     startGame(){
+       socket.emit('start',"hello World");
+     }
+
+     stopGame(){
+
+     }
+
      mounted(){
        socket.emit('subAdmins', [this['$cookies'].get('auth')]);
        socket.on("getOnlineUsers",(m)=>{
