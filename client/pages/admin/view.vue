@@ -6,14 +6,17 @@
 import { Component, Vue } from 'vue-property-decorator';
 import GameAdmin from '~/components/GameAdmin.vue';
 
+
 @Component({
   components: {
     GameAdmin
   },
   middleware:[
-    'authenticated'
+    'authenticated',
+    'admin'
   ]
 })
 export default class AdminView extends Vue {
+
 }
 </script>
