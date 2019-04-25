@@ -1,26 +1,26 @@
 <template>
 <div class="base">
-        <v-toolbar dense >
-            <v-menu class="hidden-md-and-up">
-                <v-toolbar-side-icon slot="activator"></v-toolbar-side-icon>
-                <v-list>
-                <v-list-tile v-for="item in menu" :key="item.icon" @click="menuSwitch(item.title)">
-                    <v-list-tile-content>
-                    <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>   
-                </v-list>
-            </v-menu>
-            <v-toolbar-items class="hidden-sm-and-down" v-for="item in menu" :key="item.id">
-                <v-btn
-                    v-bind:color="item.color"
-                    v-bind:flat="item.flat"
-                    v-on:click="menuSwitch(item.title)"
-                >
-                <v-icon>{{item.icon}}</v-icon>
-                </v-btn>
-            </v-toolbar-items>
-        </v-toolbar>
+    <v-toolbar dense >
+        <v-menu class="hidden-md-and-up">
+            <v-toolbar-side-icon slot="activator"></v-toolbar-side-icon>
+            <v-list>
+            <v-list-tile v-for="item in menu" :key="item.icon" @click="menuSwitch(item.title)">
+                <v-list-tile-content>
+                <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                </v-list-tile-content>
+            </v-list-tile>   
+            </v-list>
+        </v-menu>
+        <v-toolbar-items class="hidden-sm-and-down" v-for="item in menu" :key="item.id">
+            <v-btn
+                v-bind:color="item.color"
+                v-bind:flat="item.flat"
+                v-on:click="menuSwitch(item.title)"
+            >
+            <v-icon>{{item.icon}}</v-icon>
+            </v-btn>
+        </v-toolbar-items>
+    </v-toolbar>
     <div ref="blocklyDiv" class="blocklyDiv"></div>
 </div>
    
@@ -80,10 +80,10 @@ declare const Interpreter:any;
 @Component
 export default class BlocklyEditor extends Vue{
     menu = [
-        {flat:true, icon:'save', color:'success', title:'Save'},
-        {flat:false, icon:'play_arrow', color:'success',title:'Play'},
-        {flat:false, icon:'stop', color:'error',title:'Stop'},
-        {flat:true, icon:'cloud_download', color:'info',title:'Load Saved'},
+        {flat:true, icon:'save', color:'success', title:'Save',id:1},
+        {flat:false, icon:'play_arrow', color:'success',title:'Play',id:2},
+        {flat:false, icon:'stop', color:'error',title:'Stop',id:3},
+        {flat:true, icon:'cloud_download', color:'info',title:'Load Saved',id:4},
     ]
 
 
@@ -101,6 +101,7 @@ export default class BlocklyEditor extends Vue{
 
         }
     }
+
     stop(){
         this.isCancel=true;
         this.workspace.highlightBlock(null);
@@ -395,7 +396,6 @@ export default class BlocklyEditor extends Vue{
             }
         }
         
-        
         customColor();
         addCustomBlocks();
 
@@ -420,7 +420,7 @@ export default class BlocklyEditor extends Vue{
         this.workspace.addChangeListener(sendServer);
         this.workspace.toolbox_.flyout_.autoClose = false;
         this.workspace.scrollbar.setContainerVisible(false);
-        
+
         socket.emit('subUsers',[this['$cookies'].get('auth')]);
         socket.on('doCheckIn', (m)=>{
             socket.emit('doCheckIn',[this['$cookies'].get('auth')]);
