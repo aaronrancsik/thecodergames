@@ -11,7 +11,10 @@ export class Routes {
                 status: 'API Its Working',
                 message: 'Welcome to the jungle!'
             })
-        });      
+        });
+        
+        app.route('/user/registation')
+        .post(UserController.regist)
         
         app.route('/user/login')
         .post(UserController.login)

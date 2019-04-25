@@ -1,12 +1,57 @@
 import * as mongoose from 'mongoose';
 import { UserSchema } from '../models/userModel';
 import { Request, Response, NextFunction } from 'express';
+import * as request from 'request';
+import {CoreOptions} from 'request';
 import * as jwt from 'jsonwebtoken';
-
+import { ParseHeader } from '../tools/headerParser';
 
 const User = mongoose.model('User', UserSchema);
 
 export class UserController{
+
+    static regist = async(inReq:Request, inRes:Response, inNext:NextFunction)=>{
+
+
+        try{ 
+            const { username, password, school, email, recaptchatoken } = inReq.body;
+            const verifyUrl = "https://www.google.com/recaptcha/api/siteverify";
+            request({
+                 // will be ignored
+                method: 'POST',
+                uri: verifyUrl,
+ 
+                // HTTP Archive Request Object
+                formData:{
+                    secret:"6LeiGKAUAAAAAFFAHfYFLHJefWDdT0B9rsTCOgUX",
+                    response:recaptchatoken
+                }
+            },(err,res,b)=>{
+                if(JSON.parse(res.body)['success']===true){
+                    let newUser = new User();
+                    newUser.set('username', username);
+                    newUser.set('password', password);
+                    newUser.set('school', school);
+                    newUser.set('email', email);
+                    newUser.set('created_date', Date.now());
+                    newUser.save((err, user) => {
+                        if(err){
+                            console.log(err);
+                            inRes.status(400).send(err);
+                        }else{
+                            console.log('succes reg');
+                            inRes.send('ok');
+                            
+                        }
+                    })
+                }else{
+                    inRes.status(400).send();
+                }
+            })
+        }catch(err){
+            inRes.status(400).send();
+        }
+    }
 
     static login = async (req:Request, res:Response, next:NextFunction) => {
         const { username, password } = req.body;
@@ -48,7 +93,8 @@ export class UserController{
 
             res.json({
                 status: 1,
-                token:token
+                token:token,
+                roles:user.get('roles')
             });
             
         });
@@ -131,22 +177,6 @@ export class UserController{
     }
 
     public getAllOnline(req: Request, res: Response){
-        const token = <string>req.headers['auth'];
-
-        let jwtPayload;
-        //Try to validate the token and get data
-        try{
-            //console.log(jwt.decode(token));
-            jwtPayload =<any>jwt.verify(token, process.env.CUSTOMCONNSTR_Token);
-            //res.locals.jwtPayload= jwtPayload;
-        }catch(e)
-        {
-            res.status(401).send();
-            return;
-        }
-        const {userId, username, roles} = jwtPayload;
-        
-        let a =[];
         var query = User.find({isOnline: true},(err,user)=>{
         });
         query.exec((err, val)=>{
@@ -155,21 +185,9 @@ export class UserController{
     }
 
     public updateCode(req: Request, res: Response){
-        const token = <string>req.headers['auth'];
-
-        let jwtPayload;
-        //Try to validate the token and get data
-        try{
-            //console.log(jwt.decode(token));
-            jwtPayload =<any>jwt.verify(token, process.env.CUSTOMCONNSTR_Token);
-            //res.locals.jwtPayload= jwtPayload;
-        }catch(e)
-        {
-            res.status(401).send();
-            return;
-        }
-
-        try{
+        
+        let jwtPayload = ParseHeader(req);
+        if(jwtPayload!==null){
             const {userId, username, roles} = jwtPayload;
             let c = req.body['code'];
             if(c!==undefined && c !== null){
@@ -189,27 +207,15 @@ export class UserController{
             }else{
                 res.status(400).send();
             }
-        }catch(e){
-            res.status(400).send();
+        }else{
+            res.status(401).send();
         }
     }
 
     public loadLatestCode(req: Request, res: Response){
-        const token = <string>req.headers['auth'];
-
-        let jwtPayload;
-        //Try to validate the token and get data
-        try{
-            //console.log(jwt.decode(token));
-            jwtPayload =<any>jwt.verify(token, process.env.CUSTOMCONNSTR_Token);
-            //res.locals.jwtPayload= jwtPayload;
-        }catch(e)
-        {
-            res.status(401).send();
-            return;
-        }
         
-        try{
+        let jwtPayload = ParseHeader(req);
+        if(jwtPayload !==null){
             const {userId, username, roles} = jwtPayload;
             User.findById(userId,(err, user) => {
                 if(err){
@@ -219,10 +225,9 @@ export class UserController{
                     res.json(user['code'][user['code'].length-1]);
                 }            
             });
-        }catch(e){
+        }else{
             res.status(400).send();
         }
-
     }
 
 

@@ -10,14 +10,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-const Cookie = process.client ? require('js-cookie') : undefined
+
 @Component
 export default class AccountManage extends Vue {
     logout() {
-      //todo add server call
-      Cookie.remove('auth');
-      this.$store.commit('setAuth', null);
-      location.reload(true);
+      this['$cookies'].remove('auth');
+      this['$cookies'].remove('roles');
+      this.$router.push('/');
     }
 }
 </script>

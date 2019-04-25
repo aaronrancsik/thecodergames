@@ -3,7 +3,7 @@ import {LevelScene} from "./scenes/levelScene";
 import { ViewScene } from "./scenes/viewScene";
 // main game configuration
 let Ls = new LevelScene();
-let vs = new ViewScene();
+let Vs = new ViewScene();
 
 let  config =(scene:string)=>{
   return {
@@ -19,7 +19,7 @@ let  config =(scene:string)=>{
       autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
     },
     type: Phaser.AUTO,
-    scene: scene==="levelScene" ? Ls : vs
+    scene: scene==="levelScene" ? Ls : Vs
   }
 }
 
@@ -39,6 +39,9 @@ export class Game extends Phaser.Game {
   }
   public turnRight=(callback)=>{
     Ls.turnRight(callback);
+  }
+  public action =(id:string,action:string,socket:any)=>{
+    Vs.action(id,action,socket);
   }
 }
 let gamee:Game;

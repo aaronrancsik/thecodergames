@@ -1,36 +1,39 @@
 <template>
 <div class="base">
-    <div class="">
-        <v-toolbar dense >
-            <v-menu class="hidden-md-and-up">
-                <v-toolbar-side-icon slot="activator"></v-toolbar-side-icon>
-                <v-list>
-                <v-list-tile v-for="item in menu" :key="item.icon" @click="menuSwitch(item.title)">
-                    <v-list-tile-content>
-                    <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>   
-                </v-list>
-            </v-menu>
-            
-            <v-toolbar-items class="hidden-sm-and-down" v-for="item in menu" :key="item.id">
-                <v-btn
-                    v-bind:color="item.color"
-                    v-bind:flat="item.flat"
-                    v-on:click="menuSwitch(item.title)"
-                >
-                <v-icon>{{item.icon}}</v-icon>
-                </v-btn>
-            </v-toolbar-items>
-
-        </v-toolbar>
-    </div>
+    <v-toolbar dense >
+        <v-menu class="hidden-md-and-up">
+            <v-toolbar-side-icon slot="activator"></v-toolbar-side-icon>
+            <v-list>
+            <v-list-tile v-for="item in menu" :key="item.icon" @click="menuSwitch(item.title)">
+                <v-list-tile-content>
+                <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                </v-list-tile-content>
+            </v-list-tile>   
+            </v-list>
+        </v-menu>
+        <v-toolbar-items class="hidden-sm-and-down" v-for="item in menu" :key="item.id">
+            <v-btn
+                v-bind:color="item.color"
+                v-bind:flat="item.flat"
+                v-on:click="menuSwitch(item.title)"
+            >
+            <v-icon>{{item.icon}}</v-icon>
+            </v-btn>
+        </v-toolbar-items>
+    </v-toolbar>
     <div ref="blocklyDiv" class="blocklyDiv"></div>
 </div>
    
 </template>
 
 <style>
+#__nuxt, #__layout{
+    height: 100%;
+    overflow: hidden; 
+}
+#app{
+    height: 100%;
+}
 .blocklyToolboxDiv{
     background-color: #202020;
 }
@@ -39,7 +42,7 @@
     fill-opacity: 0.2;
 }
 .blocklySvg{
-    background-color:#303030;
+    background-color: #24343D;
 }
 </style>
 
@@ -69,19 +72,18 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import base64 from 'base-64';
-// import { constants } from 'crypto';
-// import { truncate, truncateSync } from 'fs';
-//import axios from 'axios';
+
+import socket from '~/plugins/socket.io';
 
 declare const Blockly;
 declare const Interpreter:any;
 @Component
 export default class BlocklyEditor extends Vue{
     menu = [
-        {flat:true, icon:'save', color:'success', title:'Save'},
-        {flat:false, icon:'play_arrow', color:'success',title:'Play'},
-        {flat:false, icon:'stop', color:'error',title:'Stop'},
-        {flat:true, icon:'cloud_download', color:'primary',title:'Load Saved'},
+        {flat:true, icon:'save', color:'success', title:'Save',id:1},
+        {flat:false, icon:'play_arrow', color:'success',title:'Play',id:2},
+        {flat:false, icon:'stop', color:'error',title:'Stop',id:3},
+        {flat:true, icon:'cloud_download', color:'info',title:'Load Saved',id:4},
     ]
 
 
@@ -99,6 +101,7 @@ export default class BlocklyEditor extends Vue{
 
         }
     }
+
     stop(){
         this.isCancel=true;
         this.workspace.highlightBlock(null);
@@ -393,7 +396,6 @@ export default class BlocklyEditor extends Vue{
             }
         }
         
-        
         customColor();
         addCustomBlocks();
 
@@ -418,6 +420,12 @@ export default class BlocklyEditor extends Vue{
         this.workspace.addChangeListener(sendServer);
         this.workspace.toolbox_.flyout_.autoClose = false;
         this.workspace.scrollbar.setContainerVisible(false);
+
+        socket.emit('subUsers',[this['$cookies'].get('auth')]);
+        socket.on('doCheckIn', (m)=>{
+            socket.emit('doCheckIn',[this['$cookies'].get('auth')]);
+        });
+
         
     }
 

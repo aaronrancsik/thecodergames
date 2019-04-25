@@ -1,6 +1,6 @@
 import Vuex from 'vuex'
 
-const cookieparser = process.server ? require('cookieparser') : undefined
+
 
 export const state=()=>{
   auth:null

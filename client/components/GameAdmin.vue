@@ -1,7 +1,5 @@
 <template>
     <section class="sec">
-        <v-btn @click="ok" color="success">text</v-btn>
-        <v-btn @click="foo" color="success">foo</v-btn>
         <div id="gameid" v-if="downloaded" />
         <div class="placeholder"  v-else >
             Downloading...
@@ -22,27 +20,6 @@ import socket from '~/plugins/socket.io';
 export default class GameAdmin extends Vue  {
     gameInst
 
-    beforeMount() {
-        
-        socket.on('message', (message) => {
-            alert(message);
-        });
-    }
-    ok(){
-        
-        //socket.connect();
-        //console.log(this.$store.state.auth.accessToken);
-        
-    }
-
-    foo(){
-        alert(socket.connected);
-        //socket!.emit('message',"Hello World!");
-    }
-    
-    created(){
-    }
-
     @Provide() downloaded:boolean = false;
 
     mounted(){
@@ -53,9 +30,25 @@ export default class GameAdmin extends Vue  {
                 this.gameInst =game.getGame();
             });
         });
+
+        socket.on('start',(m)=>{
+            this.gameInst.action('0','left', socket);
+            //alert('startGame'+m);
+        });
+        socket.emit('subAdmins', [this['$cookies'].get('auth')]);
     }
 }
 </script>
+<style>
+#__nuxt, #__layout{
+    height: 100%;
+    overflow: hidden; 
+}
+#app{
+    height: 100%;
+}
+</style>
+
 <style scoped>
 #gameid{
     height: 100%;
