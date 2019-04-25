@@ -7,7 +7,7 @@ export type PlayerDirection = 'playerLeft' | 'playerRight' | 'playerUp' | 'playe
 
 class BaseScene extends Phaser.Scene {
 
-    private players!:Array<Player>;
+    private players:Array<Player> = new Array<Player>();
     private selectedPlayer!:Player;
     private crates!: Phaser.GameObjects.Group;
 
