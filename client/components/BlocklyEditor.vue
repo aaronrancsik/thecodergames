@@ -72,9 +72,8 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import base64 from 'base-64';
-// import { constants } from 'crypto';
-// import { truncate, truncateSync } from 'fs';
-//import axios from 'axios';
+
+import socket from '~/plugins/socket.io';
 
 declare const Blockly;
 declare const Interpreter:any;
@@ -421,6 +420,12 @@ export default class BlocklyEditor extends Vue{
         this.workspace.addChangeListener(sendServer);
         this.workspace.toolbox_.flyout_.autoClose = false;
         this.workspace.scrollbar.setContainerVisible(false);
+        
+        socket.emit('subUsers',[this['$cookies'].get('auth')]);
+        socket.on('doCheckIn', (m)=>{
+            socket.emit('doCheckIn',[this['$cookies'].get('auth')]);
+        });
+
         
     }
 
