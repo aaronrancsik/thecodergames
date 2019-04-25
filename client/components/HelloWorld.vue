@@ -1,22 +1,25 @@
 <template>
     <v-container bg fill-height grid-list-md text-xs-center>
-      <v-container bg grid-list-md text-xs-center>
-        <v-layout row wrap >
+      <v-container bg fill-height grid-list-md text-xs-center>
+        <v-layout row wrap>
           <v-flex xs12 >
-            <h1 class="display-2" id="h1">The Coder Games</h1>    
+            <h1  class="display-2" id="h1">The Coder<span class="terminal">█</span> Games</h1>    
           </v-flex>
-          <v-flex xs12>
+          <v-layout column  align-center justify-center fill-height>
+          <v-flex xs1>
             <v-btn id="game" to="/craft" slot="activator" round  color="primary" large> Játék </v-btn>
           </v-flex>
-          <v-flex xs12>
+          <v-flex xs1>
             <v-btn to="/registation" slot="activator" outline round color="primary" large> Regisztráció </v-btn>
-          </v-flex>
+          </v-flex>  
+          </v-layout>
+          
         </v-layout>
       </v-container>
     <div class="universe">
-        <div id="stars"></div>
-        <div id="stars2"></div>
-        <div id="stars3"></div>       
+        <div  id="stars"></div>
+        <div  id="stars2"></div>
+        <div  id="stars3"></div>       
     </div>  
     </v-container>
 </template>
@@ -30,6 +33,18 @@ export default class HelloWorld extends Vue {
 }
 </script>
 <style>
+.terminal {
+  font-size: 33px;
+  position: relative;
+  top: -16px;
+ animation: blink 0.7s infinite step-end;
+}
+
+@keyframes blink {
+  from, to { opacity: 0; }
+  
+  50% {opacity: 1;}
+}
 #h1, .display-2{
   font-family: 'Press Start 2P', cursive !important;
 }
