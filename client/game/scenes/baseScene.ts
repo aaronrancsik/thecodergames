@@ -27,8 +27,27 @@ class BaseScene extends Phaser.Scene {
         });
     }
 
-    public action(id:string, action:string, socket:any){
+    public createplayers(inplayers:Array<any>) {
+        console.log("create players from game");
+        let spawns = this.getSpawns();
+        // if(inplayers.length > spawns.length){ // or not needed
+        //     alert('nincs ennyi spawn hely...');
+        //     return;
+        // }
+        for(let i =0; i< inplayers.length; i++){
+            const { x, y } = this.tileToWordFixOrigin(spawns[0]); // i or 0 
+            this.players.push(new Player(this, x, y, inplayers[i].username, inplayers[i].socketid));
+            this.add.existing(this.players[i]);
+        }
+        // for(let i =0; i < spawns.length && i < inplayers.length; i++){
+            
+        // }
 
+    }
+
+
+    public action(id:string, action:string, socket:any){
+        
         this.tryToMovePlayer(this.players[0],'playerRight',()=>{
             socket.emit('ok');
         });
@@ -43,7 +62,7 @@ class BaseScene extends Phaser.Scene {
         this.tileMap = this.make.tilemap({ key: 'level01' });
         this.tileSet = this.tileMap.addTilesetImage('assets');
         this.createLevel();
-        this.createPlayers();
+        
         //this.cameras.main.startFollow(this.selectedPlayer,false,0.5,0.5,0,0);
         //this.cameras.main.setBounds(0,0,this.tileMap.widthInPixels,this.tileMap.heightInPixels);
         //this.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
@@ -191,28 +210,7 @@ class BaseScene extends Phaser.Scene {
         this.crates = this.add.group(crateSprites);
     }
 
-    private createPlayers() {
-
-        const playerSpawn = this.getSpawns()[0];
-        const { x, y } = this.tileToWordFixOrigin(playerSpawn);
-        this.players.push(new Player(this, x, y));
-        this.add.existing(this.players[0]);
-
-
-        //const playerSpawns = this.getSpawns();
-        //TODO
-        //get players from API
-        // for(;;){
-        //     let playerSpawn = playerSpawns[0];
-            
-        //     const { x, y } = this.tileToWordFixOrigin(playerSpawn);
-        //     this.players[0] = new Player(this, x, y);
-        //     this.add.existing(this.players[0]);
-        //     break;
-        // }
-        //TODO
-       
-    }
+   
 
     private getSpawns():Array<Phaser.Tilemaps.Tile> {
         const spawns = this.getTiles((tile) => {

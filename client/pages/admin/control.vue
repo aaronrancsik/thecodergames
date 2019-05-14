@@ -4,6 +4,7 @@
          <v-flex shrink pa-1>
               <v-btn outline @click="getUsers()">Get Users</v-btn>
               <v-btn outline @click="viewer()">Open Viewer</v-btn>
+              <v-btn outline @click="createplayers()">Create Players</v-btn>
               <v-btn outline @click="startGame()">Start</v-btn>
               <v-btn outline @click="stopGame()">Stop</v-btn>
         </v-flex>
@@ -62,6 +63,7 @@ export default class AdminControl extends Vue {
         window.open("/admin/view","","status");
      }
      getUsers(){
+       this.onlineUsers = [];
        socket.emit('getOnlineUsers',[this['$cookies'].get('auth')]);
      }
 
@@ -70,13 +72,16 @@ export default class AdminControl extends Vue {
      }
 
      stopGame(){
+     }
 
+     createplayers(){
+       console.log("create players");
+       socket.emit('createplayers', this.onlineUsers);
      }
 
      mounted(){
        socket.emit('subAdmins', [this['$cookies'].get('auth')]);
        socket.on("getOnlineUsers",(m)=>{
-         this.onlineUsers = [];
          this.onlineUsers.push(m);
          console.log(this.onlineUsers);
        });

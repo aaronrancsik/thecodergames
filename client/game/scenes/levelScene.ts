@@ -251,7 +251,7 @@ class LevelScene extends Phaser.Scene {
     private createPlayer() {
         const playerSpawn = this.getSpawn();
         const { x, y } = this.tileToWordFixOrigin(playerSpawn);
-        this.player = new Player(this, x, y);
+        this.player = new Player(this, x, y,"", "");
         this.add.existing(this.player);
     }
 

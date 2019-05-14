@@ -41,7 +41,16 @@ export class SocketEvent {
             console.log('sent to all admin');
             socket.to('admins').emit('start', m);
           }
-        })
+        });
+
+//
+        socket.on('createplayers',(m)=>{  
+          console.log(socket.rooms);
+          if(socket.rooms['admins']!==undefined){
+            console.log('sent to all admin');
+            socket.to('admins').emit('createplayers', m);
+          }
+        });
 
         socket.on('subAdmins',(m)=>{
           if(this.checkAdmin(m)){
@@ -76,17 +85,27 @@ export class SocketEvent {
         });
 
         socket.on("getOnlineUsers",(m)=>{
+          console.log("getOnline IN")
           if(this.checkAdmin(m)){
+            console.log("getOnline IN Admin")
             socket.to('users').emit('doCheckIn');
+          }else{
+            console.log("getOnline IN FAIL");
           }
         });
 
         socket.on("doCheckIn",(m)=>{
+          
           const {username} = <any>jwtVerify(SckMsgToToken(m))
           if(this.checkToken(m)){
+            console.log("DO CHECK IN OK")
             socket.server.emit("getOnlineUsers", {username:username , auth:m[0], socketid:socket.id });
+          }else{
+            console.log("DO CHECK IN FAIL");
           }
         });
+
+        
         
     }
 }

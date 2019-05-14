@@ -31,6 +31,11 @@ export default class GameAdmin extends Vue  {
             });
         });
 
+        socket.on('createplayers',(players)=>{
+            console.log("create players");
+            this.gameInst.createplayers(players);
+        })
+
         socket.on('start',(m)=>{
             this.gameInst.action('0','left', socket);
             //alert('startGame'+m);

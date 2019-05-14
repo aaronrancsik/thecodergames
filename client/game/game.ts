@@ -43,6 +43,9 @@ export class Game extends Phaser.Game {
   public action =(id:string,action:string,socket:any)=>{
     Vs.action(id,action,socket);
   }
+  public createplayers(m){
+    Vs.createplayers(m)
+  }
 }
 let gamee:Game;
 
