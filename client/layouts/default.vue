@@ -1,9 +1,9 @@
 <template>
-  <v-app dark>
-    <nuxt/>
-  </v-app>
+    <v-app dark>
+      <nuxt/>
+    </v-app>
 </template>
-<style>
+<style scoped>
 html, body {
   margin: 0;
   padding: 0;
