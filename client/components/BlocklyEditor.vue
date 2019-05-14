@@ -239,7 +239,11 @@ export default class BlocklyEditor extends Vue{
     }
     
     mounted(){
-        
+        socket.emit('subUsers',[this['$cookies'].get('auth')]);
+        socket.on('doCheckIn', (m)=>{
+            console.log("doCheckIn");
+            socket.emit('doCheckIn',[this['$cookies'].get('auth')]);
+        });
 
         let getBlocksByType=(type)=> {
             var blocks:any = [];
@@ -421,12 +425,7 @@ export default class BlocklyEditor extends Vue{
         this.workspace.toolbox_.flyout_.autoClose = false;
         this.workspace.scrollbar.setContainerVisible(false);
 
-        socket.emit('subUsers',[this['$cookies'].get('auth')]);
-        socket.on('doCheckIn', (m)=>{
-            socket.emit('doCheckIn',[this['$cookies'].get('auth')]);
-        });
-
-        
+     
     }
 
     
