@@ -86,7 +86,8 @@ export default class BlocklyEditor extends Vue{
         {flat:true, icon:'cloud_download', color:'info',title:'Load Saved',id:4},
     ]
 
-
+    uresJ:any;
+    isMove:boolean=false;
     code:string = "";
     xmlCode:string ="";
     workspace :any;
@@ -238,11 +239,136 @@ export default class BlocklyEditor extends Vue{
         });
     }
     
+    networkRun(){
+        
+        
+        //this.isCancel = false;
+        let highlightBlock= (id)=>{
+            this.workspace.highlightBlock(id);
+        }
+        let StepForward=()=>{
+            this.isMove =true;
+            socket.emit("step",socket.id,"STEP_FORWARD",[this['$cookies'].get('auth')],(data)=>{
+
+            });
+            // this.$nuxt.$emit('STEP_FORWARD',()=>{
+            //     move =false;
+            //     uresJaras();
+            // });
+            //console.log("player.stepForward()");
+        }
+        let StepBack=()=>{
+            this.isMove =true;
+            socket.emit("step",socket.id, "STEP_BACK", [this['$cookies'].get('auth')],(data)=>{
+                
+            });
+
+            // this.$nuxt.$emit('STEP_BACK',()=>{
+            //     move =false;
+            //     uresJaras();
+            // });
+            //console.log("player.stepBack()");
+        }
+        let TurnLeft=()=>{
+            this.isMove =true;
+            socket.emit("step",socket.id, "TURN_LEFT", [this['$cookies'].get('auth')],(data)=>{
+                
+            });
+            // this.$nuxt.$emit('TURN_LEFT',()=>{
+            //     move =false;
+            //     uresJaras();
+            // });
+            //console.log("player.rotLeft()");
+        }
+        let TurnRight=()=>{
+            this.isMove =true;
+            socket.emit("step",socket.id, "TURN_RIGHT", [this['$cookies'].get('auth')],(data)=>{
+                
+            });
+            // this.$nuxt.$emit('TURN_RIGHT',()=>{
+            //     move =false;
+            //     uresJaras();
+            // });
+            //console.log("player.rotRight()");
+        }
+        var initApi = function(myInterpreter, scope){
+            let wrapper:any;
+            wrapper = function() {
+                return StepForward();
+            };
+            myInterpreter.setProperty(scope, 'StepForward',
+            myInterpreter.createNativeFunction(wrapper));
+
+            wrapper = function() {
+                return StepBack();
+            };
+            myInterpreter.setProperty(scope, 'StepBack',
+            myInterpreter.createNativeFunction(wrapper));
+
+            wrapper = function() {
+                return TurnLeft();
+            };
+            myInterpreter.setProperty(scope, 'TurnLeft',
+            myInterpreter.createNativeFunction(wrapper));
+
+            wrapper = function() {
+                return TurnRight();
+            };
+            myInterpreter.setProperty(scope, 'TurnRight',
+            myInterpreter.createNativeFunction(wrapper));
+
+            //highlightBlock
+            wrapper = function(text) {
+                return highlightBlock(text);
+            };
+            myInterpreter.setProperty(scope, 'highlightBlock',
+            myInterpreter.createNativeFunction(wrapper));
+
+        }
+        //console.log(this.code);
+        var myCode = this.code;
+        var myInterpreter = new Interpreter(myCode, initApi);
+
+        this.isMove= false;
+        //let move =false;
+
+        let db = 1000000;
+        let uresJaras = ()=>{
+            try{
+                while(myInterpreter.step() && !this.isMove && !this.isCancel && db > 0){
+                    db--;
+                    if(db == 0){
+                        alert("Végtelen ciklust, vagy túlsok számolást csináltál! :)")
+                    }
+                }
+            }catch(e){
+                alert(e);
+                this.isCancel = true;
+            }
+        };
+        return uresJaras;
+    }
+
     mounted(){
+        socket.on("ok",(m)=>{
+            console.log("ok");
+            if(m==socket.id){
+                console.log("ok2");
+                this.isMove = false;
+                this.uresJ();
+            }
+            
+        });
         socket.emit('subUsers',[this['$cookies'].get('auth')]);
         socket.on('doCheckIn', (m)=>{
             console.log("doCheckIn");
             socket.emit('doCheckIn',[this['$cookies'].get('auth')]);
+        });
+
+        socket.on("start",(m)=>{
+            console.log("start network run");
+            this.uresJ = this.networkRun();
+            this.uresJ();
         });
 
         let getBlocksByType=(type)=> {

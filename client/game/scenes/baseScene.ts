@@ -46,11 +46,28 @@ class BaseScene extends Phaser.Scene {
     }
 
 
-    public action(id:string, action:string, socket:any){
-        
-        this.tryToMovePlayer(this.players[0],'playerRight',()=>{
-            socket.emit('ok');
+    public action(usname:string, action:string, callback:any){
+        //'playerLeft' | 'playerRight' | 'playerUp' | 'playerDown'
+        let player = this.players.find((x)=>{
+            return x.username === usname;
         });
+
+        if(player!==undefined){
+            let dir:PlayerDirection;
+            if(action=="STEP_FORWARD"){
+                dir ="playerUp";
+            }else if(action =="STEP_BACK"){
+                dir ="playerDown";
+            }else{
+                dir = "playerRight";
+            }
+              
+            this.tryToMovePlayer(player,dir,()=>{
+                callback();
+            });
+        }
+
+        
     }
 
 

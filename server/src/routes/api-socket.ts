@@ -30,16 +30,33 @@ export class SocketEvent {
       return false;
     }
     
-    public events(socket:socketIo.Socket):void{
+    public events(socket:socketIo.Socket, ioo:socketIo.Server):void{
         
 
         console.log("connect", socket.id);
 
+        socket.on("ok",(us, id)=>{
+
+          console.log("ok");
+          socket.to("users").emit("ok", id);
+          //ioo.to(`${id}`).emit("ok");
+        });
+
+        socket.on('step',(id,m, auth, callback)=>{  
+
+          if(socket.rooms['users']!==undefined){
+            const {userId, username, roles} = <any>jwtVerify(SckMsgToToken(auth));
+            socket.to("admins").emit("step",id,username,m);
+          }
+
+
+        });
+
         socket.on('start',(m)=>{  
           console.log(socket.rooms);
           if(socket.rooms['admins']!==undefined){
-            console.log('sent to all admin');
-            socket.to('admins').emit('start', m);
+            console.log('sent to all users');
+            socket.to('users').emit('start', m);
           }
         });
 

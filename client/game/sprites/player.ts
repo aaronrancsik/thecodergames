@@ -5,8 +5,8 @@ export type PlayerDirection = 'playerLeft' | 'playerRight' | 'playerUp' | 'playe
 const START_FRAME = 'knight iso char_idle_0';
 const GAME_SPEED =120;
 class Player extends Phaser.GameObjects.Sprite{
-    private username!:string;
-    private socketid!:string;
+    public username!:string;
+    public socketid!:string;
     constructor(scene: Phaser.Scene, x:number, y:number, username:string, socketid:string){
         super(scene,x,y,'assets',START_FRAME);
         this.username = username;
