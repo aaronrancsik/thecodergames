@@ -28,6 +28,9 @@ export class Game extends Phaser.Game {
   constructor(config: GameConfig) {
     super(config);
   }
+  public restart =()=>{
+    Ls.restart();
+  }
   public moveForward=(callback)=>{
     Ls.moveForward(callback);
   }

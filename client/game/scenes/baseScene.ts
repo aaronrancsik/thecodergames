@@ -1,13 +1,18 @@
 import * as Phaser from 'phaser';
 import Crate from '../sprites/crate';
 import Player from '../sprites/player';
+import { finished } from 'stream';
 
 export type PlayerDirection = 'playerLeft' | 'playerRight' | 'playerUp' | 'playerDown';
 
 
 class BaseScene extends Phaser.Scene {
 
+    private timeout =false;
+    private timeout2 =false;
     private players:Array<Player> = new Array<Player>();
+    private calls :Array<any> = new Array<any>();
+    private precalls :Array<any> = new Array<any>();
     private selectedPlayer!:Player;
     private crates!: Phaser.GameObjects.Group;
 
@@ -30,6 +35,7 @@ class BaseScene extends Phaser.Scene {
     public createplayers(inplayers:Array<any>) {
         console.log("create players from game");
         let spawns = this.getSpawns();
+        
         // if(inplayers.length > spawns.length){ // or not needed
         //     alert('nincs ennyi spawn hely...');
         //     return;
@@ -39,6 +45,9 @@ class BaseScene extends Phaser.Scene {
             this.players.push(new Player(this, x, y, inplayers[i].username, inplayers[i].socketid));
             this.add.existing(this.players[i]);
         }
+        this.selectedPlayer = this.players[0];
+        this.cameras.main.startFollow(this.selectedPlayer, false,0.5,0.5,0,0);
+        this.cameras.main.setBounds(0,0,this.tileMap.widthInPixels,this.tileMap.heightInPixels);
         // for(let i =0; i < spawns.length && i < inplayers.length; i++){
             
         // }
@@ -47,24 +56,34 @@ class BaseScene extends Phaser.Scene {
 
 
     public action(usname:string, action:string, callback:any){
+        
         //'playerLeft' | 'playerRight' | 'playerUp' | 'playerDown'
-        let player = this.players.find((x)=>{
+        let play = this.players.find((x)=>{
             return x.username === usname;
         });
 
-        if(player!==undefined){
+        if(play!==undefined){
             let dir:PlayerDirection;
             if(action=="STEP_FORWARD"){
                 dir ="playerUp";
             }else if(action =="STEP_BACK"){
                 dir ="playerDown";
+            }else if(action=="TURN_LEFT"){
+                dir = "playerLeft";
             }else{
-                dir = "playerRight";
+                dir ="playerRight"
             }
-              
-            this.tryToMovePlayer(player,dir,()=>{
-                callback();
-            });
+            
+            this.precalls.push(()=>{
+                if(play!==undefined){
+                    this.tryToMovePlayer(play ,dir,()=>{
+                        console.log('push');
+                        this.calls.push(callback);
+                    
+                    });
+                }
+            })
+            
         }
 
         
@@ -79,13 +98,29 @@ class BaseScene extends Phaser.Scene {
         this.tileMap = this.make.tilemap({ key: 'level01' });
         this.tileSet = this.tileMap.addTilesetImage('assets');
         this.createLevel();
+       
         
-        //this.cameras.main.startFollow(this.selectedPlayer,false,0.5,0.5,0,0);
+        
         //this.cameras.main.setBounds(0,0,this.tileMap.widthInPixels,this.tileMap.heightInPixels);
         //this.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
         this.createGridLines();
     }
     update() {
+        if(this.timeout || this.players.length!=0 && this.precalls.length==this.players.length){
+            for(let i =0; i < this.precalls.length; i++){
+                this.precalls[i]();
+            }
+            this.precalls = new Array<any>();
+
+        }
+
+        if(this.timeout2 ||this.players.length!=0 && this.calls.length==this.players.length){
+
+            for(let i =0; i < this.calls.length; i++){
+                this.calls[i]();
+            }
+            this.calls = new Array<any>();
+        }
         // if(this.player.state!=='moving'){
         //     this.updatePlayer(this.getPlayerDirection(),()=>{console.log("test2")}   );
         // }

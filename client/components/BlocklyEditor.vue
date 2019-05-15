@@ -104,6 +104,8 @@ export default class BlocklyEditor extends Vue{
     }
 
     stop(){
+         this.$nuxt.$emit('reset',()=>{
+            });
         this.isCancel=true;
         this.workspace.highlightBlock(null);
     }
@@ -414,7 +416,7 @@ export default class BlocklyEditor extends Vue{
             init: function() {
                 this.appendDummyInput()
                     .setAlign(Blockly.ALIGN_RIGHT)
-                    .appendField("Előre lépés ⬆");
+                    .appendField("Fel lépés ⬆");
                 this.setPreviousStatement(true, null);
                 this.setNextStatement(true, null);
                 this.setColour(33);
@@ -432,7 +434,7 @@ export default class BlocklyEditor extends Vue{
             init: function() {
                 this.appendDummyInput()
                     .setAlign(Blockly.ALIGN_RIGHT)
-                    .appendField("Hátra lépés ⬇");
+                    .appendField("Le lépés ⬇");
                 this.setPreviousStatement(true, null);
                 this.setNextStatement(true, null);
                 this.setColour(33);
@@ -450,7 +452,7 @@ export default class BlocklyEditor extends Vue{
             init: function() {
                 this.appendDummyInput()
                     .setAlign(Blockly.ALIGN_RIGHT)
-                    .appendField("Jobbra fordulás ↩ ");
+                    .appendField("Jobbra Lépés ↩ ");
                 this.setPreviousStatement(true, null);
                 this.setNextStatement(true, null);
                 this.setColour(200);
@@ -468,7 +470,7 @@ export default class BlocklyEditor extends Vue{
             init: function() {
                 this.appendDummyInput()
                     .setAlign(Blockly.ALIGN_RIGHT)
-                    .appendField("Balra fordulás ↪");
+                    .appendField("Balra lépés ↪");
                 this.setPreviousStatement(true, null);
                 this.setNextStatement(true, null);
                 this.setColour(200);
