@@ -3,9 +3,9 @@
       <v-container bg fill-height grid-list-md text-xs-center>
         <v-layout row wrap>
           <v-flex xs12 >
-            <h1  class="display-2" id="h1">The Coder<span class="terminal">█</span> Games</h1>    
+            <h1  class="display-2" id="h1">THE CODER<span class="terminal">></span> GAMES</h1>    
           </v-flex>
-          <v-layout column  align-center justify-center id="myconti">
+          <v-layout column align-center justify-start id="myconti">
           <v-flex xs1>
             <v-btn id="game" to="/craft" slot="activator" round  color="primary" large> Játék </v-btn>
           </v-flex>
@@ -32,21 +32,23 @@ export default class HelloWorld extends Vue {
   message: string = 'Hello world !';
 }
 </script>
-<style>
+<style scoped>
+
 #myconti{
-  height:95%;
+  margin: 0 0;
+  /* height:95%; */
 }
 .terminal {
-  font-size: 33px;
+  color: #FFEE58;
+  /* font-size: 33px;
   position: relative;
-  top: -16px;
- animation: blink 0.7s infinite step-end;
+  top: -16px; */
+ animation: blink 0.635s infinite ;
 }
 
 @keyframes blink {
-  from, to { opacity: 0; }
-  
-  50% {opacity: 1;}
+  50% {opacity: 0;}
+  /* 50% {opacity: 1;} */
 }
 #h1, .display-2{
   font-family: 'Press Start 2P', cursive !important;
@@ -54,9 +56,7 @@ export default class HelloWorld extends Vue {
 #game{
   color:black;
 }
-#app {
-  background:transparent;
-}
+
         .universe {
             background: #172126;
             z-index: -1;

@@ -28,6 +28,9 @@ export class Game extends Phaser.Game {
   constructor(config: GameConfig) {
     super(config);
   }
+  public restart =()=>{
+    Ls.restart();
+  }
   public moveForward=(callback)=>{
     Ls.moveForward(callback);
   }
@@ -40,8 +43,11 @@ export class Game extends Phaser.Game {
   public turnRight=(callback)=>{
     Ls.turnRight(callback);
   }
-  public action =(id:string,action:string,socket:any)=>{
-    Vs.action(id,action,socket);
+  public action =(username:string, action:string,callback:any)=>{
+    Vs.action(username, action, callback);
+  }
+  public createplayers(m){
+    Vs.createplayers(m)
   }
 }
 let gamee:Game;

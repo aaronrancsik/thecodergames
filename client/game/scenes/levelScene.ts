@@ -7,6 +7,10 @@ export type PlayerDirection = 'playerLeft' | 'playerRight' | 'playerUp' | 'playe
 
 class LevelScene extends Phaser.Scene {
 
+    public restart(){
+        this.scene.restart();
+    }
+
     public moveForward(callback){
         this.updatePlayer("playerUp",callback);
     }
@@ -251,7 +255,7 @@ class LevelScene extends Phaser.Scene {
     private createPlayer() {
         const playerSpawn = this.getSpawn();
         const { x, y } = this.tileToWordFixOrigin(playerSpawn);
-        this.player = new Player(this, x, y);
+        this.player = new Player(this, x, y,"", "");
         this.add.existing(this.player);
     }
 

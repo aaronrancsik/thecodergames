@@ -37,7 +37,15 @@
                     ></v-text-field>
                 
                 </v-card-text>
-                <v-card-actions>
+                <v-card-actions wrap>
+                <v-btn 
+                    to="/registation"
+                    round
+                    outline
+                    color="secondary"
+                >
+                Új Fiók
+                </v-btn>
                 <v-spacer></v-spacer>
                 <v-btn
                     round

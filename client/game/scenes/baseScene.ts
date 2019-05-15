@@ -1,13 +1,18 @@
 import * as Phaser from 'phaser';
 import Crate from '../sprites/crate';
 import Player from '../sprites/player';
+import { finished } from 'stream';
 
 export type PlayerDirection = 'playerLeft' | 'playerRight' | 'playerUp' | 'playerDown';
 
 
 class BaseScene extends Phaser.Scene {
 
+    private timeout =false;
+    private timeout2 =false;
     private players:Array<Player> = new Array<Player>();
+    private calls :Array<any> = new Array<any>();
+    private precalls :Array<any> = new Array<any>();
     private selectedPlayer!:Player;
     private crates!: Phaser.GameObjects.Group;
 
@@ -27,11 +32,61 @@ class BaseScene extends Phaser.Scene {
         });
     }
 
-    public action(id:string, action:string, socket:any){
+    public createplayers(inplayers:Array<any>) {
+        console.log("create players from game");
+        let spawns = this.getSpawns();
+        
+        // if(inplayers.length > spawns.length){ // or not needed
+        //     alert('nincs ennyi spawn hely...');
+        //     return;
+        // }
+        for(let i =0; i< inplayers.length; i++){
+            const { x, y } = this.tileToWordFixOrigin(spawns[0]); // i or 0 
+            this.players.push(new Player(this, x, y, inplayers[i].username, inplayers[i].socketid));
+            this.add.existing(this.players[i]);
+        }
+        this.selectedPlayer = this.players[0];
+        this.cameras.main.startFollow(this.selectedPlayer, false,0.5,0.5,0,0);
+        this.cameras.main.setBounds(0,0,this.tileMap.widthInPixels,this.tileMap.heightInPixels);
+        // for(let i =0; i < spawns.length && i < inplayers.length; i++){
+            
+        // }
 
-        this.tryToMovePlayer(this.players[0],'playerRight',()=>{
-            socket.emit('ok');
+    }
+
+
+    public action(usname:string, action:string, callback:any){
+        
+        //'playerLeft' | 'playerRight' | 'playerUp' | 'playerDown'
+        let play = this.players.find((x)=>{
+            return x.username === usname;
         });
+
+        if(play!==undefined){
+            let dir:PlayerDirection;
+            if(action=="STEP_FORWARD"){
+                dir ="playerUp";
+            }else if(action =="STEP_BACK"){
+                dir ="playerDown";
+            }else if(action=="TURN_LEFT"){
+                dir = "playerLeft";
+            }else{
+                dir ="playerRight"
+            }
+            
+            this.precalls.push(()=>{
+                if(play!==undefined){
+                    this.tryToMovePlayer(play ,dir,()=>{
+                        console.log('push');
+                        this.calls.push(callback);
+                    
+                    });
+                }
+            })
+            
+        }
+
+        
     }
 
 
@@ -43,13 +98,29 @@ class BaseScene extends Phaser.Scene {
         this.tileMap = this.make.tilemap({ key: 'level01' });
         this.tileSet = this.tileMap.addTilesetImage('assets');
         this.createLevel();
-        this.createPlayers();
-        //this.cameras.main.startFollow(this.selectedPlayer,false,0.5,0.5,0,0);
+       
+        
+        
         //this.cameras.main.setBounds(0,0,this.tileMap.widthInPixels,this.tileMap.heightInPixels);
         //this.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
         this.createGridLines();
     }
     update() {
+        if(this.timeout || this.players.length!=0 && this.precalls.length==this.players.length){
+            for(let i =0; i < this.precalls.length; i++){
+                this.precalls[i]();
+            }
+            this.precalls = new Array<any>();
+
+        }
+
+        if(this.timeout2 ||this.players.length!=0 && this.calls.length==this.players.length){
+
+            for(let i =0; i < this.calls.length; i++){
+                this.calls[i]();
+            }
+            this.calls = new Array<any>();
+        }
         // if(this.player.state!=='moving'){
         //     this.updatePlayer(this.getPlayerDirection(),()=>{console.log("test2")}   );
         // }
@@ -191,28 +262,7 @@ class BaseScene extends Phaser.Scene {
         this.crates = this.add.group(crateSprites);
     }
 
-    private createPlayers() {
-
-        const playerSpawn = this.getSpawns()[0];
-        const { x, y } = this.tileToWordFixOrigin(playerSpawn);
-        this.players.push(new Player(this, x, y));
-        this.add.existing(this.players[0]);
-
-
-        //const playerSpawns = this.getSpawns();
-        //TODO
-        //get players from API
-        // for(;;){
-        //     let playerSpawn = playerSpawns[0];
-            
-        //     const { x, y } = this.tileToWordFixOrigin(playerSpawn);
-        //     this.players[0] = new Player(this, x, y);
-        //     this.add.existing(this.players[0]);
-        //     break;
-        // }
-        //TODO
-       
-    }
+   
 
     private getSpawns():Array<Phaser.Tilemaps.Tile> {
         const spawns = this.getTiles((tile) => {

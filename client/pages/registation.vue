@@ -53,7 +53,7 @@
                         @success="onSuccess"
                    />
                 </v-card-text>
-                <v-card-actions>
+                <v-card-actions wrap>
                 
                 
                 <v-btn 
@@ -62,8 +62,7 @@
                     outline
                     color="secondary"
                 >
-                <v-icon>navigate_next</v-icon>
-                    Már van fiókom
+                Már van fiókom
                 </v-btn>
                 <v-spacer></v-spacer>
                 <v-btn
@@ -72,8 +71,7 @@
                     outline
                     color="primary"
                 >
-                <v-icon>check_circle_outline</v-icon>
-                    Regisztrálok
+                Regisztrálok
                 </v-btn>
                 </v-card-actions>
             </v-form>

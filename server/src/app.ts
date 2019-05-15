@@ -60,7 +60,7 @@ export class App {
         });
         this.io.use(this.socketEvent.middleware);
         this.io.on('connect', (socket) => {
-            this.socketEvent.events(socket);
+            this.socketEvent.events(socket,this.io);
         });
     }
     private mongoSetup(): void{

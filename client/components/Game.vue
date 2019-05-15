@@ -18,6 +18,11 @@ import {
 export default class Game extends Vue  {
     gameInst
     created(){
+        //this.scene.restart();
+        this.$nuxt.$on('reset', data => {
+            //alert("STEP_FORWARD"+data);
+            this.gameInst.restart();
+        });
          // $on method will receive the updated count value from the sender component
         this.$nuxt.$on('STEP_FORWARD', data => {
             //alert("STEP_FORWARD"+data);

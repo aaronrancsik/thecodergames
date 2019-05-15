@@ -23,6 +23,7 @@ export default class GameAdmin extends Vue  {
     @Provide() downloaded:boolean = false;
 
     mounted(){
+        console.log("id:", socket.id);
         import('../game/game').then(game =>{
             this.downloaded =true;
             this.$nextTick(()=>{
@@ -31,9 +32,20 @@ export default class GameAdmin extends Vue  {
             });
         });
 
+        socket.on('createplayers',(players)=>{
+            console.log("create players");
+            this.gameInst.createplayers(players);
+        })
+
         socket.on('start',(m)=>{
             this.gameInst.action('0','left', socket);
             //alert('startGame'+m);
+        });
+        socket.on("step",(id,useername, action)=>{
+            this.gameInst.action(useername, action, ()=>{
+                console.log("callback");
+                socket.emit("ok", useername,id);
+            });
         });
         socket.emit('subAdmins', [this['$cookies'].get('auth')]);
     }
