@@ -15,7 +15,7 @@
     "devN": "SOCKET_HOST_URL=http://localhost:4455 API_URL_BROWSER=http://localhost:4455 nuxt-ts dev",
     "buildN": "nuxt-ts build",
     "startN": "nuxt-ts start",
-    "generateN": "SOCKET_HOST_URL=https://proggame.azurewebsites.net/ nuxt-ts generate",
+    "generateN": "SOCKET_HOST_URL=https://proggamev2.azurewebsites.net/ nuxt-ts generate",
     "start": "node ./server/build/index.js",
     "dev": "nodemon ./server/build/index.js",
     "build": "tsc --p tsconfig.server.json",
