@@ -8,8 +8,8 @@ export default{
     '@nuxtjs/recaptcha',
     'cookie-universal-nuxt',                                                                                                                                                           
     ['@nuxtjs/axios', {                                                                                                                                              
-        baseURL: 'https://proggamev2.azurewebsites.net/',                                                                                                                            
-        browserBaseURL: 'https://proggamev2.azurewebsites.net/'                                                                                                                      
+        baseURL: 'https://ukhuigyiuoji.azurewebsites.net/',                                                                                                                            
+        browserBaseURL: 'https://ukhuigyiuoji.azurewebsites.net/'                                                                                                                      
                                                                                                                                                                     
     }]                                                                                                                                                               
   ],
@@ -23,7 +23,7 @@ export default{
     // proxyHeaders: false
   },  
   env: {
-    SOCKET_HOST_URL: process.env.SOCKET_HOST_URL || 'https://proggamev2.azurewebsites.net/'
+    SOCKET_HOST_URL: process.env.SOCKET_HOST_URL || 'https://ukhuigyiuoji.azurewebsites.net/'
   },
 
 
