@@ -59,23 +59,23 @@ class App {
             console.log('Connected client on port %s.', this.port);
             socket.on('codeUpdate', (code) => {
                 //a, controll, viewer
-                let a = jwt.decode(socket.handshake.query.token);
-                if (a.user != "a") {
-                    let aktUser = this.users.find((x) => { return x.name == a.user; });
+                let decodedToken = jwt.decode(socket.handshake.query.token);
+                if (decodedToken.user != "a") {
+                    let aktUser = this.users.find((x) => { return x.name == decodedToken.user; });
                     //console.log(aktUser);
                     if (aktUser != undefined) {
                         aktUser.code[this.aktMap] = code.code;
                     }
                     else {
                         console.log("reconect after crash");
-                        this.users.push(new User(a.user));
-                        let token = jwt.sign({ "user": a.user }, sec);
+                        this.users.push(new User(decodedToken.user));
+                        let token = jwt.sign({ "user": decodedToken.user }, sec);
                         socket.emit("regist", { "suc": true, "token": token });
                         this.io.emit("updateUserList", { "users": this.users });
-                        aktUser = this.users.find((x) => { return x.name == a.user; });
+                        aktUser = this.users.find((x) => { return x.name == decodedToken.user; });
                         aktUser.code[this.aktMap] = code.code;
                     }
-                    this.io.emit("toViwer", { code: code, name: a.user });
+                    this.io.emit("toViwer", { code: code, name: decodedToken.user });
                 }
             });
             socket.on("updateScore", (obj) => {
@@ -129,6 +129,6 @@ class App {
         return this.app;
     }
 }
-App.PORT = 80;
 exports.App = App;
+App.PORT = 80;
 //# sourceMappingURL=app.js.map

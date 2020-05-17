@@ -84,11 +84,11 @@ Blockly.JavaScript['iterations'] = function(block) {
 };
 Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), workspace);
 
-Blockly.Blocks['stepforward'] = {
+Blockly.Blocks['dummy_grasp1'] = {
   init: function() {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Előre lépés ⬆");
+        .appendField("Objektum 1 megfogása");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(33);
@@ -96,65 +96,65 @@ Blockly.Blocks['stepforward'] = {
  this.setHelpUrl("");
   }
 };
-Blockly.JavaScript['stepforward'] = function(block) {
+Blockly.JavaScript['dummy_grasp1'] = function(block) {
   // TODO: Assemble JavaScript into code variable.
-  var code = 'StepForward();\n';
+  var code = 'DummyGraspt1();\n';
   return code;
 };
 
-Blockly.Blocks['stepback'] = {
-  init: function() {
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Hátra lépés ⬇");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(33);
- this.setTooltip("");
- this.setHelpUrl("");
-  }
-};
-Blockly.JavaScript['stepback'] = function(block) {
-  // TODO: Assemble JavaScript into code variable.
-  var code = 'StepBack();\n';
-  return code;
-};
+// Blockly.Blocks['stepback'] = {
+//   init: function() {
+//     this.appendDummyInput()
+//         .setAlign(Blockly.ALIGN_RIGHT)
+//         .appendField("Hátra lépés ⬇");
+//     this.setPreviousStatement(true, null);
+//     this.setNextStatement(true, null);
+//     this.setColour(33);
+//  this.setTooltip("");
+//  this.setHelpUrl("");
+//   }
+// };
+// Blockly.JavaScript['stepback'] = function(block) {
+//   // TODO: Assemble JavaScript into code variable.
+//   var code = 'StepBack();\n';
+//   return code;
+// };
 
-Blockly.Blocks['turnright'] = {
-  init: function() {
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Jobbra fordulás ↩ ");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(200);
- this.setTooltip("");
- this.setHelpUrl("");
-  }
-};
-Blockly.JavaScript['turnright'] = function(block) {
-  // TODO: Assemble JavaScript into code variable.
-  var code = 'TurnRight();\n';
-  return code;
-};
+// Blockly.Blocks['turnright'] = {
+//   init: function() {
+//     this.appendDummyInput()
+//         .setAlign(Blockly.ALIGN_RIGHT)
+//         .appendField("Jobbra fordulás ↩ ");
+//     this.setPreviousStatement(true, null);
+//     this.setNextStatement(true, null);
+//     this.setColour(200);
+//  this.setTooltip("");
+//  this.setHelpUrl("");
+//   }
+// };
+// Blockly.JavaScript['turnright'] = function(block) {
+//   // TODO: Assemble JavaScript into code variable.
+//   var code = 'TurnRight();\n';
+//   return code;
+// };
 
-Blockly.Blocks['turnleft'] = {
-  init: function() {
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Balra fordulás ↪");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(200);
- this.setTooltip("");
- this.setHelpUrl("");
-  }
-};
-Blockly.JavaScript['turnleft'] = function(block) {
-  // TODO: Assemble JavaScript into code variable.
-  var code = 'TurnLeft();\n';
-  return code;
-};
+// Blockly.Blocks['turnleft'] = {
+//   init: function() {
+//     this.appendDummyInput()
+//         .setAlign(Blockly.ALIGN_RIGHT)
+//         .appendField("Balra fordulás ↪");
+//     this.setPreviousStatement(true, null);
+//     this.setNextStatement(true, null);
+//     this.setColour(200);
+//  this.setTooltip("");
+//  this.setHelpUrl("");
+//   }
+// };
+// Blockly.JavaScript['turnleft'] = function(block) {
+//   // TODO: Assemble JavaScript into code variable.
+//   var code = 'TurnLeft();\n';
+//   return code;
+// };
 
 workspace.registerButtonCallback("SEND_SERVER", sendServer);
 workspace.addChangeListener(sendServer);

@@ -251,8 +251,8 @@ socket.on("toViwer",(code)=>{
 });
 
 
-function StepForward(){
-  player.stepForward();
+function DummyGraspt1(){
+  //player.stepForward();
 }
 function  StepBack(){
   player.stepBack();
@@ -287,28 +287,28 @@ socket.on("playGame",(code)=>{
 
   var initApi = function(myInterpreter, scope){
     var wrapper = function() {
-      return StepForward();
+      return DummyGraspt1();
     };
-    myInterpreter.setProperty(scope, 'StepForward',
+    myInterpreter.setProperty(scope, 'DummyGraspt1',
     myInterpreter.createNativeFunction(wrapper));
 
-    wrapper = function() {
-      return StepBack();
-    };
-    myInterpreter.setProperty(scope, 'StepBack',
-    myInterpreter.createNativeFunction(wrapper));
+    // wrapper = function() {
+    //   return StepBack();
+    // };
+    // myInterpreter.setProperty(scope, 'StepBack',
+    // myInterpreter.createNativeFunction(wrapper));
 
-    wrapper = function() {
-      return TurnLeft();
-    };
-    myInterpreter.setProperty(scope, 'TurnLeft',
-    myInterpreter.createNativeFunction(wrapper));
+    // wrapper = function() {
+    //   return TurnLeft();
+    // };
+    // myInterpreter.setProperty(scope, 'TurnLeft',
+    // myInterpreter.createNativeFunction(wrapper));
 
-    wrapper = function() {
-      return TurnRight();
-    };
-    myInterpreter.setProperty(scope, 'TurnRight',
-    myInterpreter.createNativeFunction(wrapper));
+    // wrapper = function() {
+    //   return TurnRight();
+    // };
+    // myInterpreter.setProperty(scope, 'TurnRight',
+    // myInterpreter.createNativeFunction(wrapper));
 
     //highlightBlock
     wrapper = function(text) {
