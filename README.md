@@ -1,3 +1,5 @@
+# New version complete refactor here: https://github.com/aaronrancsik/codergamesui
+
 # researchers-night-prog-game
 A platform for Researchers' Night, which allows kids to create there own program even on mobile, to navigate Steve from Minecraft.
 credit: Obuda University Information Technology College For Advanced Students
